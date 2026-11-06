@@ -7,12 +7,8 @@ import {
   BookOpen,
   Calendar,
   FileSpreadsheet,
-  Award,
-  Upload,
-  Send,
 } from 'lucide-react';
 import { DEMO_TODAYS_TIMETABLE, DEMO_NOTES } from '../../services/mockData';
-import { attendanceService } from '../../services/attendanceService';
 import { exportToPDF } from '../../utils/exportUtils';
 
 export const TeacherDashboard: React.FC = () => {
@@ -61,36 +57,37 @@ export const TeacherDashboard: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto bg-white">
       {/* Top Banner Greeting */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
-            Welcome back, {user?.profile.full_name || 'Faculty'}!
+          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight">
+            Welcome back, {user?.profile.full_name || 'Faculty Member'}!
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
-            Senior Mathematics Faculty • Class Teacher: 10-A
+          <p className="text-xs md:text-sm font-semibold text-[#625C60] mt-0.5">
+            Senior Mathematics Faculty • Class Teacher: 10-A • Springfield Academy
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={handleDownloadClassReport}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-2"
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-[#F5F3FF] hover:bg-[#F3E8FF] text-[#8B5CF6] border border-[#C4B5FD] shadow-xs flex items-center gap-2 transition-all"
           >
-            <FileSpreadsheet size={15} className="text-[#DA5FCE]" />
+            <FileSpreadsheet size={15} className="text-[#8B5CF6]" />
             <span>Download Progress Report</span>
           </button>
         </div>
       </div>
 
       {noticeMessage && (
-        <div className="px-4 py-2.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold">
-          {noticeMessage}
+        <div className="px-4 py-2.5 rounded-xl bg-[#F5F3FF] border border-[#C4B5FD] text-[#171417] text-xs font-bold flex items-center gap-2 shadow-xs">
+          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
+          <span>{noticeMessage}</span>
         </div>
       )}
 
-      {/* Metric Cards */}
+      {/* Metric Cards in Light Pink and Cream */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Assigned Students"
@@ -98,7 +95,7 @@ export const TeacherDashboard: React.FC = () => {
           change="3 classes"
           isPositive={true}
           icon={Users}
-          variant="sage"
+          variant="pink"
         />
         <StatCard
           title="Periods Today"
@@ -106,7 +103,7 @@ export const TeacherDashboard: React.FC = () => {
           change="Room 301, Lab 1"
           isPositive={true}
           icon={Calendar}
-          variant="olive"
+          variant="cream"
         />
         <StatCard
           title="Class 10-A Attendance"
@@ -114,7 +111,7 @@ export const TeacherDashboard: React.FC = () => {
           change="31 / 33 Present"
           isPositive={true}
           icon={CheckCircle2}
-          variant="pink"
+          variant="rose"
         />
         <StatCard
           title="Study Notes Published"
@@ -122,22 +119,22 @@ export const TeacherDashboard: React.FC = () => {
           change="Latest: Trig Proofs"
           isPositive={true}
           icon={BookOpen}
-          variant="sage"
+          variant="blush"
         />
       </div>
 
       {/* Main Grid: Today's Timetable + Rapid Attendance Marking */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Today's Timetable */}
-        <div className="lg:col-span-7 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+        {/* Today's Timetable in Cream Card */}
+        <div className="lg:col-span-7 rounded-2xl bg-[#FAF5FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
             <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
-              <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
+              <Calendar size={18} className="text-[#8B5CF6]" />
+              <h3 className="font-heading text-sm font-extrabold text-[#171417]">
                 Today's Teaching Schedule
               </h3>
             </div>
-            <span className="text-xs font-mono text-[#DA5FCE] dark:text-[#A3B899]">
+            <span className="text-xs font-bold text-[#8B5CF6] bg-[#F3E8FF] px-2.5 py-0.5 rounded-full">
               Monday
             </span>
           </div>
@@ -146,23 +143,23 @@ export const TeacherDashboard: React.FC = () => {
             {DEMO_TODAYS_TIMETABLE.map((slot) => (
               <div
                 key={slot.id}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/60 dark:bg-white/5 border border-white/60 dark:border-white/5"
+                className="flex items-center justify-between p-3 rounded-xl bg-white border border-[#E9D5FF] hover:border-[#C4B5FD] transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-10 rounded-lg bg-[#8DA390]/20 text-[#303E33] dark:text-[#D1E0D3] flex flex-col items-center justify-center font-mono text-xs font-bold shrink-0">
+                  <div className="w-12 h-10 rounded-xl bg-[#F3E8FF] text-[#8B5CF6] border border-[#C4B5FD]/40 flex flex-col items-center justify-center font-stat text-xs font-extrabold shrink-0">
                     <span>P{slot.period_number}</span>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1]">
+                    <p className="text-xs font-extrabold text-[#171417]">
                       {slot.period_number === 1 ? 'Class 10-A • Mathematics' : slot.period_number === 2 ? 'Class 9-A • Mathematics' : slot.period_number === 3 ? 'Class 10-B • Remedial Math' : 'Class 9-B • Practical Math'}
                     </p>
-                    <p className="text-[11px] text-[#637466] dark:text-[#95A597]">
+                    <p className="text-[11px] font-semibold text-[#625C60]">
                       {slot.start_time} - {slot.end_time} • {slot.room_number}
                     </p>
                   </div>
                 </div>
 
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#E4DBF5] dark:bg-[#28352A] text-[#3E5241] dark:text-[#C2D8C2]">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F5F3FF] text-[#8B5CF6] border border-[#C4B5FD]/50">
                   Upcoming
                 </span>
               </div>
@@ -170,43 +167,43 @@ export const TeacherDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Rapid Attendance Marking Widget */}
-        <div className="lg:col-span-5 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10 flex flex-col justify-between">
+        {/* Rapid Attendance Marking Widget in Light Pink Card */}
+        <div className="lg:col-span-5 rounded-2xl bg-[#F5F3FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-              <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+              <h3 className="font-heading text-sm font-extrabold text-[#171417]">
                 Quick Attendance • Class 10-A
               </h3>
-              <span className="text-[11px] text-[#667768] dark:text-[#9FB1A2]">
+              <span className="text-[11px] font-bold text-[#8B5CF6]">
                 Today
               </span>
             </div>
 
-            <div className="space-y-2 mt-4">
+            <div className="space-y-2.5 mt-4">
               {studentsInClass.map((stud) => (
                 <div
                   key={stud.id}
-                  className="flex items-center justify-between p-2.5 rounded-xl bg-white/50 dark:bg-white/5 border border-white/50 dark:border-white/5"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#E9D5FF]"
                 >
                   <div>
-                    <span className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1]">
+                    <span className="text-xs font-extrabold text-[#171417]">
                       #{stud.roll} {stud.name}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {(['present', 'absent', 'late'] as const).map((status) => (
                       <button
                         key={status}
                         onClick={() => handleStatusChange(stud.id, status)}
-                        className={`px-2 py-1 rounded-md text-[10px] font-semibold capitalize transition-all ${
+                        className={`px-2.5 py-1 rounded-lg text-[10px] font-extrabold capitalize transition-all ${
                           stud.status === status
                             ? status === 'present'
-                              ? 'bg-[#DA5FCE] text-white shadow-sm'
+                              ? 'bg-[#8B5CF6] text-white shadow-xs'
                               : status === 'absent'
-                              ? 'bg-[#E57373] text-white shadow-sm'
-                              : 'bg-[#E5A855] text-white shadow-sm'
-                            : 'bg-white/60 dark:bg-white/10 text-[#556658] dark:text-[#B4C4B6]'
+                              ? 'bg-[#171417] text-white shadow-xs'
+                              : 'bg-[#A78BFA] text-white shadow-xs'
+                            : 'bg-[#FAF5FF] text-[#625C60] hover:bg-[#F3E8FF]'
                         }`}
                       >
                         {status}
@@ -221,47 +218,47 @@ export const TeacherDashboard: React.FC = () => {
           <button
             onClick={handleSaveAttendance}
             disabled={attendanceMarked}
-            className="w-full mt-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] disabled:opacity-50 transition-colors shadow-sm flex items-center justify-center gap-2"
+            className="w-full mt-4 py-2.5 rounded-xl text-xs font-extrabold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] disabled:opacity-50 transition-all shadow-sm flex items-center justify-center gap-2"
           >
-            <CheckCircle2 size={15} />
+            <CheckCircle2 size={16} />
             <span>{attendanceMarked ? 'Attendance Saved' : 'Confirm & Save Attendance'}</span>
           </button>
         </div>
       </div>
 
       {/* Notes & Study Material Library Preview */}
-      <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
-        <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+      <div className="rounded-2xl bg-[#FDFBFF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)]">
+        <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
           <div className="flex items-center gap-2">
-            <BookOpen size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
-            <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
+            <BookOpen size={18} className="text-[#8B5CF6]" />
+            <h3 className="font-heading text-sm font-extrabold text-[#171417]">
               Recent Study Material & Notes
             </h3>
           </div>
-          <span className="text-xs text-[#DA5FCE] font-medium">Chapter-wise Library</span>
+          <span className="text-xs text-[#8B5CF6] font-bold">Chapter-wise Library</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           {DEMO_NOTES.map((note) => (
             <div
               key={note.id}
-              className="p-4 rounded-xl bg-white/60 dark:bg-white/5 border border-white/60 dark:border-white/5 flex flex-col justify-between"
+              className="p-4 rounded-xl bg-white border border-[#E9D5FF] flex flex-col justify-between hover:border-[#C4B5FD] transition-colors"
             >
               <div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#8DA390]/20 text-[#303E33] dark:text-[#D1E0D3]">
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-[#F3E8FF] text-[#8B5CF6] border border-[#C4B5FD]/40">
                   Class 10 • {note.file_type?.toUpperCase()}
                 </span>
-                <h4 className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1] mt-2">
+                <h4 className="text-xs font-extrabold text-[#171417] mt-2">
                   {note.title}
                 </h4>
-                <p className="text-[11px] text-[#637466] dark:text-[#95A597] line-clamp-2 mt-1">
+                <p className="text-[11px] font-medium text-[#625C60] line-clamp-2 mt-1">
                   {note.description}
                 </p>
               </div>
 
-              <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/5 dark:border-white/5 text-[10px] text-[#78897B]">
+              <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#E9D5FF] text-[10px] font-semibold text-[#858087]">
                 <span>Published to Student Portal</span>
-                <span className="text-[#DA5FCE] font-semibold">Active</span>
+                <span className="text-[#8B5CF6] font-extrabold">Active</span>
               </div>
             </div>
           ))}

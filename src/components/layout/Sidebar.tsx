@@ -116,21 +116,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
 
   return (
     <aside
-      className={`fixed top-0 left-0 bottom-0 z-30 transition-all duration-300 ease-in-out glass-sidebar flex flex-col ${
+      className={`fixed top-0 left-0 bottom-0 z-30 transition-all duration-300 ease-in-out bg-white border-r border-[#E9D5FF] flex flex-col ${
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >
       {/* Brand Header */}
-      <div className="h-24 px-5 flex items-center justify-between border-b border-[#E2DEF0] dark:border-white/10">
+      <div className="h-20 px-5 flex items-center justify-between border-b border-[#E9D5FF] bg-white">
         <div className="flex items-center gap-3 overflow-hidden">
-          {/* Logo Emblem: Gradient from Orchid to Cyan */}
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#DA5FCE] to-[#3FB3D2] p-2 flex items-center justify-center shadow-md shrink-0">
+          {/* Logo Emblem: Clean Signature Pink */}
+          <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] p-2 flex items-center justify-center shadow-xs shrink-0 border border-[#C4B5FD]/40">
             <svg
-              className="w-6 h-6 text-white"
+              className="w-5 h-5 text-[#8B5CF6]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.2"
+              strokeWidth="2.4"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -144,10 +144,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
 
           {!isCollapsed && (
             <div className="flex flex-col truncate">
-              <span className="text-xl font-bold tracking-tight text-[#061418] dark:text-[#EFF9FB]">
+              <span className="text-xl font-extrabold tracking-tight text-[#171417]">
                 Edunexa
               </span>
-              <span className="text-[11px] font-medium tracking-wide text-[#DA5FCE] dark:text-[#E099DD]">
+              <span className="text-[11px] font-bold tracking-wide text-[#8B5CF6]">
                 Learn • Grow • Excel
               </span>
             </div>
@@ -157,15 +157,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
         {/* Collapse toggle button */}
         <button
           onClick={onToggleCollapse}
-          className="p-1.5 rounded-lg text-[#616C70] hover:text-[#061418] hover:bg-[#E4DBF5]/60 transition-colors hidden md:block"
+          className="p-1.5 rounded-xl text-[#625C60] hover:text-[#171417] hover:bg-[#F5F3FF] transition-colors hidden md:block"
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </button>
       </div>
 
-      {/* Navigation Links matching the Image Template */}
-      <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
+      {/* Navigation Links with Pink Line Icons & Bold Black Labels */}
+      <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto bg-white">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
@@ -174,42 +174,48 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
             <NavLink
               key={item.label}
               to={item.path}
-              className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-150 ${
+              className={`group flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-150 relative ${
                 isActive
-                  ? 'bg-[#E4DBF5] text-[#061418] shadow-sm font-bold'
-                  : 'text-[#616C70] hover:text-[#061418] hover:bg-[#E4DBF5]/40 font-medium'
+                  ? 'bg-[#F5F3FF] text-[#171417] font-bold shadow-xs'
+                  : 'text-[#171417] hover:text-[#171417] hover:bg-[#FAF5FF] font-semibold'
               }`}
               title={isCollapsed ? item.label : undefined}
             >
+              {/* Subtle pink active indicator pill */}
+              {isActive && (
+                <span className="absolute left-1 top-2.5 bottom-2.5 w-1 rounded-full bg-[#8B5CF6]" />
+              )}
               <Icon
                 size={19}
-                className={`shrink-0 ${
-                  isActive ? 'text-[#DA5FCE]' : 'text-[#DA5FCE]/80'
-                }`}
+                className={`shrink-0 text-[#8B5CF6] ${isActive ? 'stroke-[2.5]' : 'stroke-[2]'}`}
               />
-              {!isCollapsed && <span className="truncate">{item.label}</span>}
+              {!isCollapsed && (
+                <span className="truncate text-[#171417]">{item.label}</span>
+              )}
             </NavLink>
           );
         })}
       </nav>
 
-      {/* Bottom Session Box */}
+      {/* Bottom Academic Session Capsule in Warm Cream/Pink Card */}
       {!isCollapsed ? (
-        <div className="p-3 mx-3 mb-4 rounded-xl bg-white/80 dark:bg-white/5 border border-[#E2DEF0] dark:border-white/10 shadow-xs">
-          <div className="flex items-center gap-2.5 text-xs text-[#616C70] dark:text-[#CEE7EE]">
-            <Calendar size={15} className="text-[#DA5FCE] shrink-0" />
+        <div className="p-3 mx-3 mb-4 rounded-2xl bg-[#FAF5FF] border border-[#E9D5FF] shadow-xs">
+          <div className="flex items-center gap-2.5 text-xs">
+            <div className="w-7 h-7 rounded-lg bg-[#F3E8FF] flex items-center justify-center shrink-0">
+              <Calendar size={15} className="text-[#8B5CF6]" />
+            </div>
             <div className="flex flex-col truncate">
-              <span className="text-[10px] text-[#DA5FCE] uppercase tracking-wider font-semibold">
+              <span className="text-[10px] text-[#8B5CF6] uppercase tracking-wider font-extrabold">
                 Academic Session
               </span>
-              <span className="font-semibold text-[#061418] dark:text-white truncate">
+              <span className="font-extrabold text-[#171417] truncate">
                 {user?.institution.academic_session || '2025 – 2026'}
               </span>
             </div>
           </div>
         </div>
       ) : (
-        <div className="p-2 mb-4 flex justify-center text-[#DA5FCE]" title="Session 2025 - 2026">
+        <div className="p-2 mb-4 flex justify-center text-[#8B5CF6]" title="Session 2025 - 2026">
           <Calendar size={18} />
         </div>
       )}

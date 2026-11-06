@@ -40,10 +40,13 @@ export const NoticesPage: React.FC = () => {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
-            Institutional Notices & Broadcasts
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] flex items-center justify-center text-[#8B5CF6]">
+              <Megaphone size={22} />
+            </div>
+            <span>Institutional Notices & Broadcasts</span>
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+          <p className="text-xs md:text-sm text-[#625C60] mt-1 font-medium">
             Administrative announcements, academic alerts, and parent circulars
           </p>
         </div>
@@ -51,7 +54,7 @@ export const NoticesPage: React.FC = () => {
         {canPublish && (
           <button
             onClick={() => setModalOpen(true)}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={15} />
             <span>Publish New Notice</span>
@@ -60,31 +63,33 @@ export const NoticesPage: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        {notices.map((n) => (
+        {notices.map((n, i) => (
           <div
             key={n.id}
-            className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10 flex flex-col justify-between"
+            className={`rounded-2xl p-6 border border-[#E9D5FF] shadow-sm flex flex-col justify-between transition-all hover:border-[#8B5CF6]/50 ${
+              i % 3 === 0 ? 'bg-[#F5F3FF]' : i % 3 === 1 ? 'bg-[#FAF5FF]' : 'bg-[#FDFBFF]'
+            }`}
           >
             <div>
               <div className="flex items-center justify-between">
                 <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                  className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
                     n.priority === 'urgent'
-                      ? 'bg-[#E57373]/20 text-[#A63C3C]'
-                      : 'bg-[#8DA390]/20 text-[#2B3B2E] dark:text-[#E2ECE4]'
+                      ? 'bg-[#F3E8FF] text-[#8B5CF6] border-[#8B5CF6]/40'
+                      : 'bg-white text-[#171417] border-[#E9D5FF]'
                   }`}
                 >
                   {n.priority} Notice
                 </span>
-                <span className="text-[11px] text-[#7A8A7C]">
+                <span className="text-xs font-bold text-[#625C60]">
                   {new Date(n.published_at).toLocaleDateString()}
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-[#232F25] dark:text-[#F0F5F1] mt-2">
+              <h3 className="text-lg font-extrabold text-[#171417] mt-3">
                 {n.title}
               </h3>
-              <p className="text-xs text-[#526354] dark:text-[#A0B0A3] mt-2 leading-relaxed">
+              <p className="text-xs text-[#625C60] mt-2 leading-relaxed font-medium">
                 {n.content}
               </p>
             </div>
@@ -93,62 +98,71 @@ export const NoticesPage: React.FC = () => {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
           <form
             onSubmit={handleCreateNotice}
-            className="max-w-md w-full p-6 rounded-3xl glass-panel border border-white/80 dark:border-white/10 shadow-2xl space-y-4"
+            className="max-w-md w-full p-6 rounded-3xl bg-white border border-[#E9D5FF] shadow-2xl space-y-4"
           >
-            <h3 className="text-base font-bold text-[#232F25] dark:text-[#F0F5F1]">
-              Publish Institutional Notice
-            </h3>
+            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+              <h3 className="text-lg font-extrabold text-[#171417]">
+                Publish Institutional Notice
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="text-sm font-bold text-[#625C60] hover:text-[#171417]"
+              >
+                ✕
+              </button>
+            </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1">Notice Title</label>
+              <label className="block text-xs font-bold text-[#171417] mb-1">Notice Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Schedule for Sports Day"
-                className="w-full px-3 py-2 rounded-xl text-xs glass-input"
+                className="w-full px-3.5 py-2.5 rounded-xl text-xs font-medium bg-[#FAF5FF] border border-[#E9D5FF] text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1">Detailed Circular</label>
+              <label className="block text-xs font-bold text-[#171417] mb-1">Detailed Circular</label>
               <textarea
                 rows={4}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Full notice message to be sent to portal feeds..."
-                className="w-full p-2.5 rounded-xl text-xs glass-input"
+                className="w-full p-3 rounded-xl text-xs font-medium bg-[#FAF5FF] border border-[#E9D5FF] text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1">Priority</label>
+              <label className="block text-xs font-bold text-[#171417] mb-1">Priority</label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as 'normal' | 'urgent')}
-                className="w-full px-3 py-2 rounded-xl text-xs bg-white/70 dark:bg-black/20 border border-[#8DA390]/30"
+                className="w-full px-3.5 py-2.5 rounded-xl text-xs font-medium bg-[#FAF5FF] border border-[#E9D5FF] text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
               >
                 <option value="normal">Normal Priority</option>
                 <option value="urgent">Urgent / Important Alert</option>
               </select>
             </div>
 
-            <div className="flex items-center gap-2 pt-2">
+            <div className="flex items-center gap-2.5 pt-3">
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="flex-1 py-2 rounded-xl text-xs font-semibold text-[#566859]"
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold text-[#625C60] hover:text-[#171417]"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA]"
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] shadow-sm"
               >
                 Publish Notice
               </button>

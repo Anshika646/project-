@@ -1,115 +1,135 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
-    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-stat: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
 
-    /* Extracted palette from image template: Ice blue, Pastel lavender, Orchid magenta, Sky cyan, Deep slate */
-    --color-canvas: #EFF9FB;
-    --color-canvas-alt: #E8F1F3;
-    --color-lavender: #E4DBF5;
-    --color-lavender-light: #EAE3F7;
-    --color-orchid: #DA5FCE;
-    --color-orchid-soft: #E099DD;
-    --color-cyan: #3FB3D2;
-    --color-cyan-light: #CEE7EE;
-    --color-slate-dark: #061418;
-    --color-slate-muted: #616C70;
-    --color-border: #E2DEF0;
+    /* EduNexa Signature Light Purple & Lavender Color System */
+    --color-canvas: #FFFFFF;
+    --color-card-primary: #F5F3FF;      /* soft light lavender mist */
+    --color-card-secondary: #FAF5FF;    /* soft lilac cream */
+    --color-card-blush: #EDE9FE;        /* gentle lavender blush */
+    --color-card-cream: #FDFBFF;        /* subtle cream lilac */
+    --color-border: #E9D5FF;            /* delicate soft purple border */
+
+    /* Typography - Bold, Black & High Readability */
+    --color-text-main: #171417;
+    --color-text-secondary: #5B5566;
+    --color-text-muted: #837D8D;
+
+    /* Signature Light Purple Accents */
+    --color-purple-main: #8B5CF6;
+    --color-purple-soft: #C4B5FD;
+    --color-purple-light: #F3E8FF;
+    --color-purple-muted: #7C3AED;
   }
 
   body {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     background-color: var(--color-canvas);
-    color: var(--color-slate-dark);
+    color: var(--color-text-main);
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-stat {
+    font-family: var(--font-stat);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
   }
 }
 
-/* Glassmorphism primitives matching the image template */
+/* Elegant Light Purple & Lavender Card System */
+.card-primary, .card-lavender {
+  background-color: #F5F3FF;
+  border: 1px solid #E9D5FF;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(139, 92, 246, 0.05);
+}
+
+.card-secondary {
+  background-color: #FAF5FF;
+  border: 1px solid #E9D5FF;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(139, 92, 246, 0.05);
+}
+
+.card-blush {
+  background-color: #EDE9FE;
+  border: 1px solid #E9D5FF;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(139, 92, 246, 0.06);
+}
+
+.card-cream {
+  background-color: #FDFBFF;
+  border: 1px solid #E9D5FF;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(139, 92, 246, 0.05);
+}
+
+.glass-card, .card-white {
+  background-color: #FFFFFF;
+  border: 1px solid #E9D5FF;
+  border-radius: 16px;
+  box-shadow: 0 2px 14px -2px rgba(139, 92, 246, 0.04);
+}
+
 .glass-panel {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 222, 240, 0.85);
-  box-shadow: 0 10px 30px -10px rgba(6, 20, 24, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 222, 240, 0.75);
-  box-shadow: 0 4px 20px -2px rgba(6, 20, 24, 0.04);
-}
-
-.glass-card-lavender {
-  background: #E4DBF5;
-  border: 1px solid rgba(218, 95, 206, 0.15);
-  box-shadow: 0 4px 18px -2px rgba(218, 95, 206, 0.08);
+  background-color: #FFFFFF;
+  border: 1px solid #E9D5FF;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px -4px rgba(139, 92, 246, 0.05);
 }
 
 .glass-sidebar {
-  background: rgba(239, 249, 251, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(215, 224, 225, 0.8);
+  background-color: #FFFFFF;
+  border-right: 1px solid #E9D5FF;
 }
 
 .glass-input {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(226, 222, 240, 0.9);
+  background-color: #FFFFFF;
+  border: 1px solid #E9D5FF;
+  color: #171417;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-input:focus {
-  border-color: #DA5FCE;
-  box-shadow: 0 0 0 3px rgba(218, 95, 206, 0.18);
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
   outline: none;
 }
 
-/* Pure crisp background matching image template - zero blush/pink */
-.bg-ambient-glow {
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(63, 179, 210, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(63, 179, 210, 0.05) 0px, transparent 50%);
+/* Primary Action Button - Light Purple Signature */
+.btn-purple {
+  background-color: #8B5CF6;
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.btn-purple:hover {
+  background-color: #7C3AED;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
 }
 
-.dark {
-  --color-canvas: #091216;
-  --color-slate-dark: #EFF9FB;
+.btn-purple-soft {
+  background-color: #F3E8FF;
+  color: #7C3AED;
+  font-weight: 700;
+  border: 1px solid #C4B5FD;
+  transition: all 0.2s ease;
+}
+.btn-purple-soft:hover {
+  background-color: #EDE9FE;
 }
 
-.dark .glass-panel {
-  background: rgba(14, 25, 30, 0.85);
-  border: 1px solid rgba(226, 222, 240, 0.12);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
-}
-
-.dark .glass-card {
-  background: rgba(18, 30, 36, 0.8);
-  border: 1px solid rgba(226, 222, 240, 0.1);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-}
-
-.dark .glass-card-lavender {
-  background: rgba(45, 36, 60, 0.85);
-  border: 1px solid rgba(218, 95, 206, 0.25);
-}
-
-.dark .glass-sidebar {
-  background: rgba(10, 18, 22, 0.95);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.dark .glass-input {
-  background: rgba(15, 26, 32, 0.9);
-  border: 1px solid rgba(226, 222, 240, 0.15);
-  color: #EFF9FB;
-}
-
-/* Custom subtle scrollbar */
+/* Custom delicate light purple scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -118,9 +138,10 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(218, 95, 206, 0.25);
+  background: rgba(139, 92, 246, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(218, 95, 206, 0.45);
+  background: rgba(139, 92, 246, 0.4);
 }
+

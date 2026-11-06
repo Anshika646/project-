@@ -17,7 +17,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { DEMO_UPCOMING_EXAMS, DEMO_RECENT_ACTIVITIES } from '../../services/mockData';
-import { exportToPDF, exportToExcel } from '../../utils/exportUtils';
+import { exportToPDF } from '../../utils/exportUtils';
 
 export const SchoolAdminDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -53,33 +53,36 @@ export const SchoolAdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto bg-white">
       {/* Top Banner Greeting Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
-            Good Morning, {user?.profile.full_name || 'Administrator'}!
+          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight">
+            Good Morning, {user?.profile.full_name || 'Dr. Rajesh Sharma'}!
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
-            Here's what's happening at {user?.institution.name || 'your institution'} today.
+          <p className="text-xs md:text-sm font-semibold text-[#625C60] mt-0.5">
+            Here's what's happening at {user?.institution.name || 'Springfield International School'} today.
           </p>
         </div>
 
         {/* Date Widget Capsule */}
-        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl glass-card border border-white/70 dark:border-white/10 text-xs font-semibold text-[#303F32] dark:text-[#D9E6DB] shadow-sm shrink-0 self-start md:self-auto">
-          <Calendar size={15} className="text-[#DA5FCE] dark:text-[#A3B899]" />
+        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] shadow-xs shrink-0 self-start md:self-auto">
+          <Calendar size={16} className="text-[#8B5CF6]" />
           <span>Mon, 21 Apr 2025</span>
         </div>
       </div>
 
       {quickActionNotice && (
-        <div className="px-4 py-2.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center justify-between transition-all">
-          <span>{quickActionNotice}</span>
-          <button onClick={() => setQuickActionNotice(null)} className="text-xs opacity-70 hover:opacity-100">✕</button>
+        <div className="px-4 py-2.5 rounded-xl bg-[#F5F3FF] border border-[#C4B5FD] text-[#171417] text-xs font-bold flex items-center justify-between transition-all shadow-xs">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+            <span>{quickActionNotice}</span>
+          </div>
+          <button onClick={() => setQuickActionNotice(null)} className="text-xs font-bold text-[#8B5CF6] hover:text-[#171417]">✕</button>
         </div>
       )}
 
-      {/* 4 Stat Cards matching the visual mockup */}
+      {/* 4 Beautiful KPI Cards in Light Pink with Cream Touch */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Students"
@@ -87,7 +90,7 @@ export const SchoolAdminDashboard: React.FC = () => {
           change="5%"
           isPositive={true}
           icon={Users}
-          variant="sage"
+          variant="pink"
         />
         <StatCard
           title="Total Teachers"
@@ -95,7 +98,7 @@ export const SchoolAdminDashboard: React.FC = () => {
           change="2%"
           isPositive={true}
           icon={GraduationCap}
-          variant="pink"
+          variant="cream"
         />
         <StatCard
           title="Total Classes"
@@ -103,39 +106,38 @@ export const SchoolAdminDashboard: React.FC = () => {
           change="1%"
           isPositive={true}
           icon={Layers}
-          variant="olive"
+          variant="rose"
         />
         <StatCard
           title="Attendance Today"
-          value="92%"
+          value="94.2%"
           change="3%"
           isPositive={true}
           icon={CalendarCheck}
-          variant="pink"
+          variant="blush"
         />
       </div>
 
-      {/* Middle Row: Academic Overview, Upcoming Examinations, Quick Actions */}
+      {/* Middle Row: Academic Overview Chart, Upcoming Examinations, Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Academic Overview Chart matching Page views / Revenue chart from template */}
-        <div className="lg:col-span-5 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+        {/* Academic Overview Chart with Refined Pink & Cream Palette */}
+        <div className="lg:col-span-5 rounded-2xl bg-[#F5F3FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
             <div className="flex items-center gap-2">
-              <TrendingUp size={18} className="text-[#DA5FCE]" />
-              <h3 className="text-sm font-bold text-[#061418] dark:text-[#EFF9FB]">
-                Academic Overview / Attendance
+              <TrendingUp size={18} className="text-[#8B5CF6]" />
+              <h3 className="font-heading text-sm font-extrabold text-[#171417]">
+                Attendance & Academic Trends
               </h3>
-              {/* Three dots indicator matching image */}
-              <div className="flex items-center gap-1 text-[#DA5FCE] ml-1">
-                <span className="w-1 h-1 rounded-full bg-[#DA5FCE]" />
-                <span className="w-1 h-1 rounded-full bg-[#DA5FCE]" />
-                <span className="w-1 h-1 rounded-full bg-[#DA5FCE]" />
+              <div className="flex items-center gap-1 text-[#C4B5FD] ml-1">
+                <span className="w-1 h-1 rounded-full bg-current" />
+                <span className="w-1 h-1 rounded-full bg-current" />
+                <span className="w-1 h-1 rounded-full bg-current" />
               </div>
             </div>
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="text-xs bg-white dark:bg-black/20 border border-[#E2DEF0] rounded-lg px-2.5 py-1 text-[#061418] dark:text-[#EFF9FB] focus:outline-none"
+              className="text-xs bg-white border border-[#E9D5FF] rounded-lg px-2.5 py-1 text-[#171417] font-semibold focus:outline-none focus:border-[#8B5CF6]"
             >
               <option value="This Month">This Month</option>
               <option value="Last Month">Last Month</option>
@@ -143,45 +145,45 @@ export const SchoolAdminDashboard: React.FC = () => {
             </select>
           </div>
 
-          {/* Chart Legend with Cyan and Orchid */}
-          <div className="flex items-center justify-end gap-4 text-[11px] font-semibold text-[#616C70] mt-3">
+          {/* Chart Legend with Restrained Pink & Neutral Tones */}
+          <div className="flex items-center justify-end gap-4 text-[11px] font-bold text-[#625C60] mt-3">
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm bg-[#3FB3D2]" />
-              <span className="text-[#061418] dark:text-white">Attendance</span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#8B5CF6]" />
+              <span className="text-[#171417]">Attendance</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm bg-[#DA5FCE]" />
-              <span className="text-[#061418] dark:text-white">Academics</span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#C4B5FD]" />
+              <span className="text-[#171417]">Academics</span>
             </div>
           </div>
 
-          {/* Dual Bar Chart with Cyan (#3FB3D2) and Orchid (#DA5FCE) matching screenshot */}
-          <div className="h-44 w-full mt-3 flex items-end justify-between px-2 pt-2 border-b border-[#E2DEF0]">
+          {/* Dual Bar Chart with Signature Pink (#8B5CF6) and Soft Pink (#C4B5FD) */}
+          <div className="h-44 w-full mt-3 flex items-end justify-between px-2 pt-2 border-b border-[#E9D5FF]">
             {[
-              { label: 'W1', cyan: '45%', magenta: '65%' },
-              { label: 'W2', cyan: '70%', magenta: '75%' },
-              { label: 'W3', cyan: '40%', magenta: '35%' },
-              { label: 'W4', cyan: '90%', magenta: '70%' },
-              { label: 'W5', cyan: '55%', magenta: '55%' },
-              { label: 'W6', cyan: '60%', magenta: '50%' },
-              { label: 'W7', cyan: '85%', magenta: '95%' },
+              { label: 'W1', attendance: '65%', academics: '55%' },
+              { label: 'W2', attendance: '80%', academics: '72%' },
+              { label: 'W3', attendance: '70%', academics: '68%' },
+              { label: 'W4', attendance: '92%', academics: '88%' },
+              { label: 'W5', attendance: '85%', academics: '78%' },
+              { label: 'W6', attendance: '90%', academics: '84%' },
+              { label: 'W7', attendance: '95%', academics: '90%' },
             ].map((col, idx) => (
               <div key={idx} className="flex flex-col items-center gap-1.5 h-full justify-end">
                 <div className="flex items-end gap-1.5 h-32">
-                  {/* Cyan bar */}
+                  {/* Attendance Bar */}
                   <div
-                    style={{ height: col.cyan }}
-                    className="w-3 sm:w-3.5 bg-[#3FB3D2] rounded-t-sm transition-all duration-500 shadow-xs hover:brightness-110"
-                    title={`Attendance: ${col.cyan}`}
+                    style={{ height: col.attendance }}
+                    className="w-3 sm:w-3.5 bg-[#8B5CF6] rounded-t-sm transition-all duration-500 shadow-xs hover:brightness-110"
+                    title={`Attendance: ${col.attendance}`}
                   />
-                  {/* Orchid / Magenta bar */}
+                  {/* Academics Bar */}
                   <div
-                    style={{ height: col.magenta }}
-                    className="w-3 sm:w-3.5 bg-[#DA5FCE] rounded-t-sm transition-all duration-500 shadow-xs hover:brightness-110"
-                    title={`Academics: ${col.magenta}`}
+                    style={{ height: col.academics }}
+                    className="w-3 sm:w-3.5 bg-[#C4B5FD] rounded-t-sm transition-all duration-500 shadow-xs hover:brightness-110"
+                    title={`Academics: ${col.academics}`}
                   />
                 </div>
-                <span className="text-[10px] font-bold text-[#616C70] tabular-nums">
+                <span className="text-[10px] font-extrabold text-[#171417] tabular-nums">
                   {col.label}
                 </span>
               </div>
@@ -189,18 +191,18 @@ export const SchoolAdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Upcoming Examinations Card */}
-        <div className="lg:col-span-4 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+        {/* Upcoming Examinations Card in Secondary Cream Pink */}
+        <div className="lg:col-span-4 rounded-2xl bg-[#FAF5FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
             <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-[#DA5FCE]" />
-              <h3 className="text-sm font-bold text-[#061418] dark:text-[#EFF9FB]">
+              <Calendar size={18} className="text-[#8B5CF6]" />
+              <h3 className="font-heading text-sm font-extrabold text-[#171417]">
                 Upcoming Examinations
               </h3>
             </div>
             <button
               onClick={() => handleQuickAction('Examinations List')}
-              className="text-xs font-semibold text-[#DA5FCE] hover:underline flex items-center gap-0.5"
+              className="text-xs font-bold text-[#8B5CF6] hover:underline flex items-center gap-0.5"
             >
               <span>View All</span>
               <ChevronRight size={13} />
@@ -211,24 +213,24 @@ export const SchoolAdminDashboard: React.FC = () => {
             {DEMO_UPCOMING_EXAMS.map((exam) => (
               <div
                 key={exam.id}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-white/70 dark:bg-white/5 border border-[#E2DEF0] dark:border-white/5 hover:bg-white transition-colors"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#E9D5FF] hover:border-[#C4B5FD] transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#E4DBF5] text-[#DA5FCE] flex flex-col items-center justify-center font-bold leading-none shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#F3E8FF] text-[#8B5CF6] flex flex-col items-center justify-center font-bold leading-none shrink-0 border border-[#C4B5FD]/40">
                     <span className="text-sm font-extrabold">{exam.day}</span>
-                    <span className="text-[9px] uppercase tracking-wider">{exam.month}</span>
+                    <span className="text-[9px] uppercase tracking-wider font-bold">{exam.month}</span>
                   </div>
                   <div className="truncate">
-                    <p className="text-xs font-bold text-[#061418] dark:text-[#EFF9FB] truncate">
+                    <p className="text-xs font-extrabold text-[#171417] truncate">
                       {exam.subject}
                     </p>
-                    <p className="text-[10px] text-[#616C70] truncate">
+                    <p className="text-[10px] font-semibold text-[#625C60] truncate">
                       {exam.class} • {exam.type}
                     </p>
                   </div>
                 </div>
 
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#E4DBF5] text-[#DA5FCE] shrink-0 font-bold">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F5F3FF] text-[#8B5CF6] border border-[#C4B5FD]/50 shrink-0">
                   {exam.inDays}
                 </span>
               </div>
@@ -236,10 +238,10 @@ export const SchoolAdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Actions Card (6 Buttons) */}
-        <div className="lg:col-span-3 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between">
-          <div className="flex items-center gap-2 pb-3 border-b border-black/5 dark:border-white/5">
-            <span className="text-sm font-bold text-[#061418] dark:text-[#EFF9FB]">
+        {/* Quick Actions Card (6 Buttons in Cream Pink) */}
+        <div className="lg:col-span-3 rounded-2xl bg-[#FDFBFF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between">
+          <div className="flex items-center gap-2 pb-3 border-b border-[#E9D5FF]">
+            <span className="font-heading text-sm font-extrabold text-[#171417]">
               ⚡ Quick Actions
             </span>
           </div>
@@ -258,12 +260,12 @@ export const SchoolAdminDashboard: React.FC = () => {
                 <button
                   key={btn.label}
                   onClick={() => handleQuickAction(btn.action)}
-                  className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#EFF9FB]/80 dark:bg-white/5 border border-[#E2DEF0] hover:bg-[#E4DBF5]/70 transition-all text-center group"
+                  className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-white border border-[#E9D5FF] hover:bg-[#F5F3FF] hover:border-[#C4B5FD] transition-all text-center group shadow-2xs"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#E4DBF5] text-[#DA5FCE] flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform">
-                    <Icon size={16} />
+                  <div className="w-8 h-8 rounded-lg bg-[#F3E8FF] text-[#8B5CF6] flex items-center justify-center mb-1.5 group-hover:scale-105 transition-transform">
+                    <Icon size={16} className="stroke-[2.2]" />
                   </div>
-                  <span className="text-[10px] font-semibold text-[#061418] dark:text-[#EFF9FB] leading-tight">
+                  <span className="text-[10px] font-extrabold text-[#171417] leading-tight">
                     {btn.label}
                   </span>
                 </button>
@@ -273,20 +275,20 @@ export const SchoolAdminDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Row: Recent Activities, Class Performance, Quote Card */}
+      {/* Bottom Row: Recent Activities, Class Performance, School Motto */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Recent Activities Timeline */}
-        <div className="lg:col-span-5 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+        <div className="lg:col-span-5 rounded-2xl bg-[#F5F3FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
             <div className="flex items-center gap-2">
-              <Clock size={17} className="text-[#DA5FCE]" />
-              <h3 className="text-sm font-bold text-[#061418] dark:text-[#EFF9FB]">
+              <Clock size={17} className="text-[#8B5CF6]" />
+              <h3 className="font-heading text-sm font-extrabold text-[#171417]">
                 Recent Activities
               </h3>
             </div>
             <button
               onClick={() => handleQuickAction('Activity Audit Log')}
-              className="text-xs font-semibold text-[#DA5FCE] hover:underline flex items-center gap-0.5"
+              className="text-xs font-bold text-[#8B5CF6] hover:underline flex items-center gap-0.5"
             >
               <span>View All</span>
               <ChevronRight size={13} />
@@ -296,12 +298,12 @@ export const SchoolAdminDashboard: React.FC = () => {
           <div className="space-y-3.5 mt-3">
             {DEMO_RECENT_ACTIVITIES.map((act) => (
               <div key={act.id} className="flex items-start gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#DA5FCE] mt-1 shrink-0" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] mt-1 shrink-0" />
                 <div className="flex-1 flex items-center justify-between gap-2">
-                  <p className="text-xs text-[#061418] dark:text-[#EFF9FB] font-medium leading-snug">
+                  <p className="text-xs text-[#171417] font-bold leading-snug">
                     {String(act.details?.text || act.action)}
                   </p>
-                  <span className="text-[10px] text-[#616C70] shrink-0 tabular-nums">
+                  <span className="text-[10px] font-semibold text-[#625C60] shrink-0 tabular-nums">
                     {act.id === 'act-1' ? '2 mins ago' : act.id === 'act-2' ? '10 mins ago' : act.id === 'act-3' ? '1 hour ago' : '2 hours ago'}
                   </span>
                 </div>
@@ -311,15 +313,15 @@ export const SchoolAdminDashboard: React.FC = () => {
         </div>
 
         {/* Class Performance Bar Chart */}
-        <div className="lg:col-span-4 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <h3 className="text-sm font-bold text-[#061418] dark:text-[#EFF9FB]">
-              Class Performance
+        <div className="lg:col-span-4 rounded-2xl bg-[#FAF5FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+            <h3 className="font-heading text-sm font-extrabold text-[#171417]">
+              Class-Wise Academic Distribution
             </h3>
             <select
               value={selectedClassFilter}
               onChange={(e) => setSelectedClassFilter(e.target.value)}
-              className="text-xs bg-white dark:bg-black/20 border border-[#E2DEF0] rounded-lg px-2.5 py-1 text-[#061418] dark:text-[#EFF9FB] focus:outline-none"
+              className="text-xs bg-white border border-[#E9D5FF] rounded-lg px-2.5 py-1 text-[#171417] font-semibold focus:outline-none focus:border-[#8B5CF6]"
             >
               <option value="All Classes">All Classes</option>
               <option value="Secondary">Secondary</option>
@@ -327,25 +329,25 @@ export const SchoolAdminDashboard: React.FC = () => {
             </select>
           </div>
 
-          {/* Bar Chart Visualization with Cyan (#3FB3D2) and Orchid (#DA5FCE) */}
+          {/* Bar Chart Visualization with Restrained Pink Tones */}
           <div className="flex items-end justify-around h-36 pt-4 pb-1">
             {[
-              { label: 'Class 6', val: '95%', height: '95%', color: 'bg-[#3FB3D2]' },
-              { label: 'Class 7', val: '92%', height: '92%', color: 'bg-[#DA5FCE]' },
-              { label: 'Class 8', val: '89%', height: '89%', color: 'bg-[#3FB3D2]' },
-              { label: 'Class 9', val: '94%', height: '94%', color: 'bg-[#DA5FCE]' },
+              { label: 'Class 6', val: '95%', height: '95%', color: 'bg-[#8B5CF6]' },
+              { label: 'Class 7', val: '92%', height: '92%', color: 'bg-[#C4B5FD]' },
+              { label: 'Class 8', val: '89%', height: '89%', color: 'bg-[#A78BFA]' },
+              { label: 'Class 9', val: '94%', height: '94%', color: 'bg-[#8B5CF6]' },
             ].map((bar) => (
               <div key={bar.label} className="flex flex-col items-center gap-1.5 w-12">
-                <span className="text-[11px] font-bold text-[#061418] dark:text-[#EFF9FB] tabular-nums">
+                <span className="font-stat text-[11px] font-extrabold text-[#171417] tabular-nums">
                   {bar.val}
                 </span>
-                <div className="w-7 bg-[#E8F1F3] dark:bg-white/5 rounded-t-lg h-24 flex items-end">
+                <div className="w-7 bg-white rounded-t-lg h-24 flex items-end border border-b-0 border-[#E9D5FF]">
                   <div
                     style={{ height: bar.height }}
                     className={`w-full rounded-t-md ${bar.color} transition-all duration-500`}
                   />
                 </div>
-                <span className="text-[10px] font-semibold text-[#616C70] truncate">
+                <span className="text-[10px] font-bold text-[#625C60] truncate">
                   {bar.label}
                 </span>
               </div>
@@ -353,20 +355,19 @@ export const SchoolAdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Quote / Institutional Leaf Card */}
-        <div className="lg:col-span-3 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-white via-[#EFF9FB]/80 to-[#E8F1F3] dark:from-white/5 dark:to-white/10">
-          <div className="text-3xl text-[#DA5FCE] font-serif opacity-40">“</div>
+        {/* Institutional Motto Card in Soft Cream Pink */}
+        <div className="lg:col-span-3 rounded-2xl bg-[#FDFBFF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] flex flex-col justify-between relative overflow-hidden">
+          <div className="text-3xl text-[#8B5CF6] font-serif opacity-30">“</div>
           <div className="relative z-10">
-            <p className="text-xs md:text-sm font-semibold text-[#061418] dark:text-[#EFF9FB] leading-relaxed">
-              Education is the key to unlocking a brighter future.
+            <p className="text-xs md:text-sm font-extrabold text-[#171417] leading-relaxed">
+              Education is the key to unlocking a brighter tomorrow for every child.
             </p>
-            <p className="text-[11px] font-bold text-[#DA5FCE] mt-2">
-              — Edunexa
+            <p className="text-[11px] font-extrabold text-[#8B5CF6] mt-2 tracking-wide">
+              — Springfield Academy • Edunexa
             </p>
           </div>
 
-          {/* Decorative subtle botanical leaf accent */}
-          <div className="absolute -bottom-2 -right-2 w-20 h-20 opacity-20 pointer-events-none text-[#DA5FCE]">
+          <div className="absolute -bottom-2 -right-2 w-20 h-20 opacity-15 pointer-events-none text-[#8B5CF6]">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.5 9 8.5 9.8 M12 2c5.5 0 10 4.5 10 10 0 5-3.5 9-8.5 9.8" />
             </svg>

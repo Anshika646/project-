@@ -6,19 +6,18 @@ import {
   Building2,
   Layers,
   Award,
-  BookOpen,
 } from 'lucide-react';
 
 export const CollegeAdminDashboard: React.FC = () => {
   const { user } = useAuth();
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto bg-white">
       <div>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
+        <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight">
           College Academic Console
         </h1>
-        <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+        <p className="text-xs md:text-sm font-semibold text-[#625C60] mt-0.5">
           {user?.institution.name || 'Apex Institute of Technology'} • Semester 6 Academic Session
         </p>
       </div>
@@ -30,7 +29,7 @@ export const CollegeAdminDashboard: React.FC = () => {
           change="CSE, ECE, ME, Civil, AI, DS"
           isPositive={true}
           icon={Building2}
-          variant="sage"
+          variant="pink"
         />
         <StatCard
           title="Enrolled Undergrads"
@@ -38,7 +37,7 @@ export const CollegeAdminDashboard: React.FC = () => {
           change="+8% Enrollment"
           isPositive={true}
           icon={GraduationCap}
-          variant="olive"
+          variant="cream"
         />
         <StatCard
           title="Active Faculty"
@@ -46,7 +45,7 @@ export const CollegeAdminDashboard: React.FC = () => {
           change="Ph.D Faculty: 64%"
           isPositive={true}
           icon={Layers}
-          variant="pink"
+          variant="rose"
         />
         <StatCard
           title="Campus Placement Rate"
@@ -54,12 +53,12 @@ export const CollegeAdminDashboard: React.FC = () => {
           change="Average: 9.8 LPA"
           isPositive={true}
           icon={Award}
-          variant="sage"
+          variant="blush"
         />
       </div>
 
-      <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
-        <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1] mb-3">
+      <div className="rounded-2xl bg-[#FAF5FF] p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)]">
+        <h3 className="font-heading text-sm font-extrabold text-[#171417] mb-3">
           Undergraduate Departments & Course Credits
         </h3>
 
@@ -69,14 +68,14 @@ export const CollegeAdminDashboard: React.FC = () => {
             { dept: 'Artificial Intelligence & Data Science', code: 'B.Tech AI/DS', credits: '164 Credits', hod: 'Dr. Ananya Sen' },
             { dept: 'Electronics & Communication', code: 'B.Tech ECE', credits: '158 Credits', hod: 'Prof. K. Venkatesh' },
           ].map((d) => (
-            <div key={d.code} className="p-3.5 rounded-xl bg-white/60 dark:bg-white/5 border border-white/60 dark:border-white/5">
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#8DA390]/20 text-[#2B3B2E] dark:text-[#C2D8C2]">
+            <div key={d.code} className="p-3.5 rounded-xl bg-white border border-[#E9D5FF] hover:border-[#C4B5FD] transition-colors">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-[#F3E8FF] text-[#8B5CF6]">
                 {d.code}
               </span>
-              <h4 className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1] mt-2">
+              <h4 className="font-heading text-xs font-extrabold text-[#171417] mt-2">
                 {d.dept}
               </h4>
-              <p className="text-[11px] text-[#637466] dark:text-[#95A597] mt-1">
+              <p className="text-[11px] font-semibold text-[#625C60] mt-1">
                 HOD: {d.hod} • Total: {d.credits}
               </p>
             </div>

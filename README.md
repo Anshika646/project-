@@ -90,17 +90,45 @@ npm run seed
 
 ---
 
-## 6. Deployment Guide
+## 6. Universal Deployment Guide
 
-### A. Deploying to GitHub Pages
-1. Go to your GitHub repository: `Settings` → `Pages`.
+Edunexa is built and optimized for instant, zero-configuration deployment across all major cloud providers and hosting platforms.
+
+### A. Vercel (1-Click Static / SPA Deployment)
+1. Push your repository to GitHub or GitLab.
+2. Go to [vercel.com](https://vercel.com) and click **Add New Project**.
+3. Import this repository.
+4. Framework Preset: **Vite** (detected automatically via `vercel.json`).
+5. Root directory: `./`, Build Command: `npm run build`, Output Directory: `dist`.
+6. Click **Deploy**.
+
+### B. Netlify / Cloudflare Pages
+1. Link your repository in Netlify or Cloudflare Pages.
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. The included `public/_redirects` ensures seamless SPA routing for direct links and page reloads.
+
+### C. Docker & Containerized Platforms (Google Cloud Run, Railway, Render, Fly.io, AWS)
+The provided multi-stage `Dockerfile` compiles the assets and runs the production Express HTTP server on port 3000:
+```bash
+# Build the production container image
+docker build -t edunexa-erp .
+
+# Run the container locally
+docker run -p 3000:3000 edunexa-erp
+```
+- **Health Check**: Available at `GET /healthz` for load-balancer health probes.
+- **Port**: Dynamically reads `process.env.PORT` or defaults to `3000`.
+
+### D. GitHub Pages (Automated via GitHub Actions)
+1. Go to your repository: **Settings** → **Pages**.
 2. Under **Build and deployment** → **Source**, select **GitHub Actions**.
-3. Push to `main` (or `master`). The pre-configured `.github/workflows/deploy.yml` workflow will automatically build and publish the applet.
-4. Your site will be live at `https://<username>.github.io/<repo-name>/`.
-   *(HashRouter and `public/404.html` ensure direct links and browser refreshes work with zero 404 errors)*.
+3. Push to `main` (or `master`). The included `.github/workflows/deploy.yml` workflow will automatically build and publish to GitHub Pages.
+4. `public/404.html` and `HashRouter` provide seamless navigation and deep linking without 404 errors on GitHub Pages sub-paths.
 
-### B. Deploying on Google AI Studio
-1. The applet is already pre-configured to bind to `0.0.0.0:3000` with `allowedHosts: true`.
-2. The dev server runs seamlessly via `npm run dev`.
-3. In-memory demo profiles and institutional state are loaded automatically if no external database is attached.
+### E. Google AI Studio Build Environment
+- Pre-configured to serve from `0.0.0.0:3000` with `allowedHosts: true`.
+- Run locally or in development preview with `npm run dev`.
+- Seamless demo persona switcher enabled out-of-the-box.
+
 

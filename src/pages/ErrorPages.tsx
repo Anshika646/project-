@@ -8,20 +8,20 @@ export const UnauthorizedPage: React.FC = () => {
   const { role } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow flex items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-[#E2DEF0] dark:border-white/10 shadow-2xl space-y-4">
-        <div className="w-14 h-14 rounded-2xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center mx-auto">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full p-8 rounded-3xl bg-[#F5F3FF] border border-[#E9D5FF] shadow-sm space-y-4">
+        <div className="w-14 h-14 rounded-2xl bg-[#F3E8FF] text-[#8B5CF6] border border-[#E9D5FF] flex items-center justify-center mx-auto shadow-sm">
           <ShieldAlert size={28} />
         </div>
-        <h2 className="text-xl font-extrabold text-[#061418] dark:text-[#EFF9FB]">
+        <h2 className="text-xl font-extrabold text-[#171417]">
           Access Restricted
         </h2>
-        <p className="text-xs text-[#616C70] leading-relaxed">
-          Your current account role (<span className="font-mono font-bold text-[#061418] dark:text-[#EFF9FB]">{role}</span>) does not have authorization to view this module.
+        <p className="text-xs text-[#625C60] leading-relaxed font-medium">
+          Your current account role (<span className="font-mono font-bold text-[#171417]">{role}</span>) does not have authorization to view this module.
         </p>
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] transition-colors shadow-sm inline-flex items-center gap-2"
+          className="mt-4 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] transition-colors shadow-sm inline-flex items-center gap-2"
         >
           <ArrowLeft size={15} />
           <span>Return to Dashboard</span>
@@ -35,18 +35,18 @@ export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow flex items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
-        <div className="text-4xl font-extrabold text-[#DA5FCE]">404</div>
-        <h2 className="text-xl font-bold text-[#232F25] dark:text-[#F0F5F1]">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full p-8 rounded-3xl bg-[#F5F3FF] border border-[#E9D5FF] shadow-sm space-y-4">
+        <div className="text-4xl font-extrabold text-[#8B5CF6]">404</div>
+        <h2 className="text-xl font-extrabold text-[#171417]">
           Page Not Found
         </h2>
-        <p className="text-xs text-[#637466] dark:text-[#95A597]">
+        <p className="text-xs text-[#625C60] font-medium">
           The requested educational resource or page does not exist.
         </p>
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] transition-colors shadow-sm"
+          className="mt-4 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] transition-colors shadow-sm"
         >
           Back to Safety
         </button>

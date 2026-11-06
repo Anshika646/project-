@@ -119,27 +119,29 @@ export const ReportsPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <Award className="text-[#DA5FCE]" size={28} />
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] flex items-center justify-center text-[#8B5CF6]">
+              <Award size={22} />
+            </div>
             <span>Official Report Cards & Progress Reports</span>
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+          <p className="text-xs md:text-sm text-[#625C60] mt-1 font-medium">
             Downloadable print-ready term report cards, grading sheets, and institutional transcripts
           </p>
         </div>
 
-        <div className="flex items-center gap-2 self-start md:self-auto">
+        <div className="flex items-center gap-2.5 self-start md:self-auto">
           <button
             onClick={handleGenerateClassReportCards}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#FAF5FF] hover:bg-[#F5F3FF] text-[#171417] border border-[#E9D5FF] shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} className="text-[#DA5FCE]" />
+            <Download size={14} className="text-[#8B5CF6]" />
             <span>Class Ledger (PDF)</span>
           </button>
 
           <button
             onClick={handleGenerateIndividualReportCard}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-colors shadow-sm flex items-center gap-1.5"
           >
             <Printer size={14} />
             <span>Print Student Report Card</span>
@@ -148,21 +150,21 @@ export const ReportsPage: React.FC = () => {
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
+        <div className="p-4 rounded-2xl bg-[#F5F3FF] border border-[#E9D5FF] text-[#171417] text-xs font-bold flex items-center gap-2.5 shadow-sm">
+          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Class & Student Selector Controls */}
-      <div className="p-4 rounded-2xl glass-card border border-white/70 flex flex-wrap items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#FAF5FF] border border-[#E9D5FF] flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#DA5FCE]">Select Class:</span>
+            <span className="text-xs font-bold text-[#171417]">Select Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl glass-input text-xs font-bold"
+              className="px-3.5 py-2 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
             >
               {classes.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -173,11 +175,11 @@ export const ReportsPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#DA5FCE]">Select Student:</span>
+            <span className="text-xs font-bold text-[#171417]">Select Student:</span>
             <select
               value={selectedStudentId}
               onChange={(e) => setSelectedStudentId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl glass-input text-xs font-bold"
+              className="px-3.5 py-2 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
             >
               {students.map((s) => (
                 <option key={s.id} value={s.id}>
@@ -188,101 +190,101 @@ export const ReportsPage: React.FC = () => {
           </div>
         </div>
 
-        <span className="text-xs text-[#718273]">
+        <span className="text-xs font-bold text-[#625C60]">
           Curriculum Standards: CBSE 9-Point Grading Scale (A1 to E)
         </span>
       </div>
 
       {/* Report Card Preview Layout */}
       {activeStudent && (
-        <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-white/80 dark:border-white/10 shadow-xl space-y-6 max-w-4xl mx-auto">
+        <div className="bg-[#F5F3FF] p-6 sm:p-10 rounded-3xl border border-[#E9D5FF] shadow-sm space-y-6 max-w-4xl mx-auto">
           {/* Institutional Header */}
-          <div className="text-center border-b border-black/10 dark:border-white/10 pb-6 space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#DA5FCE] dark:text-[#A3B899]">
+          <div className="text-center border-b border-[#E9D5FF] pb-6 space-y-1">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#8B5CF6]">
               Annual Evaluation Dossier • Academic Session 2025–2026
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171417] tracking-tight">
               Springfield International School
             </h2>
-            <p className="text-xs text-[#667768] dark:text-[#9FB1A2]">
+            <p className="text-xs text-[#625C60] font-medium">
               Plot 14, Institutional Area, Sector 5, Vasant Kunj, New Delhi • Affiliated to CBSE
             </p>
           </div>
 
           {/* Student Dossier Information Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white border border-[#E9D5FF] text-xs shadow-sm">
             <div>
-              <span className="text-[#8DA390] font-bold block text-[10px] uppercase">Student Name:</span>
-              <strong className="text-[#232F25] dark:text-white text-sm">{activeStudent.profile?.full_name}</strong>
+              <span className="text-[#625C60] font-bold block text-[10px] uppercase">Student Name:</span>
+              <strong className="text-[#171417] text-sm font-extrabold">{activeStudent.profile?.full_name}</strong>
             </div>
             <div>
-              <span className="text-[#8DA390] font-bold block text-[10px] uppercase">Admission No:</span>
-              <span className="font-mono">{activeStudent.admission_number}</span>
+              <span className="text-[#625C60] font-bold block text-[10px] uppercase">Admission No:</span>
+              <span className="font-mono font-bold text-[#171417]">{activeStudent.admission_number}</span>
             </div>
             <div>
-              <span className="text-[#8DA390] font-bold block text-[10px] uppercase">Class & Section:</span>
-              <span>{activeClass?.name} - Section A</span>
+              <span className="text-[#625C60] font-bold block text-[10px] uppercase">Class & Section:</span>
+              <span className="font-bold text-[#171417]">{activeClass?.name} - Section A</span>
             </div>
             <div>
-              <span className="text-[#8DA390] font-bold block text-[10px] uppercase">Roll Number:</span>
-              <span className="font-mono font-bold">{activeStudent.roll_number}</span>
+              <span className="text-[#625C60] font-bold block text-[10px] uppercase">Roll Number:</span>
+              <span className="font-mono font-extrabold text-[#8B5CF6]">{activeStudent.roll_number}</span>
             </div>
           </div>
 
           {/* Marks Breakdown Table */}
-          <div className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
+          <div className="overflow-hidden rounded-2xl border border-[#E9D5FF] bg-white shadow-sm">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#8DA390]/15 text-[#232F25] dark:text-[#EAEFEA] font-bold">
+              <thead className="bg-[#FAF5FF] text-[#171417] font-extrabold border-b border-[#E9D5FF]">
                 <tr>
-                  <th className="p-3 pl-4">Scholastic Subject</th>
-                  <th className="p-3 text-center">Theory (80)</th>
-                  <th className="p-3 text-center">Practical (20)</th>
-                  <th className="p-3 text-center">Total (100)</th>
-                  <th className="p-3 text-center pr-4">CBSE Grade</th>
+                  <th className="p-3.5 pl-4">Scholastic Subject</th>
+                  <th className="p-3.5 text-center">Theory (80)</th>
+                  <th className="p-3.5 text-center">Practical (20)</th>
+                  <th className="p-3.5 text-center">Total (100)</th>
+                  <th className="p-3.5 text-center pr-4">CBSE Grade</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-black/5 dark:divide-white/5">
+              <tbody className="divide-y divide-[#E9D5FF]">
                 <tr>
-                  <td className="p-3 pl-4 font-bold">Mathematics (Standard)</td>
-                  <td className="p-3 text-center font-mono">74</td>
-                  <td className="p-3 text-center font-mono">20</td>
-                  <td className="p-3 text-center font-bold text-[#DA5FCE]">94</td>
-                  <td className="p-3 text-center pr-4 font-bold">A1</td>
+                  <td className="p-3.5 pl-4 font-bold text-[#171417]">Mathematics (Standard)</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">74</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">20</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#8B5CF6]">94</td>
+                  <td className="p-3.5 text-center pr-4 font-extrabold text-[#171417]">A1</td>
                 </tr>
                 <tr>
-                  <td className="p-3 pl-4 font-bold">Science (Physics, Chem, Bio)</td>
-                  <td className="p-3 text-center font-mono">70</td>
-                  <td className="p-3 text-center font-mono">18</td>
-                  <td className="p-3 text-center font-bold text-[#DA5FCE]">88</td>
-                  <td className="p-3 text-center pr-4 font-bold">A2</td>
+                  <td className="p-3.5 pl-4 font-bold text-[#171417]">Science (Physics, Chem, Bio)</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">70</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">18</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#8B5CF6]">88</td>
+                  <td className="p-3.5 text-center pr-4 font-extrabold text-[#171417]">A2</td>
                 </tr>
                 <tr>
-                  <td className="p-3 pl-4 font-bold">English Language & Literature</td>
-                  <td className="p-3 text-center font-mono">76</td>
-                  <td className="p-3 text-center font-mono">15</td>
-                  <td className="p-3 text-center font-bold text-[#DA5FCE]">91</td>
-                  <td className="p-3 text-center pr-4 font-bold">A1</td>
+                  <td className="p-3.5 pl-4 font-bold text-[#171417]">English Language & Literature</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">76</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">15</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#8B5CF6]">91</td>
+                  <td className="p-3.5 text-center pr-4 font-extrabold text-[#171417]">A1</td>
                 </tr>
                 <tr>
-                  <td className="p-3 pl-4 font-bold">Social Sciences</td>
-                  <td className="p-3 text-center font-mono">72</td>
-                  <td className="p-3 text-center font-mono">16</td>
-                  <td className="p-3 text-center font-bold text-[#DA5FCE]">88</td>
-                  <td className="p-3 text-center pr-4 font-bold">A2</td>
+                  <td className="p-3.5 pl-4 font-bold text-[#171417]">Social Sciences</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">72</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">16</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#8B5CF6]">88</td>
+                  <td className="p-3.5 text-center pr-4 font-extrabold text-[#171417]">A2</td>
                 </tr>
                 <tr>
-                  <td className="p-3 pl-4 font-bold">Information Technology / CS</td>
-                  <td className="p-3 text-center font-mono">48</td>
-                  <td className="p-3 text-center font-mono">47</td>
-                  <td className="p-3 text-center font-bold text-[#DA5FCE]">95</td>
-                  <td className="p-3 text-center pr-4 font-bold">A1</td>
+                  <td className="p-3.5 pl-4 font-bold text-[#171417]">Information Technology / CS</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">48</td>
+                  <td className="p-3.5 text-center font-mono font-medium text-[#171417]">47</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#8B5CF6]">95</td>
+                  <td className="p-3.5 text-center pr-4 font-extrabold text-[#171417]">A1</td>
                 </tr>
-                <tr className="bg-black/[0.02] font-black text-xs">
-                  <td className="p-3 pl-4">Cumulative Grand Total</td>
-                  <td className="p-3 text-center font-mono">340</td>
-                  <td className="p-3 text-center font-mono">116</td>
-                  <td className="p-3 text-center font-extrabold text-[#232F25]">456 / 500</td>
-                  <td className="p-3 text-center pr-4 text-[#DA5FCE]">A1 (91.2%)</td>
+                <tr className="bg-[#FAF5FF] font-black text-xs">
+                  <td className="p-3.5 pl-4 text-[#171417]">Cumulative Grand Total</td>
+                  <td className="p-3.5 text-center font-mono text-[#171417]">340</td>
+                  <td className="p-3.5 text-center font-mono text-[#171417]">116</td>
+                  <td className="p-3.5 text-center font-extrabold text-[#171417]">456 / 500</td>
+                  <td className="p-3.5 text-center pr-4 text-[#8B5CF6] font-extrabold">A1 (91.2%)</td>
                 </tr>
               </tbody>
             </table>
@@ -290,37 +292,37 @@ export const ReportsPage: React.FC = () => {
 
           {/* Academic Indicators & Remarks */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-2xl glass-card border border-white/70 space-y-2 text-xs">
-              <span className="font-bold text-[10px] uppercase text-[#DA5FCE] block">
+            <div className="p-5 rounded-2xl bg-white border border-[#E9D5FF] space-y-2 text-xs shadow-sm">
+              <span className="font-extrabold text-[10px] uppercase text-[#8B5CF6] block">
                 Attendance & Conduct
               </span>
-              <p className="text-[#303E33] leading-relaxed">
-                Attendance: <strong>94.2%</strong> (188 / 200 Working Days). Exemplary classroom discipline and punctual submission of investigative projects.
+              <p className="text-[#171417] leading-relaxed font-medium">
+                Attendance: <strong className="font-bold">94.2%</strong> (188 / 200 Working Days). Exemplary classroom discipline and punctual submission of investigative projects.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl glass-card border border-white/70 space-y-2 text-xs">
-              <span className="font-bold text-[10px] uppercase text-[#DA5FCE] block">
+            <div className="p-5 rounded-2xl bg-white border border-[#E9D5FF] space-y-2 text-xs shadow-sm">
+              <span className="font-extrabold text-[10px] uppercase text-[#8B5CF6] block">
                 Class Teacher Remarks
               </span>
-              <p className="text-[#303E33] leading-relaxed">
+              <p className="text-[#171417] leading-relaxed font-medium">
                 "Outstanding mathematical aptitude. Has represented institution in Inter-School Science Quiz. Promoted to Senior Secondary with Distinction."
               </p>
             </div>
           </div>
 
           {/* Signatures Footer */}
-          <div className="pt-8 border-t border-black/10 flex items-center justify-between text-xs text-[#718273]">
+          <div className="pt-8 border-t border-[#E9D5FF] flex items-center justify-between text-xs text-[#625C60] font-bold">
             <div className="text-center">
-              <div className="w-32 border-b border-black/30 mb-1" />
+              <div className="w-32 border-b-2 border-[#171417]/20 mb-1.5" />
               <span>Class Teacher</span>
             </div>
             <div className="text-center">
-              <div className="w-32 border-b border-black/30 mb-1" />
+              <div className="w-32 border-b-2 border-[#171417]/20 mb-1.5" />
               <span>Exam Controller</span>
             </div>
             <div className="text-center">
-              <div className="w-32 border-b border-black/30 mb-1" />
+              <div className="w-32 border-b-2 border-[#171417]/20 mb-1.5" />
               <span>Principal</span>
             </div>
           </div>

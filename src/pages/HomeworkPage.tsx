@@ -78,11 +78,13 @@ export const HomeworkPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <FileText className="text-[#DA5FCE]" size={28} />
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] flex items-center justify-center text-[#8B5CF6]">
+              <FileText size={22} />
+            </div>
             <span>Homework & Assignments</span>
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+          <p className="text-xs md:text-sm text-[#625C60] mt-1 font-medium">
             Class assignments, question sets, and student submission tracking
           </p>
         </div>
@@ -90,7 +92,7 @@ export const HomeworkPage: React.FC = () => {
         {isTeacher && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={14} />
             <span>Assign Homework</span>
@@ -99,60 +101,62 @@ export const HomeworkPage: React.FC = () => {
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
+        <div className="p-4 rounded-2xl bg-[#F5F3FF] border border-[#E9D5FF] text-[#171417] text-xs font-bold flex items-center gap-2.5 shadow-sm">
+          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Homework Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {homeworkList.map((hw) => {
+        {homeworkList.map((hw, i) => {
           const isDone = submittedIds.includes(hw.id);
           const sub = subjects.find((s) => s.id === hw.subject_id);
 
           return (
             <div
               key={hw.id}
-              className="rounded-3xl glass-card p-5 border border-white/70 dark:border-white/10 hover:shadow-lg transition-all flex flex-col justify-between"
+              className={`rounded-2xl p-5 border border-[#E9D5FF] shadow-sm flex flex-col justify-between transition-all hover:border-[#8B5CF6]/50 ${
+                i % 3 === 0 ? 'bg-[#F5F3FF]' : i % 3 === 1 ? 'bg-[#FAF5FF]' : 'bg-[#FDFBFF]'
+              }`}
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#8DA390]/20 text-[#303E33] dark:text-[#D1E0D3]">
+                  <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-lg bg-white border border-[#E9D5FF] text-[#171417]">
                     {sub?.name || 'Academic Core'}
                   </span>
-                  <span className="text-[10px] font-semibold text-[#8C3B44] dark:text-[#F4C7CB] flex items-center gap-1">
+                  <span className="text-[10px] font-bold text-[#8B5CF6] bg-[#F3E8FF] px-2 py-0.5 rounded-md flex items-center gap-1">
                     <Calendar size={11} />
                     <span>Due: {hw.due_date}</span>
                   </span>
                 </div>
 
-                <h3 className="text-base font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-2.5">
+                <h3 className="text-base font-extrabold text-[#171417] mt-3">
                   {hw.title}
                 </h3>
-                <p className="text-xs text-[#637466] dark:text-[#95A597] mt-1.5 leading-relaxed line-clamp-3">
+                <p className="text-xs text-[#625C60] mt-1.5 leading-relaxed line-clamp-3 font-medium">
                   {hw.instructions}
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
-                <span className="text-[11px] text-[#718273]">
-                  By: {hw.created_by}
+              <div className="mt-5 pt-3 border-t border-[#E9D5FF] flex items-center justify-between">
+                <span className="text-[11px] text-[#625C60] font-medium">
+                  By: <strong className="text-[#171417]">{hw.created_by}</strong>
                 </span>
 
                 {isTeacher ? (
-                  <span className="text-xs font-bold text-[#DA5FCE]">
+                  <span className="text-xs font-extrabold text-[#8B5CF6]">
                     32 Submissions
                   </span>
                 ) : isDone ? (
-                  <span className="px-3 py-1 rounded-lg bg-[#8DA390]/25 text-[#253928] text-xs font-bold flex items-center gap-1">
-                    <CheckCircle2 size={13} className="text-[#DA5FCE]" />
+                  <span className="px-3 py-1 rounded-xl bg-white border border-[#E9D5FF] text-[#171417] text-xs font-bold flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-[#8B5CF6]" />
                     <span>Submitted</span>
                   </span>
                 ) : (
                   <button
                     onClick={() => handleStudentSubmit(hw.id)}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-colors shadow-sm flex items-center gap-1.5"
                   >
                     <Send size={12} />
                     <span>Submit</span>
@@ -166,26 +170,26 @@ export const HomeworkPage: React.FC = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md rounded-3xl glass-panel p-6 border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-black/5">
-              <h3 className="font-extrabold text-lg text-[#232F25] dark:text-[#F0F5F1]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
+          <div className="w-full max-w-md rounded-3xl bg-white p-6 border border-[#E9D5FF] shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+              <h3 className="font-extrabold text-lg text-[#171417]">
                 Assign Homework Task
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-xs text-[#667768]">
+              <button onClick={() => setIsModalOpen(false)} className="text-sm font-bold text-[#625C60] hover:text-[#171417]">
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleCreateHomework} className="space-y-3.5">
+            <form onSubmit={handleCreateHomework} className="space-y-4">
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Subject
                 </label>
                 <select
                   value={selectedSubId}
                   onChange={(e) => setSelectedSubId(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                 >
                   {subjects.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -196,7 +200,7 @@ export const HomeworkPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Assignment Title
                 </label>
                 <input
@@ -204,26 +208,26 @@ export const HomeworkPage: React.FC = () => {
                   placeholder="e.g. Chapter 6 Exercise Questions 5-10"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Due Date
                 </label>
                 <input
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Instructions & Guidelines
                 </label>
                 <textarea
@@ -231,22 +235,22 @@ export const HomeworkPage: React.FC = () => {
                   placeholder="Required format, diagrams to draw, page numbers..."
                   value={instructions}
                   onChange={(e) => setInstructions(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                   required
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3">
+              <div className="flex items-center justify-end gap-2.5 pt-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#625C60] hover:text-[#171417]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] shadow-sm"
                 >
                   Assign to Class
                 </button>

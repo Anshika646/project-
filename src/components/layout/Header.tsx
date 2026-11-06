@@ -13,7 +13,7 @@ import {
   UserCheck,
   Building,
 } from 'lucide-react';
-import { DEMO_NOTICES } from '../../services/mockData';
+import { NotificationColumn } from './NotificationColumn';
 
 interface HeaderProps {
   onSearchClick?: () => void;
@@ -25,11 +25,11 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(3);
   const [isRoleSwitcherOpen, setIsRoleSwitcherOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const profileRef = useRef<HTMLDivElement>(null);
-  const notifRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns on outside click
@@ -37,9 +37,6 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
     function handleClickOutside(event: MouseEvent) {
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
         setIsProfileOpen(false);
-      }
-      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
-        setIsNotificationsOpen(false);
       }
       if (roleRef.current && !roleRef.current.contains(event.target as Node)) {
         setIsRoleSwitcherOpen(false);
@@ -75,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
       .toUpperCase() || 'EX';
 
   return (
-    <header className="sticky top-0 z-20 h-20 px-6 flex items-center justify-between border-b border-[#E2DEF0] dark:border-white/10 bg-[#EFF9FB]/85 dark:bg-[#091216]/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-20 h-20 px-6 flex items-center justify-between border-b border-[#E9D5FF] bg-white">
       {/* Search Input Bar */}
       <div className="flex-1 max-w-md">
         <div
@@ -84,15 +81,15 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         >
           <Search
             size={18}
-            className="absolute left-3.5 text-[#616C70] group-hover:text-[#DA5FCE] transition-colors"
+            className="absolute left-3.5 text-[#8B5CF6] transition-colors"
           />
           <input
             type="text"
             readOnly
             placeholder="Search anything... (students, reports, notices)"
-            className="w-full pl-10 pr-12 py-2 text-xs md:text-sm font-medium rounded-full glass-input text-[#061418] dark:text-[#EFF9FB] placeholder-[#616C70] cursor-pointer"
+            className="w-full pl-10 pr-12 py-2 text-xs md:text-sm font-semibold rounded-full bg-[#FAF5FF] border border-[#E9D5FF] text-[#171417] placeholder-[#858087] cursor-pointer focus:outline-none focus:border-[#8B5CF6]"
           />
-          <div className="absolute right-3 px-1.5 py-0.5 rounded bg-white/90 dark:bg-white/10 border border-[#E2DEF0] text-[10px] font-mono text-[#DA5FCE] font-bold">
+          <div className="absolute right-3 px-1.5 py-0.5 rounded-md bg-[#F3E8FF] border border-[#C4B5FD]/60 text-[10px] font-mono text-[#8B5CF6] font-bold">
             ⌘ K
           </div>
         </div>
@@ -104,24 +101,24 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         <div className="relative" ref={roleRef}>
           <button
             onClick={() => setIsRoleSwitcherOpen(!isRoleSwitcherOpen)}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#E4DBF5] hover:bg-[#E4DBF5]/80 text-[#061418] border border-[#DA5FCE]/30 transition-colors shadow-xs"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#F5F3FF] hover:bg-[#F3E8FF] text-[#171417] border border-[#C4B5FD] transition-colors shadow-xs"
             title="Switch demo account role"
           >
-            <UserCheck size={14} className="text-[#DA5FCE]" />
-            <span className="hidden sm:inline text-[#616C70]">Role:</span>
-            <span className="font-bold text-[#061418]">
+            <UserCheck size={14} className="text-[#8B5CF6]" />
+            <span className="hidden sm:inline text-[#625C60]">Role:</span>
+            <span className="font-extrabold text-[#171417]">
               {currentRoleLabel}
             </span>
-            <ChevronDown size={13} className="text-[#DA5FCE]" />
+            <ChevronDown size={13} className="text-[#8B5CF6]" />
           </button>
 
           {isRoleSwitcherOpen && (
-            <div className="absolute right-0 mt-2 w-72 rounded-2xl glass-panel p-2 shadow-xl border border-white/60 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150">
-              <div className="px-3 py-2 border-b border-black/5 dark:border-white/5">
-                <p className="text-xs font-bold text-[#2C3B2E] dark:text-[#E2ECE4]">
+            <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white p-2.5 shadow-xl border border-[#E9D5FF] z-50">
+              <div className="px-3 py-2 border-b border-[#E9D5FF]">
+                <p className="text-xs font-extrabold text-[#171417]">
                   Development Demo Accounts
                 </p>
-                <p className="text-[11px] text-[#69796C] dark:text-[#9BAA9E]">
+                <p className="text-[11px] font-medium text-[#625C60]">
                   Select any persona to test isolated role views
                 </p>
               </div>
@@ -135,17 +132,17 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
                     }}
                     className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
                       account.role === role
-                        ? 'bg-[#8DA390]/25 text-[#1E2922] dark:text-[#FFFFFF] font-semibold'
-                        : 'hover:bg-black/5 dark:hover:bg-white/5 text-[#425244] dark:text-[#C5D3C6]'
+                        ? 'bg-[#F5F3FF] text-[#171417] font-bold border border-[#C4B5FD]'
+                        : 'hover:bg-[#FAF5FF] text-[#171417]'
                     }`}
                   >
                     <div className="flex flex-col truncate pr-2">
-                      <span className="font-medium truncate">{account.name}</span>
-                      <span className="text-[10px] text-[#6E7E72] dark:text-[#8D9C90] truncate">
+                      <span className="font-bold text-[#171417] truncate">{account.name}</span>
+                      <span className="text-[10px] text-[#625C60] truncate">
                         {account.badge}
                       </span>
                     </div>
-                    <span className="px-1.5 py-0.5 text-[9px] rounded-md bg-white/70 dark:bg-white/10 border border-[#8DA390]/30 text-[#435345] dark:text-[#C2D8C2] uppercase font-mono shrink-0">
+                    <span className="px-1.5 py-0.5 text-[9px] rounded-md bg-[#F3E8FF] border border-[#C4B5FD]/60 text-[#8B5CF6] uppercase font-mono font-bold shrink-0">
                       {account.roleLabel}
                     </span>
                   </button>
@@ -158,7 +155,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-full glass-card hover:bg-white/90 text-[#4A594D] dark:text-[#C2D8C2] transition-colors"
+          className="p-2 rounded-full bg-white border border-[#E9D5FF] hover:bg-[#FAF5FF] text-[#625C60] hover:text-[#171417] transition-colors"
           title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} theme`}
           aria-label="Toggle theme"
         >
@@ -168,87 +165,71 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         {/* Fullscreen Toggle Button */}
         <button
           onClick={toggleFullscreen}
-          className="p-2 rounded-full glass-card hover:bg-white/90 text-[#4A594D] dark:text-[#C2D8C2] transition-colors hidden md:flex items-center justify-center"
+          className="p-2 rounded-full bg-white border border-[#E9D5FF] hover:bg-[#FAF5FF] text-[#625C60] hover:text-[#171417] transition-colors hidden md:flex items-center justify-center"
           title="Toggle Fullscreen"
           aria-label="Toggle Fullscreen"
         >
           {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
         </button>
 
-        {/* Notification Bell */}
-        <div className="relative" ref={notifRef}>
+        {/* Notification Bell Button */}
+        <div className="relative">
           <button
-            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-            className="p-2 rounded-full glass-card hover:bg-white/90 text-[#616C70] hover:text-[#061418] relative transition-colors"
-            aria-label="Notifications"
+            type="button"
+            onClick={() => setIsNotificationsOpen(true)}
+            className="p-2 rounded-full bg-white border border-[#E9D5FF] hover:bg-[#FAF5FF] text-[#625C60] hover:text-[#171417] relative transition-colors cursor-pointer"
+            aria-label="Open Notifications and Circulars"
+            title="Notifications & Circulars"
           >
-            <Bell size={18} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#DA5FCE] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
-              3
-            </span>
+            <Bell size={18} className="text-[#8B5CF6]" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#8B5CF6] text-white text-[10px] font-extrabold flex items-center justify-center shadow-xs">
+                {unreadCount}
+              </span>
+            )}
           </button>
-
-          {isNotificationsOpen && (
-            <div className="absolute right-0 mt-2 w-80 rounded-2xl glass-panel p-3 shadow-xl border border-white/60 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150">
-              <div className="flex items-center justify-between pb-2 border-b border-black/5 dark:border-white/5">
-                <span className="text-xs font-bold text-[#2A372C] dark:text-[#E2ECE4]">
-                  Recent Notices & Alerts
-                </span>
-                <span className="text-[10px] text-[#69796C] dark:text-[#9BAA9E]">
-                  3 unread
-                </span>
-              </div>
-              <div className="py-2 space-y-2 max-h-64 overflow-y-auto">
-                {DEMO_NOTICES.map((notice) => (
-                  <div
-                    key={notice.id}
-                    className="p-2 rounded-xl bg-white/60 dark:bg-white/5 border border-white/40 dark:border-white/5 text-xs"
-                  >
-                    <p className="font-semibold text-[#28382C] dark:text-[#E2ECE4]">
-                      {notice.title}
-                    </p>
-                    <p className="text-[11px] text-[#556658] dark:text-[#A0B0A3] line-clamp-2 mt-0.5">
-                      {notice.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Dedicated Slide-out Notification Column / Drawer */}
+        <NotificationColumn
+          isOpen={isNotificationsOpen}
+          onClose={() => setIsNotificationsOpen(false)}
+          unreadCount={unreadCount}
+          onMarkAllRead={() => setUnreadCount(0)}
+        />
 
         {/* User Profile Pill & Dropdown */}
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center gap-2.5 p-1.5 pl-2.5 rounded-full glass-card hover:bg-white/90 transition-all border border-white/80 dark:border-white/10"
+            className="flex items-center gap-2.5 p-1.5 pl-2.5 rounded-full bg-white hover:bg-[#FAF5FF] transition-all border border-[#E9D5FF]"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C64EBA] to-[#252E27] text-white flex items-center justify-center text-xs font-bold shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-[#F3E8FF] border border-[#C4B5FD] text-[#8B5CF6] flex items-center justify-center text-xs font-extrabold shadow-xs">
               {userInitials}
             </div>
             <div className="hidden lg:flex flex-col text-left pr-1">
-              <span className="text-xs font-bold text-[#28382C] dark:text-[#E2ECE4] leading-tight">
+              <span className="text-xs font-extrabold text-[#171417] leading-tight">
                 {currentRoleLabel}
               </span>
-              <span className="text-[10px] text-[#6F7F72] dark:text-[#97A79A] leading-tight truncate max-w-[110px]">
+              <span className="text-[10px] text-[#625C60] font-medium leading-tight truncate max-w-[110px]">
                 {user?.profile.full_name}
               </span>
             </div>
-            <ChevronDown size={14} className="text-[#6E7E72] dark:text-[#97A79A]" />
+            <ChevronDown size={14} className="text-[#8B5CF6]" />
           </button>
 
           {isProfileOpen && (
-            <div className="absolute right-0 mt-2 w-64 rounded-2xl glass-panel p-2 shadow-2xl border border-white/60 dark:border-white/10 animate-in fade-in zoom-in-95 duration-150">
-              <div className="px-3 py-2 border-b border-black/5 dark:border-white/5">
-                <p className="text-sm font-bold text-[#253227] dark:text-white truncate">
+            <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white p-2.5 shadow-2xl border border-[#E9D5FF] animate-in fade-in zoom-in-95 duration-150 z-50">
+              <div className="px-3 py-2 border-b border-[#E9D5FF]">
+                <p className="text-sm font-extrabold text-[#171417] truncate">
                   {user?.profile.full_name}
                 </p>
-                <p className="text-xs text-[#5E6E61] dark:text-[#A3B899] truncate">
+                <p className="text-xs text-[#625C60] truncate">
                   {user?.email}
                 </p>
-                <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[#566559] dark:text-[#B4C4B6]">
-                  <Building size={13} className="text-[#7D9D85]" />
-                  <span className="truncate">{user?.institution.name}</span>
+                <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-[#858087]">
+                  <Building size={13} className="text-[#8B5CF6]" />
+                  <span className="truncate font-semibold">{user?.institution.name}</span>
                 </div>
               </div>
 
@@ -258,7 +239,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
                     setIsProfileOpen(false);
                     logout();
                   }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#D32F2F] hover:bg-red-500/10 transition-colors"
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-[#8B5CF6] hover:bg-[#F5F3FF] transition-colors"
                 >
                   <LogOut size={15} />
                   <span>Sign out of Edunexa</span>

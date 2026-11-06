@@ -79,11 +79,13 @@ export const PTMPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <CalendarDays className="text-[#DA5FCE]" size={28} />
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] flex items-center justify-center text-[#8B5CF6]">
+              <CalendarDays size={22} />
+            </div>
             <span>Parent-Teacher Meeting (PTM) Portal</span>
           </h1>
-          <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+          <p className="text-xs md:text-sm text-[#625C60] mt-1 font-medium">
             Book one-on-one discussion slots, review meeting agendas, and log academic remarks
           </p>
         </div>
@@ -91,7 +93,7 @@ export const PTMPage: React.FC = () => {
         {isParent && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={14} />
             <span>Book PTM Slot</span>
@@ -100,73 +102,75 @@ export const PTMPage: React.FC = () => {
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
+        <div className="p-4 rounded-2xl bg-[#F5F3FF] border border-[#E9D5FF] text-[#171417] text-xs font-bold flex items-center gap-2.5 shadow-sm">
+          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Bookings List */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {bookings.map((booking) => (
+        {bookings.map((booking, i) => (
           <div
             key={booking.id}
-            className="p-5 rounded-3xl glass-card border border-white/70 dark:border-white/10 shadow-sm space-y-4 flex flex-col justify-between"
+            className={`p-6 rounded-2xl border border-[#E9D5FF] shadow-sm space-y-4 flex flex-col justify-between transition-all hover:border-[#8B5CF6]/50 ${
+              i % 2 === 0 ? 'bg-[#F5F3FF]' : 'bg-[#FAF5FF]'
+            }`}
           >
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#8DA390]/20 text-[#303E33] dark:text-[#D1E0D3] flex items-center gap-1">
-                  <Clock size={11} />
+                <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-lg bg-white border border-[#E9D5FF] text-[#171417] flex items-center gap-1.5">
+                  <Clock size={12} className="text-[#8B5CF6]" />
                   <span>{booking.time_slot}</span>
                 </span>
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                  className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                     booking.status === 'confirmed'
-                      ? 'bg-[#8DA390]/25 text-[#253A27]'
+                      ? 'bg-[#F3E8FF] text-[#8B5CF6] border-[#8B5CF6]/30'
                       : booking.status === 'completed'
-                      ? 'bg-blue-100 text-blue-900'
-                      : 'bg-[#E8B4B8]/30 text-[#8C3B44]'
+                      ? 'bg-white text-[#171417] border-[#E9D5FF]'
+                      : 'bg-[#FDFBFF] text-[#A78BFA] border-[#E9D5FF]'
                   }`}
                 >
                   {booking.status}
                 </span>
               </div>
 
-              <h3 className="text-base font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-2">
+              <h3 className="text-base font-extrabold text-[#171417] mt-3">
                 {booking.student_name}
               </h3>
-              <p className="text-xs text-[#DA5FCE] dark:text-[#A3B899] font-medium">
+              <p className="text-xs text-[#8B5CF6] font-bold">
                 With: {booking.teacher_name}
               </p>
 
               {booking.agenda && (
-                <div className="mt-3 p-3 rounded-xl bg-black/5 dark:bg-white/5 text-xs text-[#526354] dark:text-[#BACBBF]">
-                  <span className="font-bold block text-[10px] uppercase text-[#667768] mb-0.5">
+                <div className="mt-3 p-3.5 rounded-xl bg-white border border-[#E9D5FF] text-xs text-[#171417]">
+                  <span className="font-extrabold block text-[10px] uppercase text-[#625C60] mb-0.5">
                     Meeting Agenda:
                   </span>
-                  {booking.agenda}
+                  <p className="font-medium text-[#171417]">{booking.agenda}</p>
                 </div>
               )}
 
               {booking.teacher_notes && (
-                <div className="mt-2 p-3 rounded-xl bg-[#8DA390]/15 border border-[#8DA390]/30 text-xs text-[#2A3B2D] dark:text-[#CFE0D2]">
-                  <span className="font-bold block text-[10px] uppercase text-[#DA5FCE] mb-0.5">
+                <div className="mt-2.5 p-3.5 rounded-xl bg-[#F3E8FF] border border-[#E9D5FF] text-xs text-[#171417]">
+                  <span className="font-extrabold block text-[10px] uppercase text-[#8B5CF6] mb-0.5">
                     Teacher Follow-up Remarks:
                   </span>
-                  {booking.teacher_notes}
+                  <p className="font-medium text-[#171417]">{booking.teacher_notes}</p>
                 </div>
               )}
             </div>
 
-            <div className="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
-              <span className="text-[11px] text-[#718273]">
-                Date: {booking.booking_date}
+            <div className="pt-3 border-t border-[#E9D5FF] flex items-center justify-between">
+              <span className="text-[11px] text-[#625C60] font-medium">
+                Date: <strong className="text-[#171417]">{booking.booking_date}</strong>
               </span>
 
               {isTeacher && booking.status !== 'completed' && (
                 <button
                   onClick={() => handleUpdateStatus(booking.id, 'completed', 'Discussed board revision schedule and time management.')}
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] shadow-sm"
                 >
                   Mark Completed
                 </button>
@@ -178,26 +182,26 @@ export const PTMPage: React.FC = () => {
 
       {/* Book PTM Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md rounded-3xl glass-panel p-6 border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-black/5">
-              <h3 className="font-extrabold text-lg text-[#232F25] dark:text-[#F0F5F1]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
+          <div className="w-full max-w-md rounded-3xl bg-white p-6 border border-[#E9D5FF] shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+              <h3 className="font-extrabold text-lg text-[#171417]">
                 Book PTM Discussion Slot
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-xs text-[#667768]">
+              <button onClick={() => setIsModalOpen(false)} className="text-sm font-bold text-[#625C60] hover:text-[#171417]">
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleCreateBooking} className="space-y-3.5">
+            <form onSubmit={handleCreateBooking} className="space-y-4">
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Select Faculty / Subject Head
                 </label>
                 <select
                   value={selectedTeacherId}
                   onChange={(e) => setSelectedTeacherId(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                 >
                   {teachers.map((t) => (
                     <option key={t.profile_id} value={t.profile_id}>
@@ -209,25 +213,25 @@ export const PTMPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                  <label className="text-xs font-bold text-[#171417] block mb-1">
                     Meeting Date
                   </label>
                   <input
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                     required
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                  <label className="text-xs font-bold text-[#171417] block mb-1">
                     Time Slot
                   </label>
                   <select
                     value={timeSlot}
                     onChange={(e) => setTimeSlot(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                   >
                     <option value="09:30 AM - 09:45 AM">09:30 AM - 09:45 AM</option>
                     <option value="10:00 AM - 10:15 AM">10:00 AM - 10:15 AM</option>
@@ -239,7 +243,7 @@ export const PTMPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
+                <label className="text-xs font-bold text-[#171417] block mb-1">
                   Discussion Topics & Agenda
                 </label>
                 <textarea
@@ -247,22 +251,22 @@ export const PTMPage: React.FC = () => {
                   placeholder="e.g. Mathematics question paper analysis, science lab work..."
                   value={agenda}
                   onChange={(e) => setAgenda(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl glass-input text-xs"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
                   required
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3">
+              <div className="flex items-center justify-end gap-2.5 pt-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#625C60] hover:text-[#171417]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] shadow-sm"
                 >
                   Confirm Slot
                 </button>
