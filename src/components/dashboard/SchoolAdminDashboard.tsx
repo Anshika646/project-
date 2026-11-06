@@ -354,7 +354,7 @@ export const SchoolAdminDashboard: React.FC = () => {
         </div>
 
         {/* Quote / Institutional Leaf Card */}
-        <div className="lg:col-span-3 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#E4DBF5]/40 via-white to-[#EFF9FB] dark:from-white/5 dark:to-white/10">
+        <div className="lg:col-span-3 rounded-2xl glass-card p-5 border border-[#E2DEF0] dark:border-white/10 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-white via-[#EFF9FB]/80 to-[#E8F1F3] dark:from-white/5 dark:to-white/10">
           <div className="text-3xl text-[#DA5FCE] font-serif opacity-40">“</div>
           <div className="relative z-10">
             <p className="text-xs md:text-sm font-semibold text-[#061418] dark:text-[#EFF9FB] leading-relaxed">

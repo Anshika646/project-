@@ -8,16 +8,16 @@ export const UnauthorizedPage: React.FC = () => {
   const { role } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[#F6F5F0] dark:bg-[#151B16] bg-ambient-glow flex items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
+    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow flex items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-[#E2DEF0] dark:border-white/10 shadow-2xl space-y-4">
         <div className="w-14 h-14 rounded-2xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center mx-auto">
           <ShieldAlert size={28} />
         </div>
-        <h2 className="text-xl font-extrabold text-[#232F25] dark:text-[#F0F5F1]">
+        <h2 className="text-xl font-extrabold text-[#061418] dark:text-[#EFF9FB]">
           Access Restricted
         </h2>
-        <p className="text-xs text-[#637466] dark:text-[#95A597] leading-relaxed">
-          Your current account role (<span className="font-mono font-bold text-[#232F25] dark:text-[#E2ECE4]">{role}</span>) does not have authorization to view this module.
+        <p className="text-xs text-[#616C70] leading-relaxed">
+          Your current account role (<span className="font-mono font-bold text-[#061418] dark:text-[#EFF9FB]">{role}</span>) does not have authorization to view this module.
         </p>
         <button
           onClick={() => navigate('/dashboard')}
@@ -35,7 +35,7 @@ export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F6F5F0] dark:bg-[#151B16] bg-ambient-glow flex items-center justify-center p-6 text-center">
+    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow flex items-center justify-center p-6 text-center">
       <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
         <div className="text-4xl font-extrabold text-[#DA5FCE]">404</div>
         <h2 className="text-xl font-bold text-[#232F25] dark:text-[#F0F5F1]">
