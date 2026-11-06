@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/AuthContext';
 import { RouteGuard } from './components/layout/RouteGuard';
@@ -29,7 +29,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             {/* Public Auth Routes */}
             <Route path="/login" element={<LoginPage />} />
@@ -73,7 +73,7 @@ export default function App() {
             {/* Fallback 404 */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </QueryClientProvider>
   );

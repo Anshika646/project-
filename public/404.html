@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edunexa — Multi-Tenant Education ERP</title>
+    <script>
+      // Single Page Application routing support for GitHub Pages
+      // Converts any direct path into a hash route
+      (function () {
+        var currentPath = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+
+        // Extract repository prefix if on GitHub Pages (e.g., /project-/)
+        var pathSegments = currentPath.split('/').filter(Boolean);
+        var repoName = '';
+        var routePath = currentPath;
+
+        if (window.location.hostname.endsWith('github.io') && pathSegments.length > 0) {
+          repoName = '/' + pathSegments[0];
+          routePath = '/' + pathSegments.slice(1).join('/');
+        }
+
+        var redirectUrl = window.location.origin + repoName + '/#' + routePath + search + hash;
+        window.location.replace(redirectUrl);
+      })();
+    </script>
+  </head>
+  <body style="font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #F6F5F0; color: #2C332D;">
+    <p>Redirecting to Edunexa...</p>
+  </body>
+</html>

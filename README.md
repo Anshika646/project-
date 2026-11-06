@@ -69,8 +69,14 @@ Edunexa provides 8 pre-seeded development personas accessible instantly from the
 ## 5. Scripts & Testing
 
 ```bash
-# Run the development server
+# Run the development server (port 3000)
 npm run dev
+
+# Build for production
+npm run build
+
+# Start production Node.js server
+npm start
 
 # Run Vitest test suite (grade calculations, attendance %, timetable conflict detection, SGPA/CGPA)
 npm test
@@ -81,3 +87,20 @@ npm run test:coverage
 # Run local database seed script
 npm run seed
 ```
+
+---
+
+## 6. Deployment Guide
+
+### A. Deploying to GitHub Pages
+1. Go to your GitHub repository: `Settings` → `Pages`.
+2. Under **Build and deployment** → **Source**, select **GitHub Actions**.
+3. Push to `main` (or `master`). The pre-configured `.github/workflows/deploy.yml` workflow will automatically build and publish the applet.
+4. Your site will be live at `https://<username>.github.io/<repo-name>/`.
+   *(HashRouter and `public/404.html` ensure direct links and browser refreshes work with zero 404 errors)*.
+
+### B. Deploying on Google AI Studio
+1. The applet is already pre-configured to bind to `0.0.0.0:3000` with `allowedHosts: true`.
+2. The dev server runs seamlessly via `npm run dev`.
+3. In-memory demo profiles and institutional state are loaded automatically if no external database is attached.
+
