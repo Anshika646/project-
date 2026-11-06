@@ -1,0 +1,6 @@
+{
+  "name": "Edunexa — Multi-Tenant Education ERP",
+  "description": "Premium multi-tenant Education ERP platform for schools and colleges with role-based portals for Admins, Teachers, Students, and Parents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
