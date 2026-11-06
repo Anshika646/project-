@@ -121,16 +121,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
       }`}
     >
       {/* Brand Header */}
-      <div className="h-24 px-5 flex items-center justify-between border-b border-white/10">
+      <div className="h-24 px-5 flex items-center justify-between border-b border-[#E2DEF0] dark:border-white/10">
         <div className="flex items-center gap-3 overflow-hidden">
-          {/* Logo Lotus Leaf Emblem */}
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#A3B899] to-[#5F7161] p-2 flex items-center justify-center shadow-md shrink-0">
+          {/* Logo Emblem: Gradient from Orchid to Cyan */}
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#DA5FCE] to-[#3FB3D2] p-2 flex items-center justify-center shadow-md shrink-0">
             <svg
-              className="w-6 h-6 text-[#FDFCF7]"
+              className="w-6 h-6 text-white"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -144,10 +144,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
 
           {!isCollapsed && (
             <div className="flex flex-col truncate">
-              <span className="text-xl font-bold tracking-tight text-[#FDFCF7]">
+              <span className="text-xl font-bold tracking-tight text-[#061418] dark:text-[#EFF9FB]">
                 Edunexa
               </span>
-              <span className="text-[11px] font-medium tracking-wide text-[#A3B899]">
+              <span className="text-[11px] font-medium tracking-wide text-[#DA5FCE] dark:text-[#E099DD]">
                 Learn • Grow • Excel
               </span>
             </div>
@@ -157,14 +157,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
         {/* Collapse toggle button */}
         <button
           onClick={onToggleCollapse}
-          className="p-1.5 rounded-lg text-[#C2D8C2]/80 hover:text-white hover:bg-white/10 transition-colors hidden md:block"
+          className="p-1.5 rounded-lg text-[#616C70] hover:text-[#061418] hover:bg-[#E4DBF5]/60 transition-colors hidden md:block"
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </button>
       </div>
 
-      {/* Navigation Links */}
+      {/* Navigation Links matching the Image Template */}
       <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
@@ -174,17 +174,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
             <NavLink
               key={item.label}
               to={item.path}
-              className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
+              className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-150 ${
                 isActive
-                  ? 'bg-[#C5D3C6] text-[#1E2922] shadow-sm font-semibold'
-                  : 'text-[#DCE7DC]/85 hover:text-white hover:bg-white/10'
+                  ? 'bg-[#E4DBF5] text-[#061418] shadow-sm font-bold'
+                  : 'text-[#616C70] hover:text-[#061418] hover:bg-[#E4DBF5]/40 font-medium'
               }`}
               title={isCollapsed ? item.label : undefined}
             >
               <Icon
                 size={19}
                 className={`shrink-0 ${
-                  isActive ? 'text-[#1E2922]' : 'text-[#A3B899]'
+                  isActive ? 'text-[#DA5FCE]' : 'text-[#DA5FCE]/80'
                 }`}
               />
               {!isCollapsed && <span className="truncate">{item.label}</span>}
@@ -195,21 +195,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggleCollapse 
 
       {/* Bottom Session Box */}
       {!isCollapsed ? (
-        <div className="p-3 mx-3 mb-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-          <div className="flex items-center gap-2.5 text-xs text-[#C2D8C2]">
-            <Calendar size={15} className="text-[#A3B899] shrink-0" />
+        <div className="p-3 mx-3 mb-4 rounded-xl bg-white/80 dark:bg-white/5 border border-[#E2DEF0] dark:border-white/10 shadow-xs">
+          <div className="flex items-center gap-2.5 text-xs text-[#616C70] dark:text-[#CEE7EE]">
+            <Calendar size={15} className="text-[#DA5FCE] shrink-0" />
             <div className="flex flex-col truncate">
-              <span className="text-[10px] text-[#A3B899] uppercase tracking-wider font-semibold">
+              <span className="text-[10px] text-[#DA5FCE] uppercase tracking-wider font-semibold">
                 Academic Session
               </span>
-              <span className="font-semibold text-white truncate">
+              <span className="font-semibold text-[#061418] dark:text-white truncate">
                 {user?.institution.academic_session || '2025 – 2026'}
               </span>
             </div>
           </div>
         </div>
       ) : (
-        <div className="p-2 mb-4 flex justify-center text-[#A3B899]" title="Session 2025 - 2026">
+        <div className="p-2 mb-4 flex justify-center text-[#DA5FCE]" title="Session 2025 - 2026">
           <Calendar size={18} />
         </div>
       )}

@@ -79,7 +79,7 @@ export const HomeworkPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <FileText className="text-[#5B6E5E]" size={28} />
+            <FileText className="text-[#DA5FCE]" size={28} />
             <span>Homework & Assignments</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -90,7 +90,7 @@ export const HomeworkPage: React.FC = () => {
         {isTeacher && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={14} />
             <span>Assign Homework</span>
@@ -100,7 +100,7 @@ export const HomeworkPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -141,18 +141,18 @@ export const HomeworkPage: React.FC = () => {
                 </span>
 
                 {isTeacher ? (
-                  <span className="text-xs font-bold text-[#5B6E5E]">
+                  <span className="text-xs font-bold text-[#DA5FCE]">
                     32 Submissions
                   </span>
                 ) : isDone ? (
                   <span className="px-3 py-1 rounded-lg bg-[#8DA390]/25 text-[#253928] text-xs font-bold flex items-center gap-1">
-                    <CheckCircle2 size={13} className="text-[#5B6E5E]" />
+                    <CheckCircle2 size={13} className="text-[#DA5FCE]" />
                     <span>Submitted</span>
                   </span>
                 ) : (
                   <button
                     onClick={() => handleStudentSubmit(hw.id)}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
                   >
                     <Send size={12} />
                     <span>Submit</span>
@@ -179,7 +179,7 @@ export const HomeworkPage: React.FC = () => {
 
             <form onSubmit={handleCreateHomework} className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Subject
                 </label>
                 <select
@@ -196,7 +196,7 @@ export const HomeworkPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Assignment Title
                 </label>
                 <input
@@ -210,7 +210,7 @@ export const HomeworkPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Due Date
                 </label>
                 <input
@@ -223,7 +223,7 @@ export const HomeworkPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Instructions & Guidelines
                 </label>
                 <textarea
@@ -240,13 +240,13 @@ export const HomeworkPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Assign to Class
                 </button>

@@ -148,7 +148,7 @@ export const AttendancePage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <CheckCircle2 className="text-[#5B6E5E]" size={28} />
+            <CheckCircle2 className="text-[#DA5FCE]" size={28} />
             <span>Daily Attendance & Roll Call</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -167,7 +167,7 @@ export const AttendancePage: React.FC = () => {
               </button>
               <button
                 onClick={handleSaveAttendance}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Save size={14} />
                 <span>Save Attendance</span>
@@ -180,7 +180,7 @@ export const AttendancePage: React.FC = () => {
             className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm flex items-center gap-1.5"
             title="Export to Excel"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
             <span className="hidden sm:inline">Export Excel</span>
           </button>
         </div>
@@ -188,7 +188,7 @@ export const AttendancePage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -197,7 +197,7 @@ export const AttendancePage: React.FC = () => {
       <div className="p-4 rounded-2xl glass-card border border-white/70 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#5B6E5E]">Class:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
@@ -212,7 +212,7 @@ export const AttendancePage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#5B6E5E]">Section:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Section:</span>
             <select
               value={selectedSectionId}
               onChange={(e) => setSelectedSectionId(e.target.value)}
@@ -227,7 +227,7 @@ export const AttendancePage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#5B6E5E]">Date:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Date:</span>
             <input
               type="date"
               value={selectedDate}
@@ -242,7 +242,7 @@ export const AttendancePage: React.FC = () => {
           <span className="px-3 py-1 rounded-xl bg-[#8DA390]/20 text-[#253928]">
             Present: {presentCount} / {totalCount}
           </span>
-          <span className="px-3 py-1 rounded-xl bg-[#5B6E5E] text-white">
+          <span className="px-3 py-1 rounded-xl bg-[#DA5FCE] text-white">
             Rate: {attendancePercentage}%
           </span>
         </div>
@@ -280,7 +280,7 @@ export const AttendancePage: React.FC = () => {
                       <td className="p-3.5 font-bold text-[#232F25]">
                         {student.profile?.full_name}
                       </td>
-                      <td className="p-3.5 font-mono text-[#5B6E5E]">
+                      <td className="p-3.5 font-mono text-[#DA5FCE]">
                         {student.admission_number}
                       </td>
                       <td className="p-3.5">

@@ -221,7 +221,7 @@ export const QuizzesPage: React.FC = () => {
             }}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               activeTab === 'available'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -234,7 +234,7 @@ export const QuizzesPage: React.FC = () => {
             }}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'leaderboard'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -249,7 +249,7 @@ export const QuizzesPage: React.FC = () => {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
                 activeTab === 'create'
-                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  ? 'bg-[#DA5FCE] text-white shadow-sm'
                   : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
               }`}
             >
@@ -262,7 +262,7 @@ export const QuizzesPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -275,7 +275,7 @@ export const QuizzesPage: React.FC = () => {
           {/* Quiz Top bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/5 dark:border-white/5 pb-4">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E] dark:text-[#A3B899]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE] dark:text-[#A3B899]">
                 Live Concept Check
               </span>
               <h2 className="text-xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-0.5">
@@ -305,7 +305,7 @@ export const QuizzesPage: React.FC = () => {
           {/* Results Summary if submitted */}
           {isSubmitted && result && (
             <div className="p-6 rounded-2xl bg-[#8DA390]/15 border border-[#8DA390]/30 space-y-4 text-center animate-fade-in">
-              <Trophy size={40} className="mx-auto text-[#5B6E5E]" />
+              <Trophy size={40} className="mx-auto text-[#DA5FCE]" />
               <div>
                 <h3 className="text-2xl font-black text-[#232F25] dark:text-[#F0F5F1]">
                   Quiz Completed!
@@ -357,7 +357,7 @@ export const QuizzesPage: React.FC = () => {
                       optClass = 'bg-[#E8B4B8]/30 border-[#E8B4B8] text-[#8C3B44] dark:text-[#F4C7CB] line-through';
                     }
                   } else if (isChosen) {
-                    optClass = 'bg-[#5B6E5E] text-white border-[#5B6E5E] shadow-sm font-bold';
+                    optClass = 'bg-[#DA5FCE] text-white border-[#DA5FCE] shadow-sm font-bold';
                   }
 
                   return (
@@ -368,7 +368,7 @@ export const QuizzesPage: React.FC = () => {
                       className={`p-4 rounded-2xl border text-left text-xs sm:text-sm transition-all flex items-center justify-between ${optClass}`}
                     >
                       <span>{opt}</span>
-                      {isSubmitted && isCorrect && <CheckCircle2 size={16} className="text-[#5B6E5E]" />}
+                      {isSubmitted && isCorrect && <CheckCircle2 size={16} className="text-[#DA5FCE]" />}
                       {isSubmitted && isChosen && !isCorrect && <XCircle size={16} className="text-[#A64B56]" />}
                     </button>
                   );
@@ -378,7 +378,7 @@ export const QuizzesPage: React.FC = () => {
               {/* Explanation (Shown when submitted) */}
               {isSubmitted && questions[currentQIndex]?.explanation && (
                 <div className="p-4 rounded-2xl bg-[#8DA390]/15 border border-[#8DA390]/30 text-xs text-[#2A3B2D] dark:text-[#CFE0D2] space-y-1 animate-fade-in">
-                  <span className="font-extrabold uppercase tracking-wider block text-[10px] text-[#5B6E5E]">
+                  <span className="font-extrabold uppercase tracking-wider block text-[10px] text-[#DA5FCE]">
                     Concept Explanation:
                   </span>
                   <p className="leading-relaxed">{questions[currentQIndex].explanation}</p>
@@ -398,7 +398,7 @@ export const QuizzesPage: React.FC = () => {
                 {currentQIndex < questions.length - 1 ? (
                   <button
                     onClick={() => setCurrentQIndex((prev) => prev + 1)}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                   >
                     Next Question
                   </button>
@@ -412,7 +412,7 @@ export const QuizzesPage: React.FC = () => {
                 ) : (
                   <button
                     onClick={() => setActiveQuiz(null)}
-                    className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white"
+                    className="px-5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white"
                   >
                     Return to Library
                   </button>
@@ -434,7 +434,7 @@ export const QuizzesPage: React.FC = () => {
               onClick={() => setSelectedSubjectFilter('all')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedSubjectFilter === 'all'
-                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  ? 'bg-[#DA5FCE] text-white shadow-sm'
                   : 'text-[#566859] hover:bg-black/5'
               }`}
             >
@@ -446,7 +446,7 @@ export const QuizzesPage: React.FC = () => {
                 onClick={() => setSelectedSubjectFilter(sub.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                   selectedSubjectFilter === sub.id
-                    ? 'bg-[#5B6E5E] text-white shadow-sm'
+                    ? 'bg-[#DA5FCE] text-white shadow-sm'
                     : 'text-[#566859] hover:bg-black/5'
                 }`}
               >
@@ -483,13 +483,13 @@ export const QuizzesPage: React.FC = () => {
                   </div>
 
                   <div className="mt-5 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#5B6E5E] dark:text-[#A3B899]">
+                    <span className="text-xs font-bold text-[#DA5FCE] dark:text-[#A3B899]">
                       Total: {quiz.total_marks} Marks
                     </span>
 
                     <button
                       onClick={() => handleStartQuiz(quiz)}
-                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
                     >
                       <Play size={12} fill="currentColor" />
                       <span>Start Quiz</span>
@@ -519,7 +519,7 @@ export const QuizzesPage: React.FC = () => {
                 onClick={() => handlePeriodChange(p.id as any)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   leaderboardPeriod === p.id
-                    ? 'bg-[#5B6E5E] text-white shadow-sm'
+                    ? 'bg-[#DA5FCE] text-white shadow-sm'
                     : 'text-[#566859] hover:bg-black/5'
                 }`}
               >
@@ -617,7 +617,7 @@ export const QuizzesPage: React.FC = () => {
           <form onSubmit={handlePublishQuiz} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Quiz Title
                 </label>
                 <input
@@ -631,7 +631,7 @@ export const QuizzesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Subject
                 </label>
                 <select
@@ -648,7 +648,7 @@ export const QuizzesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Duration (Minutes)
                 </label>
                 <input
@@ -661,7 +661,7 @@ export const QuizzesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Total Marks
                 </label>
                 <input
@@ -675,7 +675,7 @@ export const QuizzesPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+              <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                 Description / Learning Target
               </label>
               <textarea
@@ -690,13 +690,13 @@ export const QuizzesPage: React.FC = () => {
             {/* Questions Builder */}
             <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#5B6E5E]">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#DA5FCE]">
                   Questions ({draftQuestions.length})
                 </span>
                 <button
                   type="button"
                   onClick={handleAddDraftQuestion}
-                  className="text-xs font-bold text-[#5B6E5E] hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-[#DA5FCE] hover:underline flex items-center gap-1"
                 >
                   <Plus size={13} />
                   <span>Add Another Question</span>
@@ -710,7 +710,7 @@ export const QuizzesPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-between font-bold">
                     <span>Q{idx + 1}. Type: {q.type.toUpperCase()}</span>
-                    <span className="text-[#5B6E5E]">1 Mark</span>
+                    <span className="text-[#DA5FCE]">1 Mark</span>
                   </div>
                   <input
                     type="text"
@@ -733,13 +733,13 @@ export const QuizzesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('available')}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] shadow-md"
+                className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] shadow-md"
               >
                 Publish Daily Quiz
               </button>

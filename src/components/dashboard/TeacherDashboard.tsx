@@ -78,7 +78,7 @@ export const TeacherDashboard: React.FC = () => {
             onClick={handleDownloadClassReport}
             className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-2"
           >
-            <FileSpreadsheet size={15} className="text-[#5B6E5E]" />
+            <FileSpreadsheet size={15} className="text-[#DA5FCE]" />
             <span>Download Progress Report</span>
           </button>
         </div>
@@ -132,12 +132,12 @@ export const TeacherDashboard: React.FC = () => {
         <div className="lg:col-span-7 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
           <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
             <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+              <Calendar size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
               <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
                 Today's Teaching Schedule
               </h3>
             </div>
-            <span className="text-xs font-mono text-[#5B6E5E] dark:text-[#A3B899]">
+            <span className="text-xs font-mono text-[#DA5FCE] dark:text-[#A3B899]">
               Monday
             </span>
           </div>
@@ -162,7 +162,7 @@ export const TeacherDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#DEE7DF] dark:bg-[#28352A] text-[#3E5241] dark:text-[#C2D8C2]">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#E4DBF5] dark:bg-[#28352A] text-[#3E5241] dark:text-[#C2D8C2]">
                   Upcoming
                 </span>
               </div>
@@ -202,7 +202,7 @@ export const TeacherDashboard: React.FC = () => {
                         className={`px-2 py-1 rounded-md text-[10px] font-semibold capitalize transition-all ${
                           stud.status === status
                             ? status === 'present'
-                              ? 'bg-[#5B6E5E] text-white shadow-sm'
+                              ? 'bg-[#DA5FCE] text-white shadow-sm'
                               : status === 'absent'
                               ? 'bg-[#E57373] text-white shadow-sm'
                               : 'bg-[#E5A855] text-white shadow-sm'
@@ -221,7 +221,7 @@ export const TeacherDashboard: React.FC = () => {
           <button
             onClick={handleSaveAttendance}
             disabled={attendanceMarked}
-            className="w-full mt-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4D5E50] disabled:opacity-50 transition-colors shadow-sm flex items-center justify-center gap-2"
+            className="w-full mt-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] disabled:opacity-50 transition-colors shadow-sm flex items-center justify-center gap-2"
           >
             <CheckCircle2 size={15} />
             <span>{attendanceMarked ? 'Attendance Saved' : 'Confirm & Save Attendance'}</span>
@@ -233,12 +233,12 @@ export const TeacherDashboard: React.FC = () => {
       <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
         <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
           <div className="flex items-center gap-2">
-            <BookOpen size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+            <BookOpen size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
             <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
               Recent Study Material & Notes
             </h3>
           </div>
-          <span className="text-xs text-[#5B6E5E] font-medium">Chapter-wise Library</span>
+          <span className="text-xs text-[#DA5FCE] font-medium">Chapter-wise Library</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -261,7 +261,7 @@ export const TeacherDashboard: React.FC = () => {
 
               <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/5 dark:border-white/5 text-[10px] text-[#78897B]">
                 <span>Published to Student Portal</span>
-                <span className="text-[#5B6E5E] font-semibold">Active</span>
+                <span className="text-[#DA5FCE] font-semibold">Active</span>
               </div>
             </div>
           ))}

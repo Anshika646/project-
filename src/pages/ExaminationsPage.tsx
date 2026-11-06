@@ -184,7 +184,7 @@ export const ExaminationsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <FileSpreadsheet className="text-[#5B6E5E]" size={28} />
+            <FileSpreadsheet className="text-[#DA5FCE]" size={28} />
             <span>Examinations & Marks Ledger</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -196,7 +196,7 @@ export const ExaminationsPage: React.FC = () => {
           {canEdit && activeTab === 'ledger' && (
             <button
               onClick={handleSaveLedger}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
             >
               <Save size={14} />
               <span>Save Marks</span>
@@ -207,7 +207,7 @@ export const ExaminationsPage: React.FC = () => {
             onClick={handleExportMarks}
             className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
             <span>Export Ledger (PDF)</span>
           </button>
         </div>
@@ -215,7 +215,7 @@ export const ExaminationsPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -226,7 +226,7 @@ export const ExaminationsPage: React.FC = () => {
           onClick={() => setActiveTab('ledger')}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'ledger'
-              ? 'bg-[#5B6E5E] text-white shadow-sm'
+              ? 'bg-[#DA5FCE] text-white shadow-sm'
               : 'text-[#566859] hover:bg-black/5'
           }`}
         >
@@ -236,7 +236,7 @@ export const ExaminationsPage: React.FC = () => {
           onClick={() => setActiveTab('schedule')}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
             activeTab === 'schedule'
-              ? 'bg-[#5B6E5E] text-white shadow-sm'
+              ? 'bg-[#DA5FCE] text-white shadow-sm'
               : 'text-[#566859] hover:bg-black/5'
           }`}
         >
@@ -251,7 +251,7 @@ export const ExaminationsPage: React.FC = () => {
           <div className="p-4 rounded-2xl glass-card border border-white/70 flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-[#5B6E5E]">Class:</span>
+                <span className="text-xs font-bold text-[#DA5FCE]">Class:</span>
                 <select
                   value={selectedClassId}
                   onChange={(e) => setSelectedClassId(e.target.value)}
@@ -266,7 +266,7 @@ export const ExaminationsPage: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-[#5B6E5E]">Subject:</span>
+                <span className="text-xs font-bold text-[#DA5FCE]">Subject:</span>
                 <select
                   value={selectedSubjectId}
                   onChange={(e) => setSelectedSubjectId(e.target.value)}
@@ -342,7 +342,7 @@ export const ExaminationsPage: React.FC = () => {
                         )}
                       </td>
                       <td className="p-3.5 font-bold text-[#232F25]">{row.total}</td>
-                      <td className="p-3.5 font-bold text-[#5B6E5E]">{row.pct}%</td>
+                      <td className="p-3.5 font-bold text-[#DA5FCE]">{row.pct}%</td>
                       <td className="p-3.5">
                         <span className="font-mono font-bold px-2 py-0.5 rounded bg-[#8DA390]/25 text-[#253A27]">
                           {row.grade}

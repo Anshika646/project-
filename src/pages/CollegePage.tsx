@@ -77,7 +77,7 @@ export const CollegePage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <Building2 className="text-[#5B6E5E]" size={28} />
+            <Building2 className="text-[#DA5FCE]" size={28} />
             <span>Higher Education & College Operations</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -91,7 +91,7 @@ export const CollegePage: React.FC = () => {
             onClick={() => setActiveTab('transcripts')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'transcripts'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -102,7 +102,7 @@ export const CollegePage: React.FC = () => {
             onClick={() => setActiveTab('departments')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               activeTab === 'departments'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -112,7 +112,7 @@ export const CollegePage: React.FC = () => {
             onClick={() => setActiveTab('courses')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               activeTab === 'courses'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -122,7 +122,7 @@ export const CollegePage: React.FC = () => {
             onClick={() => setActiveTab('placements')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'placements'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -134,7 +134,7 @@ export const CollegePage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -147,11 +147,11 @@ export const CollegePage: React.FC = () => {
           {/* Student Profile Card */}
           <div className="p-6 rounded-3xl glass-panel border border-white/70 dark:border-white/10 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#5B6E5E]/15 text-[#5B6E5E] flex items-center justify-center font-black text-xl">
+              <div className="w-14 h-14 rounded-2xl bg-[#DA5FCE]/15 text-[#DA5FCE] flex items-center justify-center font-black text-xl">
                 RM
               </div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E] dark:text-[#A3B899]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE] dark:text-[#A3B899]">
                   Student Academic Dossier
                 </span>
                 <h3 className="text-xl font-extrabold text-[#232F25] dark:text-[#F0F5F1]">
@@ -174,7 +174,7 @@ export const CollegePage: React.FC = () => {
               </div>
               <button
                 onClick={handleDownloadTranscript}
-                className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Download size={14} />
                 <span>Export Transcript (PDF)</span>
@@ -188,7 +188,7 @@ export const CollegePage: React.FC = () => {
               <h4 className="font-extrabold text-sm text-[#232F25] dark:text-[#F0F5F1]">
                 Semester-Wise SGPA & Credit Audit
               </h4>
-              <span className="text-xs font-semibold text-[#5B6E5E] dark:text-[#A3B899]">
+              <span className="text-xs font-semibold text-[#DA5FCE] dark:text-[#A3B899]">
                 Active Backlogs: 0
               </span>
             </div>
@@ -215,7 +215,7 @@ export const CollegePage: React.FC = () => {
                       <td className="p-3.5 text-[#556757] dark:text-[#B6C8B8]">{s.term_session}</td>
                       <td className="p-3.5 font-mono">{s.credits_earned} / 26</td>
                       <td className="p-3.5 font-bold text-[#232F25] dark:text-white">{s.sgpa.toFixed(2)}</td>
-                      <td className="p-3.5 font-bold text-[#5B6E5E] dark:text-[#A3B899]">{s.cgpa.toFixed(2)}</td>
+                      <td className="p-3.5 font-bold text-[#DA5FCE] dark:text-[#A3B899]">{s.cgpa.toFixed(2)}</td>
                       <td className="p-3.5 text-[#667768]">{s.backlogs === 0 ? 'None' : s.backlogs}</td>
                       <td className="p-3.5 pr-6">
                         <span
@@ -251,7 +251,7 @@ export const CollegePage: React.FC = () => {
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#8DA390]/20 text-[#303E33]">
                   {dept.code}
                 </span>
-                <span className="text-xs font-semibold text-[#5B6E5E]">
+                <span className="text-xs font-semibold text-[#DA5FCE]">
                   {dept.faculty_count} Faculty Members
                 </span>
               </div>
@@ -290,7 +290,7 @@ export const CollegePage: React.FC = () => {
               </div>
 
               <div className="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs">
-                <span className="text-[#5B6E5E] font-bold">{crs.total_semesters} Semesters</span>
+                <span className="text-[#DA5FCE] font-bold">{crs.total_semesters} Semesters</span>
                 <span className="font-mono text-[#667768]">{crs.total_credits} Credits</span>
               </div>
             </div>
@@ -337,7 +337,7 @@ export const CollegePage: React.FC = () => {
                   <tr key={idx} className="hover:bg-white/40 transition-colors">
                     <td className="p-3.5 pl-6 font-bold text-[#232F25]">{plc.company}</td>
                     <td className="p-3.5 text-[#556757]">{plc.role}</td>
-                    <td className="p-3.5 font-bold text-[#5B6E5E]">{plc.package}</td>
+                    <td className="p-3.5 font-bold text-[#DA5FCE]">{plc.package}</td>
                     <td className="p-3.5 font-mono">{plc.students_placed} Offers</td>
                     <td className="p-3.5 pr-6 text-[#718273]">{plc.visit_date}</td>
                   </tr>

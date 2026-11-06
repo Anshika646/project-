@@ -61,18 +61,18 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F5F0] dark:bg-[#151B16] bg-ambient-glow flex items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow flex items-center justify-center p-4 md:p-8">
       <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left Side: Brand Story & Institutional Credibility */}
         <div className="lg:col-span-5 space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#A3B899] to-[#5F7161] p-2.5 flex items-center justify-center shadow-md">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#DA5FCE] to-[#3FB3D2] p-2.5 flex items-center justify-center shadow-md">
               <svg
-                className="w-7 h-7 text-[#FDFCF7]"
+                className="w-7 h-7 text-white"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -84,31 +84,31 @@ export const LoginPage: React.FC = () => {
               </svg>
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold text-[#243126] dark:text-[#F3F7F4] tracking-tight">
+              <h1 className="text-3xl font-extrabold text-[#061418] dark:text-[#EFF9FB] tracking-tight">
                 Edunexa
               </h1>
-              <p className="text-xs font-semibold tracking-wider text-[#7D9D85] dark:text-[#A3B899]">
+              <p className="text-xs font-semibold tracking-wider text-[#DA5FCE] dark:text-[#E099DD]">
                 Learn • Grow • Excel
               </p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <h2 className="text-xl md:text-2xl font-bold text-[#232F25] dark:text-[#E2ECE4] leading-snug">
+            <h2 className="text-xl md:text-2xl font-bold text-[#061418] dark:text-[#EFF9FB] leading-snug">
               Institutional ERP for Schools & Colleges
             </h2>
-            <p className="text-xs md:text-sm text-[#5D6E60] dark:text-[#9FB1A2] leading-relaxed">
+            <p className="text-xs md:text-sm text-[#616C70] leading-relaxed">
               Unified workspace for administrators, faculty, students, and parents. Real-time attendance, examination marks, chapter notes, and academic analytics with complete tenant isolation.
             </p>
           </div>
 
           {/* Development Demo Quick Launcher */}
-          <div className="p-4 rounded-2xl glass-card border border-white/80 dark:border-white/10 space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#2B392D] dark:text-[#E2ECE4]">
-              <Sparkles size={16} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+          <div className="p-4 rounded-2xl glass-card border border-[#E2DEF0] dark:border-white/10 space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#061418] dark:text-[#EFF9FB]">
+              <Sparkles size={16} className="text-[#DA5FCE]" />
               <span>Instant Development Demo Accounts</span>
             </div>
-            <p className="text-[11px] text-[#637466] dark:text-[#95A597]">
+            <p className="text-[11px] text-[#616C70]">
               Click any role to log in immediately with realistic institutional data:
             </p>
             <div className="grid grid-cols-2 gap-2 pt-1">
@@ -118,12 +118,12 @@ export const LoginPage: React.FC = () => {
                   type="button"
                   onClick={() => handleDemoClick(account.id)}
                   disabled={isLoading}
-                  className="px-2.5 py-2 rounded-xl text-left bg-white/70 dark:bg-white/5 border border-white/80 dark:border-white/10 hover:bg-[#8DA390]/20 hover:border-[#8DA390]/40 transition-all text-xs group"
+                  className="px-2.5 py-2 rounded-xl text-left bg-white dark:bg-white/5 border border-[#E2DEF0] dark:border-white/10 hover:bg-[#E4DBF5] hover:border-[#DA5FCE]/40 transition-all text-xs group shadow-xs"
                 >
-                  <p className="font-bold text-[#232F25] dark:text-[#F0F5F1] group-hover:text-[#18231A] truncate">
+                  <p className="font-bold text-[#061418] dark:text-[#EFF9FB] group-hover:text-[#DA5FCE] truncate">
                     {account.roleLabel}
                   </p>
-                  <p className="text-[10px] text-[#637466] dark:text-[#95A597] truncate">
+                  <p className="text-[10px] text-[#616C70] truncate">
                     {account.name}
                   </p>
                 </button>
@@ -181,7 +181,7 @@ export const LoginPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setForgotModalOpen(true)}
-                    className="text-xs font-semibold text-[#5B6E5E] dark:text-[#A3B899] hover:underline"
+                    className="text-xs font-semibold text-[#DA5FCE] dark:text-[#A3B899] hover:underline"
                   >
                     Forgot password?
                   </button>
@@ -215,11 +215,11 @@ export const LoginPage: React.FC = () => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded text-[#5B6E5E] border-gray-300 focus:ring-[#5B6E5E]"
+                  className="w-4 h-4 rounded text-[#DA5FCE] border-gray-300 focus:ring-[#DA5FCE]"
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 text-xs font-medium text-[#4D5E50] dark:text-[#C5D3C6]"
+                  className="ml-2 text-xs font-medium text-[#C64EBA] dark:text-[#C5D3C6]"
                 >
                   Remember this device for 30 days
                 </label>
@@ -229,7 +229,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 rounded-xl text-xs font-bold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D] active:scale-[0.99] disabled:opacity-50 transition-all shadow-md shadow-[#5B6E5E]/20"
+                className="w-full py-3 rounded-xl text-xs font-bold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] active:scale-[0.99] disabled:opacity-50 transition-all shadow-md shadow-[#DA5FCE]/20"
               >
                 {isLoading ? 'Verifying Credentials...' : 'Sign in to Edunexa'}
               </button>
@@ -253,7 +253,7 @@ export const LoginPage: React.FC = () => {
             </h3>
             {resetSent ? (
               <div className="p-3 rounded-xl bg-[#8DA390]/20 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+                <CheckCircle2 size={16} className="text-[#DA5FCE]" />
                 <span>Password reset link dispatched to your registered address.</span>
               </div>
             ) : (
@@ -270,7 +270,7 @@ export const LoginPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setResetSent(true)}
-                  className="w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E]"
+                  className="w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE]"
                 >
                   Send Reset Link
                 </button>

@@ -185,7 +185,7 @@ export const StudentsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <Users className="text-[#5B6E5E]" size={28} />
+            <Users className="text-[#DA5FCE]" size={28} />
             <span>Student Management & Enrollment</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -200,7 +200,7 @@ export const StudentsPage: React.FC = () => {
                 onClick={() => setIsBulkModalOpen(true)}
                 className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm flex items-center gap-1.5"
               >
-                <Upload size={14} className="text-[#5B6E5E]" />
+                <Upload size={14} className="text-[#DA5FCE]" />
                 <span>Bulk Import (Excel/CSV)</span>
               </button>
 
@@ -209,7 +209,7 @@ export const StudentsPage: React.FC = () => {
                   setAdmissionNumber(`SIS/2025/${Math.floor(1000 + Math.random() * 9000)}`);
                   setIsAddModalOpen(true);
                 }}
-                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Plus size={14} />
                 <span>Add Student</span>
@@ -222,14 +222,14 @@ export const StudentsPage: React.FC = () => {
             className="p-2 rounded-xl glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm"
             title="Export Roster"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
           </button>
         </div>
       </div>
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -249,7 +249,7 @@ export const StudentsPage: React.FC = () => {
 
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold text-[#5B6E5E]">Class:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
@@ -295,7 +295,7 @@ export const StudentsPage: React.FC = () => {
               ) : (
                 studentData.students.map((student) => (
                   <tr key={student.id} className="hover:bg-white/40 transition-colors">
-                    <td className="p-3.5 pl-6 font-mono font-bold text-[#5B6E5E]">
+                    <td className="p-3.5 pl-6 font-mono font-bold text-[#DA5FCE]">
                       {student.admission_number}
                     </td>
                     <td className="p-3.5 font-mono font-bold">{student.roll_number || '1'}</td>
@@ -361,7 +361,7 @@ export const StudentsPage: React.FC = () => {
             <form onSubmit={handleCreateStudent} className="space-y-3.5">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Full Student Name
                   </label>
                   <input
@@ -374,7 +374,7 @@ export const StudentsPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Admission Number
                   </label>
                   <input
@@ -389,7 +389,7 @@ export const StudentsPage: React.FC = () => {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Roll #</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Roll #</label>
                   <input
                     type="text"
                     placeholder="25"
@@ -400,7 +400,7 @@ export const StudentsPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Class</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Class</label>
                   <select
                     value={formClassId}
                     onChange={(e) => setFormClassId(e.target.value)}
@@ -414,7 +414,7 @@ export const StudentsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Section</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Section</label>
                   <select
                     value={formSectionId}
                     onChange={(e) => setFormSectionId(e.target.value)}
@@ -430,7 +430,7 @@ export const StudentsPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Gender</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Gender</label>
                   <select
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
@@ -442,7 +442,7 @@ export const StudentsPage: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Emergency Phone</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Emergency Phone</label>
                   <input
                     type="text"
                     value={emergencyContact}
@@ -453,7 +453,7 @@ export const StudentsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Parent / Guardian Name</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Parent / Guardian Name</label>
                 <input
                   type="text"
                   value={parentName}
@@ -463,7 +463,7 @@ export const StudentsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Residential Address</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Residential Address</label>
                 <input
                   type="text"
                   value={address}
@@ -476,13 +476,13 @@ export const StudentsPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Confirm Enrollment
                 </button>
@@ -506,7 +506,7 @@ export const StudentsPage: React.FC = () => {
             </div>
 
             <div className="p-6 border-2 border-dashed border-[#8DA390]/50 rounded-2xl text-center space-y-2">
-              <FileSpreadsheet size={28} className="mx-auto text-[#5B6E5E]" />
+              <FileSpreadsheet size={28} className="mx-auto text-[#DA5FCE]" />
               <p className="text-xs font-bold text-[#232F25]">
                 Upload CSV or Excel Spreadsheet (.xlsx, .csv)
               </p>
@@ -519,14 +519,14 @@ export const StudentsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsBulkModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleBulkImport}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
               >
                 Parse & Import 3 Sample Records
               </button>
@@ -553,7 +553,7 @@ export const StudentsPage: React.FC = () => {
             </p>
 
             <div>
-              <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Target Class</label>
+              <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Target Class</label>
               <select
                 value={promoteClassId}
                 onChange={(e) => setPromoteClassId(e.target.value)}
@@ -571,14 +571,14 @@ export const StudentsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsPromoteModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handlePromoteStudent}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
               >
                 Confirm Promotion
               </button>

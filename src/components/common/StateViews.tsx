@@ -3,7 +3,7 @@ import React from 'react';
 export const LoadingState: React.FC<{ message?: string }> = ({ message = 'Loading institutional records...' }) => (
   <div className="p-8 flex flex-col items-center justify-center gap-3 glass-card rounded-2xl">
     <div className="w-8 h-8 border-2 border-[#8DA390] border-t-transparent rounded-full animate-spin" />
-    <span className="text-xs font-medium text-[#5B6E5E] dark:text-[#A3B899]">{message}</span>
+    <span className="text-xs font-medium text-[#DA5FCE] dark:text-[#A3B899]">{message}</span>
   </div>
 );
 
@@ -14,7 +14,7 @@ export const EmptyState: React.FC<{
   onAction?: () => void;
 }> = ({ title, description, actionLabel, onAction }) => (
   <div className="p-10 flex flex-col items-center justify-center text-center glass-card rounded-2xl border border-dashed border-[#8DA390]/30">
-    <div className="w-12 h-12 rounded-2xl bg-[#8DA390]/15 flex items-center justify-center text-[#5B6E5E] dark:text-[#A3B899] mb-3">
+    <div className="w-12 h-12 rounded-2xl bg-[#8DA390]/15 flex items-center justify-center text-[#DA5FCE] dark:text-[#A3B899] mb-3">
       📁
     </div>
     <h3 className="text-sm font-bold text-[#232D25] dark:text-[#E2ECE4]">{title}</h3>
@@ -22,7 +22,7 @@ export const EmptyState: React.FC<{
     {actionLabel && onAction && (
       <button
         onClick={onAction}
-        className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D] transition-colors shadow-sm"
+        className="mt-4 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] transition-colors shadow-sm"
       >
         {actionLabel}
       </button>

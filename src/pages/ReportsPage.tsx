@@ -120,7 +120,7 @@ export const ReportsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <Award className="text-[#5B6E5E]" size={28} />
+            <Award className="text-[#DA5FCE]" size={28} />
             <span>Official Report Cards & Progress Reports</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -133,13 +133,13 @@ export const ReportsPage: React.FC = () => {
             onClick={handleGenerateClassReportCards}
             className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
             <span>Class Ledger (PDF)</span>
           </button>
 
           <button
             onClick={handleGenerateIndividualReportCard}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
           >
             <Printer size={14} />
             <span>Print Student Report Card</span>
@@ -149,7 +149,7 @@ export const ReportsPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -158,7 +158,7 @@ export const ReportsPage: React.FC = () => {
       <div className="p-4 rounded-2xl glass-card border border-white/70 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#5B6E5E]">Select Class:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Select Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
@@ -173,7 +173,7 @@ export const ReportsPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#5B6E5E]">Select Student:</span>
+            <span className="text-xs font-bold text-[#DA5FCE]">Select Student:</span>
             <select
               value={selectedStudentId}
               onChange={(e) => setSelectedStudentId(e.target.value)}
@@ -198,7 +198,7 @@ export const ReportsPage: React.FC = () => {
         <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-white/80 dark:border-white/10 shadow-xl space-y-6 max-w-4xl mx-auto">
           {/* Institutional Header */}
           <div className="text-center border-b border-black/10 dark:border-white/10 pb-6 space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#5B6E5E] dark:text-[#A3B899]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#DA5FCE] dark:text-[#A3B899]">
               Annual Evaluation Dossier • Academic Session 2025–2026
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
@@ -246,35 +246,35 @@ export const ReportsPage: React.FC = () => {
                   <td className="p-3 pl-4 font-bold">Mathematics (Standard)</td>
                   <td className="p-3 text-center font-mono">74</td>
                   <td className="p-3 text-center font-mono">20</td>
-                  <td className="p-3 text-center font-bold text-[#5B6E5E]">94</td>
+                  <td className="p-3 text-center font-bold text-[#DA5FCE]">94</td>
                   <td className="p-3 text-center pr-4 font-bold">A1</td>
                 </tr>
                 <tr>
                   <td className="p-3 pl-4 font-bold">Science (Physics, Chem, Bio)</td>
                   <td className="p-3 text-center font-mono">70</td>
                   <td className="p-3 text-center font-mono">18</td>
-                  <td className="p-3 text-center font-bold text-[#5B6E5E]">88</td>
+                  <td className="p-3 text-center font-bold text-[#DA5FCE]">88</td>
                   <td className="p-3 text-center pr-4 font-bold">A2</td>
                 </tr>
                 <tr>
                   <td className="p-3 pl-4 font-bold">English Language & Literature</td>
                   <td className="p-3 text-center font-mono">76</td>
                   <td className="p-3 text-center font-mono">15</td>
-                  <td className="p-3 text-center font-bold text-[#5B6E5E]">91</td>
+                  <td className="p-3 text-center font-bold text-[#DA5FCE]">91</td>
                   <td className="p-3 text-center pr-4 font-bold">A1</td>
                 </tr>
                 <tr>
                   <td className="p-3 pl-4 font-bold">Social Sciences</td>
                   <td className="p-3 text-center font-mono">72</td>
                   <td className="p-3 text-center font-mono">16</td>
-                  <td className="p-3 text-center font-bold text-[#5B6E5E]">88</td>
+                  <td className="p-3 text-center font-bold text-[#DA5FCE]">88</td>
                   <td className="p-3 text-center pr-4 font-bold">A2</td>
                 </tr>
                 <tr>
                   <td className="p-3 pl-4 font-bold">Information Technology / CS</td>
                   <td className="p-3 text-center font-mono">48</td>
                   <td className="p-3 text-center font-mono">47</td>
-                  <td className="p-3 text-center font-bold text-[#5B6E5E]">95</td>
+                  <td className="p-3 text-center font-bold text-[#DA5FCE]">95</td>
                   <td className="p-3 text-center pr-4 font-bold">A1</td>
                 </tr>
                 <tr className="bg-black/[0.02] font-black text-xs">
@@ -282,7 +282,7 @@ export const ReportsPage: React.FC = () => {
                   <td className="p-3 text-center font-mono">340</td>
                   <td className="p-3 text-center font-mono">116</td>
                   <td className="p-3 text-center font-extrabold text-[#232F25]">456 / 500</td>
-                  <td className="p-3 text-center pr-4 text-[#5B6E5E]">A1 (91.2%)</td>
+                  <td className="p-3 text-center pr-4 text-[#DA5FCE]">A1 (91.2%)</td>
                 </tr>
               </tbody>
             </table>
@@ -291,7 +291,7 @@ export const ReportsPage: React.FC = () => {
           {/* Academic Indicators & Remarks */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-2xl glass-card border border-white/70 space-y-2 text-xs">
-              <span className="font-bold text-[10px] uppercase text-[#5B6E5E] block">
+              <span className="font-bold text-[10px] uppercase text-[#DA5FCE] block">
                 Attendance & Conduct
               </span>
               <p className="text-[#303E33] leading-relaxed">
@@ -300,7 +300,7 @@ export const ReportsPage: React.FC = () => {
             </div>
 
             <div className="p-4 rounded-2xl glass-card border border-white/70 space-y-2 text-xs">
-              <span className="font-bold text-[10px] uppercase text-[#5B6E5E] block">
+              <span className="font-bold text-[10px] uppercase text-[#DA5FCE] block">
                 Class Teacher Remarks
               </span>
               <p className="text-[#303E33] leading-relaxed">

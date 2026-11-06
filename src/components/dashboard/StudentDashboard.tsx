@@ -94,7 +94,7 @@ export const StudentDashboard: React.FC = () => {
           onClick={handleDownloadReportCard}
           className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-2 self-start md:self-auto"
         >
-          <Award size={15} className="text-[#5B6E5E]" />
+          <Award size={15} className="text-[#DA5FCE]" />
           <span>Download Term Report Card (PDF)</span>
         </button>
       </div>
@@ -147,7 +147,7 @@ export const StudentDashboard: React.FC = () => {
                   Daily Math Quiz Sprint
                 </h3>
               </div>
-              <span className="text-xs font-mono font-bold text-[#5B6E5E]">
+              <span className="text-xs font-mono font-bold text-[#DA5FCE]">
                 {quizFinished ? 'Completed' : `Question ${activeQuizQuestion + 1} of ${sampleQuiz.length}`}
               </span>
             </div>
@@ -165,19 +165,19 @@ export const StudentDashboard: React.FC = () => {
                       onClick={() => handleSelectOption(opt)}
                       className={`w-full text-left p-3 rounded-xl text-xs font-medium border transition-all flex items-center justify-between ${
                         selectedOption === opt
-                          ? 'bg-[#8DA390]/25 border-[#5B6E5E] text-[#1E2922] dark:text-white font-semibold'
+                          ? 'bg-[#8DA390]/25 border-[#DA5FCE] text-[#1E2922] dark:text-white font-semibold'
                           : 'bg-white/60 dark:bg-white/5 border-white/60 dark:border-white/10 text-[#435345] dark:text-[#C5D3C6] hover:bg-white/90'
                       }`}
                     >
                       <span>{opt}</span>
-                      {selectedOption === opt && <CheckCircle size={15} className="text-[#5B6E5E]" />}
+                      {selectedOption === opt && <CheckCircle size={15} className="text-[#DA5FCE]" />}
                     </button>
                   ))}
                 </div>
               </div>
             ) : (
               <div className="mt-4 p-6 rounded-xl bg-[#8DA390]/15 text-center flex flex-col items-center justify-center">
-                <div className="w-12 h-12 rounded-full bg-[#5B6E5E] text-white flex items-center justify-center mb-2">
+                <div className="w-12 h-12 rounded-full bg-[#DA5FCE] text-white flex items-center justify-center mb-2">
                   <Award size={24} />
                 </div>
                 <h4 className="text-base font-bold text-[#232F25] dark:text-[#F0F5F1]">
@@ -194,7 +194,7 @@ export const StudentDashboard: React.FC = () => {
             <button
               onClick={handleNextQuizQuestion}
               disabled={!selectedOption}
-              className="mt-4 w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4D5E50] disabled:opacity-40 transition-colors shadow-sm"
+              className="mt-4 w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] disabled:opacity-40 transition-colors shadow-sm"
             >
               {activeQuizQuestion + 1 === sampleQuiz.length ? 'Submit Quiz' : 'Next Question'}
             </button>
@@ -205,12 +205,12 @@ export const StudentDashboard: React.FC = () => {
         <div className="lg:col-span-5 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
           <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
             <div className="flex items-center gap-2">
-              <Calendar size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+              <Calendar size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
               <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
                 Today's Classes
               </h3>
             </div>
-            <span className="text-xs font-semibold text-[#5B6E5E]">Class 10-A</span>
+            <span className="text-xs font-semibold text-[#DA5FCE]">Class 10-A</span>
           </div>
 
           <div className="space-y-2.5 mt-3">
@@ -240,7 +240,7 @@ export const StudentDashboard: React.FC = () => {
       <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
         <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
           <div className="flex items-center gap-2">
-            <BookOpen size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+            <BookOpen size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
             <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
               Study Material & Notes for Class 10
             </h3>
@@ -282,7 +282,7 @@ export const StudentDashboard: React.FC = () => {
                       `${note.title.replace(/\s+/g, '_')}.pdf`
                     );
                   }}
-                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors flex items-center gap-1 shadow-sm"
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors flex items-center gap-1 shadow-sm"
                 >
                   <Download size={13} />
                   <span>Download PDF</span>

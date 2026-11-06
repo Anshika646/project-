@@ -128,7 +128,7 @@ export const ParentDashboard: React.FC = () => {
 
         {/* Multi-Child Selector */}
         <div className="flex items-center gap-2 p-1.5 rounded-2xl glass-card border border-white/70 dark:border-white/10 self-start md:self-auto">
-          <User size={16} className="text-[#5B6E5E] ml-2" />
+          <User size={16} className="text-[#DA5FCE] ml-2" />
           <span className="text-xs font-semibold text-[#2D3C30] dark:text-[#E2ECE4]">
             Select Child:
           </span>
@@ -137,7 +137,7 @@ export const ParentDashboard: React.FC = () => {
               onClick={() => setActiveChildId('aarav')}
               className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
                 activeChildId === 'aarav'
-                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  ? 'bg-[#DA5FCE] text-white shadow-sm'
                   : 'text-[#4F6052] hover:bg-black/5'
               }`}
             >
@@ -147,7 +147,7 @@ export const ParentDashboard: React.FC = () => {
               onClick={() => setActiveChildId('ananya')}
               className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
                 activeChildId === 'ananya'
-                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  ? 'bg-[#DA5FCE] text-white shadow-sm'
                   : 'text-[#4F6052] hover:bg-black/5'
               }`}
             >
@@ -159,7 +159,7 @@ export const ParentDashboard: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -207,7 +207,7 @@ export const ParentDashboard: React.FC = () => {
           <div className="rounded-3xl glass-panel p-6 border border-white/70 dark:border-white/10 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-3">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE]">
                   Academic Evaluation
                 </span>
                 <h3 className="text-lg font-extrabold text-[#232F25] dark:text-[#F0F5F1]">
@@ -217,7 +217,7 @@ export const ParentDashboard: React.FC = () => {
 
               <button
                 onClick={handleDownloadChildReport}
-                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Download size={13} />
                 <span>Download Report Card</span>
@@ -253,7 +253,7 @@ export const ParentDashboard: React.FC = () => {
 
             {/* Teacher Remarks Box */}
             <div className="p-4 rounded-2xl bg-[#8DA390]/15 border border-[#8DA390]/30 space-y-1">
-              <span className="text-[10px] uppercase font-bold text-[#5B6E5E] block">
+              <span className="text-[10px] uppercase font-bold text-[#DA5FCE] block">
                 Class Teacher Official Feedback:
               </span>
               <p className="text-xs text-[#232F25] dark:text-[#E2ECE4] leading-relaxed">
@@ -294,7 +294,7 @@ export const ParentDashboard: React.FC = () => {
           {/* PTM Booking Card */}
           <div className="rounded-3xl glass-panel p-6 border border-white/70 shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <CalendarDays className="text-[#5B6E5E]" size={20} />
+              <CalendarDays className="text-[#DA5FCE]" size={20} />
               <h3 className="font-extrabold text-base text-[#232F25] dark:text-[#F0F5F1]">
                 Parent-Teacher Meeting (PTM)
               </h3>
@@ -305,7 +305,7 @@ export const ParentDashboard: React.FC = () => {
 
             {ptmBooked ? (
               <div className="p-4 rounded-2xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-xs font-semibold text-[#213123] space-y-1">
-                <div className="flex items-center gap-1.5 text-[#5B6E5E]">
+                <div className="flex items-center gap-1.5 text-[#DA5FCE]">
                   <CheckCircle2 size={16} />
                   <strong>Confirmed Appointment</strong>
                 </div>
@@ -316,7 +316,7 @@ export const ParentDashboard: React.FC = () => {
             ) : (
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Available Time Slot:
                   </label>
                   <select
@@ -333,7 +333,7 @@ export const ParentDashboard: React.FC = () => {
 
                 <button
                   onClick={handleBookPTM}
-                  className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm"
+                  className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm"
                 >
                   Reserve Meeting Slot
                 </button>

@@ -75,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
       .toUpperCase() || 'EX';
 
   return (
-    <header className="sticky top-0 z-20 h-20 px-6 flex items-center justify-between border-b border-white/40 dark:border-white/5 bg-[#FDFCF7]/80 dark:bg-[#1A211B]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-20 h-20 px-6 flex items-center justify-between border-b border-[#E2DEF0] dark:border-white/10 bg-[#EFF9FB]/85 dark:bg-[#091216]/85 backdrop-blur-xl">
       {/* Search Input Bar */}
       <div className="flex-1 max-w-md">
         <div
@@ -84,15 +84,15 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         >
           <Search
             size={18}
-            className="absolute left-3.5 text-[#6E7E72] dark:text-[#9BAA9E] group-hover:text-[#465448] transition-colors"
+            className="absolute left-3.5 text-[#616C70] group-hover:text-[#DA5FCE] transition-colors"
           />
           <input
             type="text"
             readOnly
             placeholder="Search anything... (students, reports, notices)"
-            className="w-full pl-10 pr-12 py-2 text-xs md:text-sm font-medium rounded-full glass-input text-[#28382C] dark:text-[#E2ECE4] placeholder-[#7F8F82] cursor-pointer"
+            className="w-full pl-10 pr-12 py-2 text-xs md:text-sm font-medium rounded-full glass-input text-[#061418] dark:text-[#EFF9FB] placeholder-[#616C70] cursor-pointer"
           />
-          <div className="absolute right-3 px-1.5 py-0.5 rounded bg-white/70 dark:bg-white/10 border border-[#8DA390]/30 text-[10px] font-mono text-[#5B6E5E] dark:text-[#A3B899]">
+          <div className="absolute right-3 px-1.5 py-0.5 rounded bg-white/90 dark:bg-white/10 border border-[#E2DEF0] text-[10px] font-mono text-[#DA5FCE] font-bold">
             ⌘ K
           </div>
         </div>
@@ -104,15 +104,15 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         <div className="relative" ref={roleRef}>
           <button
             onClick={() => setIsRoleSwitcherOpen(!isRoleSwitcherOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#8DA390]/20 hover:bg-[#8DA390]/30 text-[#304133] dark:text-[#D1E0D3] border border-[#8DA390]/30 transition-colors"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#E4DBF5] hover:bg-[#E4DBF5]/80 text-[#061418] border border-[#DA5FCE]/30 transition-colors shadow-xs"
             title="Switch demo account role"
           >
-            <UserCheck size={14} className="text-[#5B6E5E] dark:text-[#A3B899]" />
-            <span className="hidden sm:inline">Role:</span>
-            <span className="font-bold text-[#203023] dark:text-[#F0F5F1]">
+            <UserCheck size={14} className="text-[#DA5FCE]" />
+            <span className="hidden sm:inline text-[#616C70]">Role:</span>
+            <span className="font-bold text-[#061418]">
               {currentRoleLabel}
             </span>
-            <ChevronDown size={13} className="opacity-70" />
+            <ChevronDown size={13} className="text-[#DA5FCE]" />
           </button>
 
           {isRoleSwitcherOpen && (
@@ -179,11 +179,11 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
         <div className="relative" ref={notifRef}>
           <button
             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-            className="p-2 rounded-full glass-card hover:bg-white/90 text-[#4A594D] dark:text-[#C2D8C2] relative transition-colors"
+            className="p-2 rounded-full glass-card hover:bg-white/90 text-[#616C70] hover:text-[#061418] relative transition-colors"
             aria-label="Notifications"
           >
             <Bell size={18} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E57373] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#DA5FCE] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
               3
             </span>
           </button>
@@ -223,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
             onClick={() => setIsProfileOpen(!isProfileOpen)}
             className="flex items-center gap-2.5 p-1.5 pl-2.5 rounded-full glass-card hover:bg-white/90 transition-all border border-white/80 dark:border-white/10"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4D5E50] to-[#252E27] text-white flex items-center justify-center text-xs font-bold shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C64EBA] to-[#252E27] text-white flex items-center justify-center text-xs font-bold shadow-sm">
               {userInitials}
             </div>
             <div className="hidden lg:flex flex-col text-left pr-1">

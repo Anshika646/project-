@@ -82,12 +82,12 @@ export const SuperAdminDashboard: React.FC = () => {
       <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
         <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
           <div className="flex items-center gap-2">
-            <Building2 size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
+            <Building2 size={18} className="text-[#DA5FCE] dark:text-[#A3B899]" />
             <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
               Provisioned Institutions & Workspaces
             </h3>
           </div>
-          <span className="text-xs font-semibold text-[#5B6E5E]">3 Active Workspaces</span>
+          <span className="text-xs font-semibold text-[#DA5FCE]">3 Active Workspaces</span>
         </div>
 
         <div className="overflow-x-auto mt-4">
@@ -109,7 +109,7 @@ export const SuperAdminDashboard: React.FC = () => {
                   <td className="py-3 font-bold text-[#232F25] dark:text-[#F0F5F1]">
                     {inst.name}
                   </td>
-                  <td className="py-3 font-mono text-[#5B6E5E] dark:text-[#A3B899]">
+                  <td className="py-3 font-mono text-[#DA5FCE] dark:text-[#A3B899]">
                     {inst.code}
                   </td>
                   <td className="py-3 capitalize">
@@ -126,7 +126,7 @@ export const SuperAdminDashboard: React.FC = () => {
                   </td>
                   <td className="py-3">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#8DA390]/20 text-[#2B3B2E] dark:text-[#E2ECE4]">
-                      <CheckCircle2 size={11} className="text-[#5B6E5E]" />
+                      <CheckCircle2 size={11} className="text-[#DA5FCE]" />
                       <span>{inst.status}</span>
                     </span>
                   </td>

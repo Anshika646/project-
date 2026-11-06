@@ -21,7 +21,7 @@ export const UnauthorizedPage: React.FC = () => {
         </p>
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D] transition-colors shadow-sm inline-flex items-center gap-2"
+          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] transition-colors shadow-sm inline-flex items-center gap-2"
         >
           <ArrowLeft size={15} />
           <span>Return to Dashboard</span>
@@ -37,7 +37,7 @@ export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F6F5F0] dark:bg-[#151B16] bg-ambient-glow flex items-center justify-center p-6 text-center">
       <div className="max-w-md w-full p-8 rounded-3xl glass-panel border border-white/80 dark:border-white/10 shadow-2xl space-y-4">
-        <div className="text-4xl font-extrabold text-[#5B6E5E]">404</div>
+        <div className="text-4xl font-extrabold text-[#DA5FCE]">404</div>
         <h2 className="text-xl font-bold text-[#232F25] dark:text-[#F0F5F1]">
           Page Not Found
         </h2>
@@ -46,7 +46,7 @@ export const NotFoundPage: React.FC = () => {
         </p>
         <button
           onClick={() => navigate('/dashboard')}
-          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D] transition-colors shadow-sm"
+          className="mt-4 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA] transition-colors shadow-sm"
         >
           Back to Safety
         </button>

@@ -17,7 +17,7 @@ export const RouteGuard: React.FC<RouteGuardProps> = ({ children, allowedRoles }
       <div className="min-h-screen flex items-center justify-center bg-[#F6F5F0] dark:bg-[#151B16]">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-3 border-[#8DA390] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-semibold text-[#5B6E5E] dark:text-[#A3B899]">
+          <p className="text-sm font-semibold text-[#DA5FCE] dark:text-[#A3B899]">
             Loading Edunexa...
           </p>
         </div>

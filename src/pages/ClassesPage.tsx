@@ -90,7 +90,7 @@ export const ClassesPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <School className="text-[#5B6E5E]" size={28} />
+            <School className="text-[#DA5FCE]" size={28} />
             <span>Academic Classes & Sections</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -100,7 +100,7 @@ export const ClassesPage: React.FC = () => {
 
         {/* Board Switcher */}
         <div className="flex items-center gap-2 self-start md:self-auto glass-card px-3 py-1.5 rounded-xl border border-white/70 dark:border-white/10">
-          <span className="text-[11px] font-semibold text-[#5B6E5E] dark:text-[#A3B899] uppercase tracking-wider">
+          <span className="text-[11px] font-semibold text-[#DA5FCE] dark:text-[#A3B899] uppercase tracking-wider">
             Board:
           </span>
           {(['CBSE', 'ICSE', 'State Board', 'Custom'] as CurriculumBoard[]).map((b) => (
@@ -109,7 +109,7 @@ export const ClassesPage: React.FC = () => {
               onClick={() => handleBoardChange(b)}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                 board === b
-                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  ? 'bg-[#DA5FCE] text-white shadow-sm'
                   : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
@@ -121,7 +121,7 @@ export const ClassesPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -134,7 +134,7 @@ export const ClassesPage: React.FC = () => {
             onClick={() => setSelectedStage(stg)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               selectedStage === stg
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#566859] hover:bg-black/5 dark:hover:bg-white/5'
             }`}
           >
@@ -151,7 +151,7 @@ export const ClassesPage: React.FC = () => {
             <span className="text-xs font-bold uppercase tracking-wider text-[#667768] dark:text-[#9FB1A2]">
               Classes ({filteredClasses.length})
             </span>
-            <span className="text-[11px] font-medium text-[#5B6E5E] dark:text-[#A3B899]">
+            <span className="text-[11px] font-medium text-[#DA5FCE] dark:text-[#A3B899]">
               Active Session: 2025–2026
             </span>
           </div>
@@ -166,7 +166,7 @@ export const ClassesPage: React.FC = () => {
                   onClick={() => setSelectedClassId(cls.id)}
                   className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-center justify-between group ${
                     isSelected
-                      ? 'bg-[#5B6E5E] text-white border-[#5B6E5E] shadow-md shadow-[#5B6E5E]/20'
+                      ? 'bg-[#DA5FCE] text-white border-[#DA5FCE] shadow-md shadow-[#DA5FCE]/20'
                       : 'glass-card border-white/70 dark:border-white/10 hover:border-[#8DA390]/50 text-[#252D26] dark:text-[#EAEFEA]'
                   }`}
                 >
@@ -214,7 +214,7 @@ export const ClassesPage: React.FC = () => {
           <div className="glass-panel p-5 rounded-3xl border border-white/70 dark:border-white/10 shadow-sm">
             <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-4">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E] dark:text-[#A3B899]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE] dark:text-[#A3B899]">
                   Class Overview & Allocations
                 </span>
                 <h3 className="text-xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-0.5">
@@ -227,7 +227,7 @@ export const ClassesPage: React.FC = () => {
                   setNewSectionName(String.fromCharCode(65 + activeSections.length));
                   setIsSectionModalOpen(true);
                 }}
-                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Plus size={14} />
                 <span>Add Section</span>
@@ -245,7 +245,7 @@ export const ClassesPage: React.FC = () => {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-xl bg-[#5B6E5E]/10 text-[#5B6E5E] font-black text-lg flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-[#DA5FCE]/10 text-[#DA5FCE] font-black text-lg flex items-center justify-center">
                           {sec.name}
                         </div>
                         <div>
@@ -268,7 +268,7 @@ export const ClassesPage: React.FC = () => {
                         Class Teacher:
                       </span>
                       <div className="flex items-center gap-2">
-                        <Users size={14} className="text-[#5B6E5E]" />
+                        <Users size={14} className="text-[#DA5FCE]" />
                         <span className="text-xs font-bold text-[#303E33] dark:text-[#D1E0D3]">
                           {classTeacher?.profile?.full_name || 'Not yet assigned'}
                         </span>
@@ -320,7 +320,7 @@ export const ClassesPage: React.FC = () => {
 
             <form onSubmit={handleAddSection} className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Section Name (e.g. A, B, C, D, E)
                 </label>
                 <input
@@ -334,7 +334,7 @@ export const ClassesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Assigned Classroom / Room Number
                 </label>
                 <input
@@ -347,7 +347,7 @@ export const ClassesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Assign Class Teacher
                 </label>
                 <select
@@ -368,13 +368,13 @@ export const ClassesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsSectionModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E] hover:bg-black/5"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE] hover:bg-black/5"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] shadow-sm"
                 >
                   Save Section
                 </button>

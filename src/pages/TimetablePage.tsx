@@ -85,7 +85,7 @@ export const TimetablePage: React.FC = () => {
             onClick={handleExportPDF}
             className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
             <span>Download Timetable (PDF)</span>
           </button>
         </div>
@@ -105,7 +105,7 @@ export const TimetablePage: React.FC = () => {
             onClick={() => setSelectedDay(day)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
               selectedDay === day
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'glass-card text-[#4F6052] dark:text-[#C5D3C6] hover:bg-white/90'
             }`}
           >
@@ -134,14 +134,14 @@ export const TimetablePage: React.FC = () => {
               <h3 className="text-base font-bold text-[#232F25] dark:text-[#F0F5F1] mt-3">
                 {slot.period_number === 1 ? 'Mathematics' : slot.period_number === 2 ? 'Science' : slot.period_number === 3 ? 'English' : 'Computer Science'}
               </h3>
-              <p className="text-xs text-[#5B6E5E] dark:text-[#A3B899] font-medium mt-0.5">
+              <p className="text-xs text-[#DA5FCE] dark:text-[#A3B899] font-medium mt-0.5">
                 {slot.period_number === 1 ? 'Ms. Priya Verma' : slot.period_number === 2 ? 'Dr. Suresh Rao' : slot.period_number === 3 ? 'Mrs. Anita Das' : 'Mr. Alok Nath'}
               </p>
             </div>
 
             <div className="mt-5 pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-[#637466] dark:text-[#95A597]">
               <span>Room: {slot.room_number || 'Room 301'}</span>
-              <span className="font-semibold text-[#5B6E5E]">Active</span>
+              <span className="font-semibold text-[#DA5FCE]">Active</span>
             </div>
           </div>
         ))}

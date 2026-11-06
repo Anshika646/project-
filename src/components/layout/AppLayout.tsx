@@ -7,7 +7,7 @@ export const AppLayout: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F6F5F0] dark:bg-[#151B16] bg-ambient-glow text-[#252D26] dark:text-[#E2ECE4] flex">
+    <div className="min-h-screen bg-[#EFF9FB] dark:bg-[#070E12] bg-ambient-glow text-[#061418] dark:text-[#EFF9FB] flex">
       {/* Sidebar Shell */}
       <Sidebar
         isCollapsed={isCollapsed}

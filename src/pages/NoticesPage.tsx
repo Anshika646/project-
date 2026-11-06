@@ -51,7 +51,7 @@ export const NoticesPage: React.FC = () => {
         {canPublish && (
           <button
             onClick={() => setModalOpen(true)}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={15} />
             <span>Publish New Notice</span>
@@ -148,7 +148,7 @@ export const NoticesPage: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D]"
+                className="flex-1 py-2 rounded-xl text-xs font-semibold text-white bg-[#DA5FCE] hover:bg-[#C64EBA]"
               >
                 Publish Notice
               </button>

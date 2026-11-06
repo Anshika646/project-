@@ -80,7 +80,7 @@ export const PTMPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <CalendarDays className="text-[#5B6E5E]" size={28} />
+            <CalendarDays className="text-[#DA5FCE]" size={28} />
             <span>Parent-Teacher Meeting (PTM) Portal</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -91,7 +91,7 @@ export const PTMPage: React.FC = () => {
         {isParent && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+            className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
           >
             <Plus size={14} />
             <span>Book PTM Slot</span>
@@ -101,7 +101,7 @@ export const PTMPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -135,7 +135,7 @@ export const PTMPage: React.FC = () => {
               <h3 className="text-base font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-2">
                 {booking.student_name}
               </h3>
-              <p className="text-xs text-[#5B6E5E] dark:text-[#A3B899] font-medium">
+              <p className="text-xs text-[#DA5FCE] dark:text-[#A3B899] font-medium">
                 With: {booking.teacher_name}
               </p>
 
@@ -150,7 +150,7 @@ export const PTMPage: React.FC = () => {
 
               {booking.teacher_notes && (
                 <div className="mt-2 p-3 rounded-xl bg-[#8DA390]/15 border border-[#8DA390]/30 text-xs text-[#2A3B2D] dark:text-[#CFE0D2]">
-                  <span className="font-bold block text-[10px] uppercase text-[#5B6E5E] mb-0.5">
+                  <span className="font-bold block text-[10px] uppercase text-[#DA5FCE] mb-0.5">
                     Teacher Follow-up Remarks:
                   </span>
                   {booking.teacher_notes}
@@ -166,7 +166,7 @@ export const PTMPage: React.FC = () => {
               {isTeacher && booking.status !== 'completed' && (
                 <button
                   onClick={() => handleUpdateStatus(booking.id, 'completed', 'Discussed board revision schedule and time management.')}
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Mark Completed
                 </button>
@@ -191,7 +191,7 @@ export const PTMPage: React.FC = () => {
 
             <form onSubmit={handleCreateBooking} className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Select Faculty / Subject Head
                 </label>
                 <select
@@ -209,7 +209,7 @@ export const PTMPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Meeting Date
                   </label>
                   <input
@@ -221,7 +221,7 @@ export const PTMPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Time Slot
                   </label>
                   <select
@@ -239,7 +239,7 @@ export const PTMPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Discussion Topics & Agenda
                 </label>
                 <textarea
@@ -256,13 +256,13 @@ export const PTMPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Confirm Slot
                 </button>

@@ -90,7 +90,7 @@ export const TeachersPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <GraduationCap className="text-[#5B6E5E]" size={28} />
+            <GraduationCap className="text-[#DA5FCE]" size={28} />
             <span>Faculty & Teacher Management</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -105,7 +105,7 @@ export const TeachersPage: React.FC = () => {
                 setEmployeeCode(`EMP-T-${Math.floor(100 + Math.random() * 900)}`);
                 setIsAddModalOpen(true);
               }}
-              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
             >
               <Plus size={14} />
               <span>Add Faculty Member</span>
@@ -135,7 +135,7 @@ export const TeachersPage: React.FC = () => {
             }}
             className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} className="text-[#5B6E5E]" />
+            <Download size={14} className="text-[#DA5FCE]" />
             <span>Export Directory (PDF)</span>
           </button>
         </div>
@@ -143,7 +143,7 @@ export const TeachersPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -173,14 +173,14 @@ export const TeachersPage: React.FC = () => {
             >
               <div>
                 <div className="flex items-start justify-between">
-                  <div className="w-11 h-11 rounded-2xl bg-[#5B6E5E]/15 text-[#5B6E5E] font-black text-sm flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-2xl bg-[#DA5FCE]/15 text-[#DA5FCE] font-black text-sm flex items-center justify-center">
                     {name
                       .split(' ')
                       .map((n) => n[0])
                       .slice(-2)
                       .join('')}
                   </div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[#5B6E5E]">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[#DA5FCE]">
                     {teacher.employee_code}
                   </span>
                 </div>
@@ -189,7 +189,7 @@ export const TeachersPage: React.FC = () => {
                   <h3 className="text-base font-extrabold text-[#232F25] dark:text-[#F0F5F1]">
                     {name}
                   </h3>
-                  <p className="text-xs font-bold text-[#5B6E5E] dark:text-[#A3B899] mt-0.5">
+                  <p className="text-xs font-bold text-[#DA5FCE] dark:text-[#A3B899] mt-0.5">
                     {teacher.designation}
                   </p>
                   <p className="text-[11px] text-[#718273] mt-1">
@@ -242,7 +242,7 @@ export const TeachersPage: React.FC = () => {
 
             <form onSubmit={handleCreateTeacher} className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Full Name
                 </label>
                 <input
@@ -257,7 +257,7 @@ export const TeachersPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Employee Code
                   </label>
                   <input
@@ -269,7 +269,7 @@ export const TeachersPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                     Designation
                   </label>
                   <input
@@ -284,7 +284,7 @@ export const TeachersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Academic Qualification
                 </label>
                 <input
@@ -297,7 +297,7 @@ export const TeachersPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">
                   Subject Specialization
                 </label>
                 <input
@@ -313,13 +313,13 @@ export const TeachersPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Save Faculty
                 </button>

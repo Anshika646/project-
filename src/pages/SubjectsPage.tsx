@@ -118,7 +118,7 @@ export const SubjectsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <BookOpen className="text-[#5B6E5E]" size={28} />
+            <BookOpen className="text-[#DA5FCE]" size={28} />
             <span>Curriculum Subjects & Chapter Syllabus</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -128,7 +128,7 @@ export const SubjectsPage: React.FC = () => {
 
         <button
           onClick={() => setIsAddSubjectOpen(true)}
-          className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
+          className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5 self-start md:self-auto"
         >
           <Plus size={14} />
           <span>Add New Subject</span>
@@ -137,7 +137,7 @@ export const SubjectsPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -150,7 +150,7 @@ export const SubjectsPage: React.FC = () => {
             onClick={() => setActiveDepartment(dept)}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeDepartment === dept
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#566859] hover:bg-black/5 dark:hover:bg-white/5'
             }`}
           >
@@ -180,7 +180,7 @@ export const SubjectsPage: React.FC = () => {
                   onClick={() => setSelectedSubjectId(sub.id)}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? 'bg-[#5B6E5E] text-white border-[#5B6E5E] shadow-md shadow-[#5B6E5E]/20'
+                      ? 'bg-[#DA5FCE] text-white border-[#DA5FCE] shadow-md shadow-[#DA5FCE]/20'
                       : 'glass-card border-white/70 dark:border-white/10 hover:border-[#8DA390]/40 text-[#252D26] dark:text-[#EAEFEA]'
                   }`}
                 >
@@ -228,7 +228,7 @@ export const SubjectsPage: React.FC = () => {
           <div className="glass-panel p-5 rounded-3xl border border-white/70 dark:border-white/10 shadow-sm">
             <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-4">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E] dark:text-[#A3B899]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE] dark:text-[#A3B899]">
                   Chapter-Wise Syllabus Breakdown
                 </span>
                 <h3 className="text-xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] mt-0.5">
@@ -244,7 +244,7 @@ export const SubjectsPage: React.FC = () => {
                   setNewChNumber(String(subjectChapters.length + 1));
                   setIsAddChapterOpen(true);
                 }}
-                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA] transition-colors shadow-sm flex items-center gap-1.5"
               >
                 <Plus size={14} />
                 <span>Add Chapter</span>
@@ -265,7 +265,7 @@ export const SubjectsPage: React.FC = () => {
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
-                        <span className="w-7 h-7 rounded-lg bg-[#5B6E5E]/10 text-[#5B6E5E] font-bold text-xs flex items-center justify-center">
+                        <span className="w-7 h-7 rounded-lg bg-[#DA5FCE]/10 text-[#DA5FCE] font-bold text-xs flex items-center justify-center">
                           {ch.chapter_number}
                         </span>
                         <h4 className="font-extrabold text-sm text-[#232F25] dark:text-[#F0F5F1]">
@@ -273,7 +273,7 @@ export const SubjectsPage: React.FC = () => {
                         </h4>
                       </div>
 
-                      <div className="flex items-center gap-1 text-[11px] font-semibold text-[#5B6E5E] dark:text-[#A3B899]">
+                      <div className="flex items-center gap-1 text-[11px] font-semibold text-[#DA5FCE] dark:text-[#A3B899]">
                         <Clock size={12} />
                         <span>{ch.total_periods || 8} Periods</span>
                       </div>
@@ -307,7 +307,7 @@ export const SubjectsPage: React.FC = () => {
 
             <form onSubmit={handleCreateSubject} className="space-y-3.5">
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Subject Name</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Subject Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Environmental Biotechnology"
@@ -320,7 +320,7 @@ export const SubjectsPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Subject Code</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Subject Code</label>
                   <input
                     type="text"
                     placeholder="e.g. BIO-12"
@@ -331,7 +331,7 @@ export const SubjectsPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Credits</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Credits</label>
                   <input
                     type="number"
                     step="0.5"
@@ -344,7 +344,7 @@ export const SubjectsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Academic Department</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Academic Department</label>
                 <select
                   value={newSubDept}
                   onChange={(e) => setNewSubDept(e.target.value)}
@@ -368,9 +368,9 @@ export const SubjectsPage: React.FC = () => {
                   id="electiveCheck"
                   checked={newSubElective}
                   onChange={(e) => setNewSubElective(e.target.checked)}
-                  className="rounded text-[#5B6E5E] focus:ring-[#5B6E5E]"
+                  className="rounded text-[#DA5FCE] focus:ring-[#DA5FCE]"
                 />
-                <label htmlFor="electiveCheck" className="text-xs font-semibold text-[#4A5B4D]">
+                <label htmlFor="electiveCheck" className="text-xs font-semibold text-[#C64EBA]">
                   Elective / Optional Subject
                 </label>
               </div>
@@ -379,13 +379,13 @@ export const SubjectsPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddSubjectOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Save Subject
                 </button>
@@ -411,7 +411,7 @@ export const SubjectsPage: React.FC = () => {
             <form onSubmit={handleCreateChapter} className="space-y-3.5">
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Ch. Number</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Ch. Number</label>
                   <input
                     type="number"
                     value={newChNumber}
@@ -421,7 +421,7 @@ export const SubjectsPage: React.FC = () => {
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Total Teaching Periods</label>
+                  <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Total Teaching Periods</label>
                   <input
                     type="number"
                     value={newChPeriods}
@@ -433,7 +433,7 @@ export const SubjectsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Chapter Title</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Chapter Title</label>
                 <input
                   type="text"
                   placeholder="e.g. Differential Equations & Modelling"
@@ -445,7 +445,7 @@ export const SubjectsPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">Syllabus Outline & Key Topics</label>
+                <label className="text-xs font-semibold text-[#C64EBA] block mb-1">Syllabus Outline & Key Topics</label>
                 <textarea
                   rows={3}
                   placeholder="Summary of formulas, experimental setups, and board questions..."
@@ -459,13 +459,13 @@ export const SubjectsPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddChapterOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#5B6E5E]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[#DA5FCE]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                 >
                   Save Chapter
                 </button>

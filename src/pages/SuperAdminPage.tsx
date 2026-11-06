@@ -54,7 +54,7 @@ export const SuperAdminPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
-            <ShieldCheck className="text-[#5B6E5E]" size={28} />
+            <ShieldCheck className="text-[#DA5FCE]" size={28} />
             <span>Super Admin & Multi-Tenant SaaS Control</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
@@ -68,7 +68,7 @@ export const SuperAdminPage: React.FC = () => {
             onClick={() => setActiveTab('institutions')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'institutions'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -79,7 +79,7 @@ export const SuperAdminPage: React.FC = () => {
             onClick={() => setActiveTab('subscriptions')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'subscriptions'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -90,7 +90,7 @@ export const SuperAdminPage: React.FC = () => {
             onClick={() => setActiveTab('analytics')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
               activeTab === 'analytics'
-                ? 'bg-[#5B6E5E] text-white shadow-sm'
+                ? 'bg-[#DA5FCE] text-white shadow-sm'
                 : 'text-[#4F6052] dark:text-[#BACBBF] hover:bg-black/5'
             }`}
           >
@@ -102,7 +102,7 @@ export const SuperAdminPage: React.FC = () => {
 
       {toastMessage && (
         <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
-          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <CheckCircle2 size={16} className="text-[#DA5FCE]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -127,7 +127,7 @@ export const SuperAdminPage: React.FC = () => {
             </div>
             <div className="p-4 rounded-2xl glass-card border border-white/70">
               <span className="text-[10px] uppercase font-bold text-[#8DA390]">Platform Uptime</span>
-              <h3 className="text-xl font-black text-[#5B6E5E] mt-0.5">99.98%</h3>
+              <h3 className="text-xl font-black text-[#DA5FCE] mt-0.5">99.98%</h3>
             </div>
           </div>
 
@@ -159,11 +159,11 @@ export const SuperAdminPage: React.FC = () => {
                       <td className="p-3.5 pl-6 font-bold text-[#232F25] dark:text-[#F0F5F1]">
                         {inst.name}
                       </td>
-                      <td className="p-3.5 font-mono text-[#5B6E5E]">{inst.code}</td>
+                      <td className="p-3.5 font-mono text-[#DA5FCE]">{inst.code}</td>
                       <td className="p-3.5 uppercase text-[10px] font-bold text-[#718273]">{inst.type}</td>
                       <td className="p-3.5 text-[#556757]">{inst.city}, {inst.state}</td>
                       <td className="p-3.5 font-mono">{inst.students_count} / {inst.teachers_count}</td>
-                      <td className="p-3.5 font-bold text-[#5B6E5E]">{inst.plan}</td>
+                      <td className="p-3.5 font-bold text-[#DA5FCE]">{inst.plan}</td>
                       <td className="p-3.5">
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
@@ -181,7 +181,7 @@ export const SuperAdminPage: React.FC = () => {
                         {inst.status === 'pending_approval' ? (
                           <button
                             onClick={() => handleApprove(inst.id, inst.name)}
-                            className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]"
+                            className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]"
                           >
                             Approve
                           </button>
@@ -214,11 +214,11 @@ export const SuperAdminPage: React.FC = () => {
               className="p-6 rounded-3xl glass-card border border-white/70 shadow-sm flex flex-col justify-between space-y-4"
             >
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#DA5FCE]">
                   Tier {idx + 1}
                 </span>
                 <h3 className="text-xl font-extrabold text-[#232F25] mt-1">{p.name}</h3>
-                <span className="text-2xl font-black text-[#5B6E5E] block mt-2">{p.price}</span>
+                <span className="text-2xl font-black text-[#DA5FCE] block mt-2">{p.price}</span>
                 <p className="text-xs text-[#718273] mt-1">
                   Supports up to {p.max_students} students and {p.max_teachers} teachers.
                 </p>
@@ -227,14 +227,14 @@ export const SuperAdminPage: React.FC = () => {
                   <span className="text-[10px] uppercase font-bold text-[#8DA390] block">Included Features:</span>
                   {p.features.map((f: string, fIdx: number) => (
                     <div key={fIdx} className="flex items-center gap-2 text-xs text-[#303E33]">
-                      <CheckCircle2 size={13} className="text-[#5B6E5E]" />
+                      <CheckCircle2 size={13} className="text-[#DA5FCE]" />
                       <span>{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <button className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D]">
+              <button className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#DA5FCE] text-white hover:bg-[#C64EBA]">
                 Configure Plan Entitlements
               </button>
             </div>
@@ -251,7 +251,7 @@ export const SuperAdminPage: React.FC = () => {
             <div className="p-5 rounded-3xl glass-card border border-white/70">
               <span className="text-[10px] uppercase font-bold text-[#8DA390]">Monthly Recurring Revenue</span>
               <h3 className="text-2xl font-black text-[#232F25] mt-1">₹1,70,000 / mo</h3>
-              <span className="text-xs text-[#5B6E5E] font-semibold">+18.5% growth this quarter</span>
+              <span className="text-xs text-[#DA5FCE] font-semibold">+18.5% growth this quarter</span>
             </div>
             <div className="p-5 rounded-3xl glass-card border border-white/70">
               <span className="text-[10px] uppercase font-bold text-[#8DA390]">Daily Active Users (DAU)</span>
