@@ -8,12 +8,19 @@ import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { StudentsPage } from './pages/StudentsPage';
 import { TeachersPage } from './pages/TeachersPage';
+import { ClassesPage } from './pages/ClassesPage';
+import { SubjectsPage } from './pages/SubjectsPage';
 import { AttendancePage } from './pages/AttendancePage';
 import { ExaminationsPage } from './pages/ExaminationsPage';
 import { TimetablePage } from './pages/TimetablePage';
 import { NotesPage } from './pages/NotesPage';
+import { QuizzesPage } from './pages/QuizzesPage';
+import { HomeworkPage } from './pages/HomeworkPage';
+import { PTMPage } from './pages/PTMPage';
 import { NoticesPage } from './pages/NoticesPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { CollegePage } from './pages/CollegePage';
+import { SuperAdminPage } from './pages/SuperAdminPage';
 import { UnauthorizedPage, NotFoundPage } from './pages/ErrorPages';
 
 const queryClient = new QueryClient({
@@ -48,26 +55,28 @@ export default function App() {
               <Route path="dashboard" element={<DashboardPage />} />
               <Route path="students" element={<StudentsPage />} />
               <Route path="teachers" element={<TeachersPage />} />
+              <Route path="classes" element={<ClassesPage />} />
+              <Route path="subjects" element={<SubjectsPage />} />
               <Route path="attendance" element={<AttendancePage />} />
               <Route path="examinations" element={<ExaminationsPage />} />
               <Route path="timetable" element={<TimetablePage />} />
               <Route path="notes" element={<NotesPage />} />
+              <Route path="quizzes" element={<QuizzesPage />} />
+              <Route path="homework" element={<HomeworkPage />} />
+              <Route path="ptm" element={<PTMPage />} />
               <Route path="notices" element={<NoticesPage />} />
               <Route path="reports" element={<ReportsPage />} />
 
-              {/* Convenience aliases for college / role specific routes */}
-              <Route path="departments" element={<ReportsPage />} />
-              <Route path="courses" element={<TimetablePage />} />
-              <Route path="classes" element={<StudentsPage />} />
-              <Route path="subjects" element={<NotesPage />} />
-              <Route path="homework" element={<NotesPage />} />
-              <Route path="quizzes" element={<DashboardPage />} />
-              <Route path="ptm" element={<DashboardPage />} />
-              <Route path="institutions" element={<ReportsPage />} />
-              <Route path="subscriptions" element={<ReportsPage />} />
-              <Route path="analytics" element={<ReportsPage />} />
-              <Route path="tickets" element={<NoticesPage />} />
-              <Route path="settings" element={<ReportsPage />} />
+              {/* Dedicated College & University Routes */}
+              <Route path="departments" element={<CollegePage />} />
+              <Route path="courses" element={<CollegePage />} />
+
+              {/* Dedicated Super Admin SaaS Management Routes */}
+              <Route path="institutions" element={<SuperAdminPage />} />
+              <Route path="subscriptions" element={<SuperAdminPage />} />
+              <Route path="analytics" element={<SuperAdminPage />} />
+              <Route path="tickets" element={<SuperAdminPage />} />
+              <Route path="settings" element={<SuperAdminPage />} />
             </Route>
 
             {/* Fallback 404 */}

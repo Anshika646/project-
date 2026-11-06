@@ -1,6 +1,6 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { Student } from '../types/database.types';
-import { DEMO_STUDENT } from './mockData';
+import { Student, Profile } from '../types/database.types';
+import { DEMO_STUDENTS, DEMO_CLASSES, DEMO_SECTIONS } from './mockData';
 
 const STUDENTS_STORAGE_KEY = 'edunexa_students_db';
 
@@ -8,15 +8,19 @@ function getStoredStudents(): Student[] {
   const data = localStorage.getItem(STUDENTS_STORAGE_KEY);
   if (data) {
     try {
-      return JSON.parse(data);
+      const parsed: Student[] = JSON.parse(data);
+      // Re-link class and section pointers if needed
+      return parsed.map((s) => ({
+        ...s,
+        class: s.class || DEMO_CLASSES.find((c) => c.id === s.class_id),
+        section: s.section || DEMO_SECTIONS.find((sec) => sec.id === s.section_id),
+      }));
     } catch (e) {
       console.error(e);
     }
   }
-  // Initialize with initial student
-  const initial = [DEMO_STUDENT];
-  localStorage.setItem(STUDENTS_STORAGE_KEY, JSON.stringify(initial));
-  return initial;
+  localStorage.setItem(STUDENTS_STORAGE_KEY, JSON.stringify(DEMO_STUDENTS));
+  return DEMO_STUDENTS;
 }
 
 function saveStoredStudents(students: Student[]) {
@@ -74,8 +78,8 @@ export const studentService = {
       };
     }
 
-    // Local reactive storage
-    let list = getStoredStudents().filter((s) => s.institution_id === query.institutionId);
+    // Local persistent storage
+    let list = getStoredStudents().filter((s) => s.institution_id === query.institutionId || s.institution_id === DEMO_STUDENTS[0].institution_id);
 
     if (!query.includeDeleted) {
       list = list.filter((s) => !s.is_deleted);
@@ -91,7 +95,8 @@ export const studentService = {
       list = list.filter(
         (s) =>
           s.admission_number.toLowerCase().includes(q) ||
-          (s.roll_number && s.roll_number.includes(q))
+          (s.roll_number && s.roll_number.toLowerCase().includes(q)) ||
+          (s.profile && s.profile.full_name.toLowerCase().includes(q))
       );
     }
 
@@ -118,6 +123,141 @@ export const studentService = {
       return data as Student;
     }
     return getStoredStudents().find((s) => s.id === id) || null;
+  },
+
+  async addStudent(studentData: {
+    fullName: string;
+    admissionNumber: string;
+    rollNumber: string;
+    classId: string;
+    sectionId: string;
+    gender: string;
+    dateOfBirth?: string;
+    bloodGroup?: string;
+    emergencyContact?: string;
+    address?: string;
+    institutionId: string;
+  }): Promise<Student> {
+    const studentId = `stud-${Date.now()}`;
+    const profileId = `user-stud-${Date.now()}`;
+
+    const profileRecord: Profile = {
+      id: profileId,
+      institution_id: studentData.institutionId,
+      role: 'student',
+      full_name: studentData.fullName,
+      email: `${studentData.fullName.toLowerCase().replace(/\s+/g, '.')}@springfield.edunexa.edu`,
+      is_active: true,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    const newStudent: Student = {
+      id: studentId,
+      institution_id: studentData.institutionId,
+      profile_id: profileId,
+      admission_number: studentData.admissionNumber,
+      roll_number: studentData.rollNumber,
+      class_id: studentData.classId,
+      section_id: studentData.sectionId,
+      date_of_birth: studentData.dateOfBirth || '2010-01-01',
+      gender: studentData.gender,
+      blood_group: studentData.bloodGroup || 'O+',
+      emergency_contact: studentData.emergencyContact || '+91 98000 00000',
+      address: studentData.address || 'Address provided on admission form',
+      admission_date: new Date().toISOString().split('T')[0],
+      is_deleted: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      profile: profileRecord,
+      class: DEMO_CLASSES.find((c) => c.id === studentData.classId),
+      section: DEMO_SECTIONS.find((s) => s.id === studentData.sectionId),
+    };
+
+    if (isSupabaseConfigured) {
+      await supabase.from('profiles').insert(profileRecord);
+      const { data, error } = await supabase.from('students').insert({
+        id: newStudent.id,
+        institution_id: newStudent.institution_id,
+        profile_id: newStudent.profile_id,
+        admission_number: newStudent.admission_number,
+        roll_number: newStudent.roll_number,
+        class_id: newStudent.class_id,
+        section_id: newStudent.section_id,
+        gender: newStudent.gender,
+        blood_group: newStudent.blood_group,
+        emergency_contact: newStudent.emergency_contact,
+        address: newStudent.address,
+        is_deleted: false,
+      }).select().single();
+      if (error) throw new Error(error.message);
+      return data as Student;
+    }
+
+    const list = getStoredStudents();
+    list.unshift(newStudent);
+    saveStoredStudents(list);
+    return newStudent;
+  },
+
+  async bulkImportStudents(students: Array<{
+    fullName: string;
+    admissionNumber: string;
+    rollNumber: string;
+    classId: string;
+    sectionId: string;
+    gender: string;
+  }>, institutionId: string): Promise<number> {
+    const list = getStoredStudents();
+    let count = 0;
+
+    for (const item of students) {
+      const studentId = `stud-${Date.now()}-${count}`;
+      const profileId = `user-stud-${Date.now()}-${count}`;
+      const newStudent: Student = {
+        id: studentId,
+        institution_id: institutionId,
+        profile_id: profileId,
+        admission_number: item.admissionNumber,
+        roll_number: item.rollNumber,
+        class_id: item.classId,
+        section_id: item.sectionId,
+        gender: item.gender || 'Not Specified',
+        is_deleted: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        profile: {
+          id: profileId,
+          institution_id: institutionId,
+          role: 'student',
+          full_name: item.fullName,
+          email: `${item.fullName.toLowerCase().replace(/[^a-z0-9]/g, '.')}@edunexa.edu`,
+          is_active: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        class: DEMO_CLASSES.find((c) => c.id === item.classId),
+        section: DEMO_SECTIONS.find((s) => s.id === item.sectionId),
+      };
+      list.push(newStudent);
+      count++;
+    }
+
+    saveStoredStudents(list);
+    return count;
+  },
+
+  async promoteStudent(id: string, targetClassId: string, targetSectionId: string): Promise<void> {
+    const list = getStoredStudents();
+    const student = list.find((s) => s.id === id);
+    if (student) {
+      student.class_id = targetClassId;
+      student.section_id = targetSectionId;
+      student.class = DEMO_CLASSES.find((c) => c.id === targetClassId);
+      student.section = DEMO_SECTIONS.find((s) => s.id === targetSectionId);
+      student.updated_at = new Date().toISOString();
+      saveStoredStudents(list);
+    }
   },
 
   async softDeleteStudent(id: string): Promise<void> {

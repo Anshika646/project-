@@ -407,3 +407,74 @@ export interface ActivityLogItem {
   updated_at: string;
   created_by?: string | null;
 }
+
+export type CurriculumBoard = 'CBSE' | 'ICSE' | 'State Board' | 'Custom';
+
+export interface Department {
+  id: string;
+  institution_id: string;
+  name: string;
+  code: string;
+  head_of_department: string;
+  student_count: number;
+  faculty_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CollegeCourse {
+  id: string;
+  institution_id: string;
+  department_id: string;
+  name: string;
+  code: string;
+  degree_level: 'Undergraduate' | 'Postgraduate' | 'Diploma';
+  total_semesters: number;
+  total_credits: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CollegeStudentSemester {
+  id: string;
+  student_id: string;
+  course_id: string;
+  semester_number: number;
+  sgpa: number;
+  cgpa: number;
+  credits_earned: number;
+  backlogs: number;
+  status: 'Passed' | 'Appearing' | 'Backlog';
+  term_session: string;
+}
+
+export interface PTMBooking {
+  id: string;
+  institution_id: string;
+  parent_id: string;
+  teacher_id: string;
+  student_id: string;
+  parent_name: string;
+  teacher_name: string;
+  student_name: string;
+  booking_date: string;
+  time_slot: string;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  agenda?: string;
+  teacher_notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface LeaderboardEntry {
+  rank: number;
+  student_id: string;
+  student_name: string;
+  class_name: string;
+  score: number;
+  points: number;
+  streak_days: number;
+  badges: string[];
+  quizzes_completed: number;
+}
+

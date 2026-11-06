@@ -1,170 +1,344 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { CheckCircle2, Calendar, Download, Filter } from 'lucide-react';
-import { exportToPDF, exportToExcel } from '../utils/exportUtils';
+import {
+  CheckCircle2,
+  Calendar,
+  Download,
+  Users,
+  Clock,
+  Save,
+  Check,
+  X,
+  AlertCircle,
+  FileSpreadsheet,
+} from 'lucide-react';
+import { attendanceService } from '../services/attendanceService';
+import { academicService } from '../services/academicService';
+import { studentService } from '../services/studentService';
+import { exportToExcel } from '../utils/exportUtils';
+import { ClassItem, Section, Student, AttendanceRecord } from '../types/database.types';
 
 export const AttendancePage: React.FC = () => {
-  const { role } = useAuth();
-  const [selectedClass, setSelectedClass] = useState('Class 10-A');
-  const [selectedDate, setSelectedDate] = useState('2025-04-21');
-  const [savedSuccess, setSavedSuccess] = useState(false);
+  const { role, user } = useAuth();
+  const institutionId = user?.institution?.id || 'e8b070c0-dacd-4772-85df-0ce93748524c';
 
-  const [roster, setRoster] = useState([
-    { id: '1', roll: '14', name: 'Aarav Patel', status: 'present' },
-    { id: '2', roll: '15', name: 'Diya Sharma', status: 'present' },
-    { id: '3', roll: '16', name: 'Ishaan Verma', status: 'late' },
-    { id: '4', roll: '17', name: 'Ananya Deshmukh', status: 'present' },
-    { id: '5', roll: '18', name: 'Rohan Gupta', status: 'absent' },
-  ]);
+  const [classes, setClasses] = useState<ClassItem[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
 
-  const toggleStatus = (id: string, newStatus: string) => {
-    setRoster((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, status: newStatus } : r))
+  // Filter state
+  const [selectedClassId, setSelectedClassId] = useState('class-10');
+  const [selectedSectionId, setSelectedSectionId] = useState('sec-class10-a');
+  const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0]);
+
+  // Attendance state for current roster
+  const [attendanceMap, setAttendanceMap] = useState<Record<string, AttendanceRecord['status']>>({});
+  const [remarksMap, setRemarksMap] = useState<Record<string, string>>({});
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadClasses();
+  }, [institutionId]);
+
+  useEffect(() => {
+    loadSections();
+  }, [selectedClassId]);
+
+  useEffect(() => {
+    loadRosterAndAttendance();
+  }, [selectedClassId, selectedSectionId, selectedDate]);
+
+  const loadClasses = async () => {
+    const list = await academicService.getClasses(institutionId);
+    setClasses(list);
+  };
+
+  const loadSections = async () => {
+    const list = await academicService.getSections(selectedClassId);
+    setSections(list);
+    if (list.length > 0) {
+      setSelectedSectionId(list[0].id);
+    }
+  };
+
+  const loadRosterAndAttendance = async () => {
+    const res = await studentService.getStudents({
+      institutionId,
+      classId: selectedClassId,
+      sectionId: selectedSectionId,
+      pageSize: 50,
+    });
+    setStudents(res.students);
+
+    // Fetch existing attendance for this date
+    const existing = await attendanceService.getAttendanceByClassAndDate(
+      selectedClassId,
+      selectedSectionId,
+      selectedDate
     );
+
+    const initialMap: Record<string, AttendanceRecord['status']> = {};
+    const initialRemarks: Record<string, string> = {};
+
+    res.students.forEach((s) => {
+      const match = existing.find((r) => r.student_id === s.id);
+      initialMap[s.id] = match ? match.status : 'present';
+      initialRemarks[s.id] = match?.remarks || '';
+    });
+
+    setAttendanceMap(initialMap);
+    setRemarksMap(initialRemarks);
   };
 
-  const handleSave = () => {
-    setSavedSuccess(true);
-    setTimeout(() => setSavedSuccess(false), 3000);
+  const handleStatusChange = (studentId: string, status: AttendanceRecord['status']) => {
+    setAttendanceMap((prev) => ({ ...prev, [studentId]: status }));
   };
 
-  const handleExportPDF = () => {
-    exportToPDF(
-      `Daily Attendance Sheet — ${selectedClass} (${selectedDate})`,
-      [
-        { header: 'Roll No', dataKey: 'roll' },
-        { header: 'Student Name', dataKey: 'name' },
-        { header: 'Attendance Status', dataKey: 'status' },
-      ],
-      roster.map((r) => ({
-        roll: `#${r.roll}`,
-        name: r.name,
-        status: r.status.toUpperCase(),
-      })),
-      `Attendance_${selectedClass}.pdf`
-    );
+  const handleMarkAllPresent = () => {
+    const allPresent: Record<string, AttendanceRecord['status']> = {};
+    students.forEach((s) => {
+      allPresent[s.id] = 'present';
+    });
+    setAttendanceMap(allPresent);
+    setToastMessage('Marked all students as Present!');
+    setTimeout(() => setToastMessage(null), 2500);
   };
+
+  const handleSaveAttendance = async () => {
+    const records = students.map((s) => ({
+      institution_id: institutionId,
+      student_id: s.id,
+      class_id: selectedClassId,
+      section_id: selectedSectionId,
+      date: selectedDate,
+      status: attendanceMap[s.id] || 'present',
+      marked_by: user?.profile?.full_name || 'Ms. Priya Verma',
+      remarks: remarksMap[s.id] || null,
+    }));
+
+    await attendanceService.markBatchAttendance(records);
+    setToastMessage(`Daily attendance for ${selectedDate} saved to database!`);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  const handleExportAttendance = () => {
+    const exportData = students.map((s) => ({
+      'Roll Number': s.roll_number || 'N/A',
+      'Student Name': s.profile?.full_name || 'Student',
+      'Admission No': s.admission_number,
+      'Date': selectedDate,
+      'Attendance Status': (attendanceMap[s.id] || 'present').toUpperCase(),
+      'Remarks': remarksMap[s.id] || '',
+    }));
+
+    exportToExcel(exportData, `Attendance_${selectedDate}_Class.xlsx`);
+    setToastMessage('Attendance spreadsheet exported successfully!');
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const presentCount = Object.values(attendanceMap).filter((s) => s === 'present' || s === 'late').length;
+  const totalCount = students.length;
+  const attendancePercentage = totalCount > 0 ? Math.round((presentCount / totalCount) * 100) : 100;
+
+  const canMark = ['teacher', 'school_admin', 'college_faculty', 'college_admin'].includes(role || '');
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
-            Attendance Records & Register
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight flex items-center gap-2">
+            <CheckCircle2 className="text-[#5B6E5E]" size={28} />
+            <span>Daily Attendance & Roll Call</span>
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
-            Daily roll-call marking, attendance percentage audit, and monthly sheets
+            Class-wise attendance tracking across Nursery to Class 12 with real-time audit logs
           </p>
         </div>
 
-        <button
-          onClick={handleExportPDF}
-          className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] dark:text-[#D1E0D3] border border-white/70 dark:border-white/10 shadow-sm flex items-center gap-1.5 self-start md:self-auto"
-        >
-          <Download size={14} className="text-[#5B6E5E]" />
-          <span>Export Sheet (PDF)</span>
-        </button>
+        <div className="flex items-center gap-2 self-start md:self-auto">
+          {canMark && (
+            <>
+              <button
+                onClick={handleMarkAllPresent}
+                className="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm"
+              >
+                Mark All Present
+              </button>
+              <button
+                onClick={handleSaveAttendance}
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
+              >
+                <Save size={14} />
+                <span>Save Attendance</span>
+              </button>
+            </>
+          )}
+
+          <button
+            onClick={handleExportAttendance}
+            className="px-3 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/90 text-[#324234] border border-white/70 shadow-sm flex items-center gap-1.5"
+            title="Export to Excel"
+          >
+            <Download size={14} className="text-[#5B6E5E]" />
+            <span className="hidden sm:inline">Export Excel</span>
+          </button>
+        </div>
       </div>
 
-      {savedSuccess && (
-        <div className="px-4 py-3 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2">
+      {toastMessage && (
+        <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
           <CheckCircle2 size={16} className="text-[#5B6E5E]" />
-          <span>Daily attendance successfully recorded and stored in audit trail.</span>
+          <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Selector Toolbar */}
-      <div className="p-4 rounded-2xl glass-card border border-white/70 dark:border-white/10 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-4">
+      {/* Control Filters Bar */}
+      <div className="p-4 rounded-2xl glass-card border border-white/70 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <Filter size={15} className="text-[#5B6E5E]" />
-            <span className="text-xs font-semibold text-[#253227] dark:text-[#E2ECE4]">Class:</span>
+            <span className="text-xs font-bold text-[#5B6E5E]">Class:</span>
             <select
-              value={selectedClass}
-              onChange={(e) => setSelectedClass(e.target.value)}
-              className="text-xs bg-white/70 dark:bg-black/20 border border-[#8DA390]/30 rounded-xl px-2.5 py-1 font-medium"
+              value={selectedClassId}
+              onChange={(e) => setSelectedClassId(e.target.value)}
+              className="px-3 py-1.5 rounded-xl glass-input text-xs font-bold"
             >
-              <option value="Class 10-A">Class 10-A</option>
-              <option value="Class 10-B">Class 10-B</option>
-              <option value="Class 9-A">Class 9-A</option>
+              {classes.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} ({c.stage})
+                </option>
+              ))}
             </select>
           </div>
 
           <div className="flex items-center gap-2">
-            <Calendar size={15} className="text-[#5B6E5E]" />
-            <span className="text-xs font-semibold text-[#253227] dark:text-[#E2ECE4]">Date:</span>
+            <span className="text-xs font-bold text-[#5B6E5E]">Section:</span>
+            <select
+              value={selectedSectionId}
+              onChange={(e) => setSelectedSectionId(e.target.value)}
+              className="px-3 py-1.5 rounded-xl glass-input text-xs font-bold"
+            >
+              {sections.map((s) => (
+                <option key={s.id} value={s.id}>
+                  Section {s.name} ({s.room_number || 'Room TBD'})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-[#5B6E5E]">Date:</span>
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="text-xs bg-white/70 dark:bg-black/20 border border-[#8DA390]/30 rounded-xl px-2.5 py-1 font-medium"
+              className="px-3 py-1.5 rounded-xl glass-input text-xs font-bold"
             />
           </div>
         </div>
 
-        {['school_admin', 'teacher', 'college_faculty'].includes(role || '') && (
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4A5B4D] transition-colors shadow-sm"
-          >
-            Save Daily Attendance
-          </button>
-        )}
+        {/* Live Stat Indicator */}
+        <div className="flex items-center gap-3 text-xs font-bold">
+          <span className="px-3 py-1 rounded-xl bg-[#8DA390]/20 text-[#253928]">
+            Present: {presentCount} / {totalCount}
+          </span>
+          <span className="px-3 py-1 rounded-xl bg-[#5B6E5E] text-white">
+            Rate: {attendancePercentage}%
+          </span>
+        </div>
       </div>
 
-      {/* Roster Table */}
-      <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
+      {/* Roll Call Table */}
+      <div className="rounded-3xl glass-panel overflow-hidden border border-white/70 dark:border-white/10 shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-black/5 dark:border-white/5 text-[#657667] dark:text-[#9FB1A2]">
-                <th className="pb-3 font-semibold">Roll No</th>
-                <th className="pb-3 font-semibold">Student Name</th>
-                <th className="pb-3 font-semibold">Current Status</th>
-                <th className="pb-3 font-semibold text-right">Action / Toggle</th>
+            <thead className="bg-black/[0.02] text-[#667768] font-semibold border-b border-black/5">
+              <tr>
+                <th className="p-3.5 pl-6">Roll #</th>
+                <th className="p-3.5">Student Name</th>
+                <th className="p-3.5">Admission Number</th>
+                <th className="p-3.5">Attendance Status</th>
+                <th className="p-3.5 pr-6">Remarks / Note</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-black/5 dark:divide-white/5">
-              {roster.map((row) => (
-                <tr key={row.id} className="hover:bg-white/40 dark:hover:bg-white/5 transition-colors">
-                  <td className="py-3 font-mono font-bold text-[#5B6E5E]">
-                    #{row.roll}
-                  </td>
-                  <td className="py-3 font-bold text-[#232F25] dark:text-[#F0F5F1]">
-                    {row.name}
-                  </td>
-                  <td className="py-3">
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase ${
-                        row.status === 'present'
-                          ? 'bg-[#8DA390]/20 text-[#243527] dark:text-[#E2ECE4]'
-                          : row.status === 'absent'
-                          ? 'bg-[#E57373]/20 text-[#9C3838]'
-                          : 'bg-[#F4C062]/20 text-[#8C5D17]'
-                      }`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                  <td className="py-3 text-right">
-                    <div className="inline-flex items-center gap-1">
-                      {['present', 'absent', 'late'].map((st) => (
-                        <button
-                          key={st}
-                          onClick={() => toggleStatus(row.id, st)}
-                          className={`px-2 py-1 rounded text-[10px] font-semibold capitalize ${
-                            row.status === st
-                              ? 'bg-[#5B6E5E] text-white'
-                              : 'bg-white/60 dark:bg-white/5 text-[#5B6E5E]'
-                          }`}
-                        >
-                          {st}
-                        </button>
-                      ))}
-                    </div>
+            <tbody className="divide-y divide-black/5">
+              {students.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="p-8 text-center text-xs text-[#718273]">
+                    No students currently allocated to this class and section.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                students.map((student) => {
+                  const currentStatus = attendanceMap[student.id] || 'present';
+
+                  return (
+                    <tr key={student.id} className="hover:bg-white/40 transition-colors">
+                      <td className="p-3.5 pl-6 font-mono font-bold text-[#232F25]">
+                        {student.roll_number || '1'}
+                      </td>
+                      <td className="p-3.5 font-bold text-[#232F25]">
+                        {student.profile?.full_name}
+                      </td>
+                      <td className="p-3.5 font-mono text-[#5B6E5E]">
+                        {student.admission_number}
+                      </td>
+                      <td className="p-3.5">
+                        {canMark ? (
+                          <div className="flex items-center gap-1.5">
+                            {[
+                              { id: 'present', label: 'P', color: 'bg-emerald-600 text-white' },
+                              { id: 'absent', label: 'A', color: 'bg-rose-600 text-white' },
+                              { id: 'late', label: 'L', color: 'bg-amber-500 text-white' },
+                              { id: 'half_day', label: 'HD', color: 'bg-blue-600 text-white' },
+                            ].map((btn) => (
+                              <button
+                                key={btn.id}
+                                type="button"
+                                onClick={() => handleStatusChange(student.id, btn.id as any)}
+                                className={`w-8 h-7 rounded-lg text-[11px] font-bold transition-all ${
+                                  currentStatus === btn.id
+                                    ? `${btn.color} shadow-sm scale-105`
+                                    : 'bg-black/5 dark:bg-white/5 text-[#566859] hover:bg-black/10'
+                                }`}
+                              >
+                                {btn.label}
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              currentStatus === 'present'
+                                ? 'bg-emerald-100 text-emerald-800'
+                                : currentStatus === 'absent'
+                                ? 'bg-rose-100 text-rose-800'
+                                : 'bg-amber-100 text-amber-800'
+                            }`}
+                          >
+                            {currentStatus}
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3.5 pr-6">
+                        {canMark ? (
+                          <input
+                            type="text"
+                            placeholder="Optional reason for absence or tardiness..."
+                            value={remarksMap[student.id] || ''}
+                            onChange={(e) =>
+                              setRemarksMap((prev) => ({ ...prev, [student.id]: e.target.value }))
+                            }
+                            className="w-full px-2.5 py-1 rounded-lg glass-input text-xs"
+                          />
+                        ) : (
+                          <span className="text-[#667768]">{remarksMap[student.id] || '—'}</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

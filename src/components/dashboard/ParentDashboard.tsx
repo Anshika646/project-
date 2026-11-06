@@ -12,247 +12,355 @@ import {
   CheckCircle2,
   Bell,
   MessageSquare,
+  Clock,
+  Download,
+  AlertTriangle,
+  ArrowRight,
 } from 'lucide-react';
-import { DEMO_MARKS, DEMO_NOTICES } from '../../services/mockData';
 import { exportToPDF } from '../../utils/exportUtils';
+import { DEMO_MARKS, DEMO_NOTICES, DEMO_UPCOMING_EXAMS } from '../../services/mockData';
 
 export const ParentDashboard: React.FC = () => {
   const { user } = useAuth();
-  const [activeChild, setActiveChild] = useState('aarav');
+  const [activeChildId, setActiveChildId] = useState<'aarav' | 'ananya'>('aarav');
   const [ptmBooked, setPtmBooked] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState('10:00 AM - 10:15 AM');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const children = [
-    { id: 'aarav', name: 'Aarav Patel', class: 'Class 10-A', roll: '14', attendance: '92%', rank: '#3' },
-  ];
+  // Multi-children linked to Rajesh Patel (user-parent-1)
+  const childrenData = {
+    aarav: {
+      id: 'aarav',
+      name: 'Aarav Patel',
+      class: 'Class 10-A',
+      roll: '14',
+      admissionNo: 'SIS/2022/1042',
+      attendance: '94.2%',
+      presentDays: '188 / 200 Days',
+      rank: '#2 in Class 10-A',
+      overallGrade: 'A1 (91.2%)',
+      teacherRemarks: 'Exemplary reasoning and mathematical problem-solving skills.',
+      homeworkPending: 1,
+      absenceAlerts: 0,
+      marks: [
+        { subject: 'Mathematics (Standard)', score: '94 / 100', grade: 'A1', remarks: 'Exceptional proof derivations' },
+        { subject: 'Science (Theory + Lab)', score: '88 / 100', grade: 'A2', remarks: 'Good practical notebook' },
+        { subject: 'English Language & Lit', score: '91 / 100', grade: 'A1', remarks: 'Great vocabulary' },
+        { subject: 'Social Sciences', score: '88 / 100', grade: 'A2', remarks: 'Well-drawn map representations' },
+        { subject: 'Information Technology', score: '95 / 100', grade: 'A1', remarks: 'Clean code logic' },
+      ],
+      upcomingExams: [
+        { subject: 'Mathematics (Standard)', date: '24 Apr', time: '09:00 AM - 12:00 PM', room: 'Hall A' },
+        { subject: 'Science (Physics, Chem, Bio)', date: '26 Apr', time: '09:00 AM - 12:00 PM', room: 'Lab 2 & Hall A' },
+      ],
+      homework: [
+        { title: 'Chapter 6 Exercise 6.3: Trigonometric Identities', status: 'Submitted', due: '22 Apr' },
+        { title: 'Physics Practical Journal: Ray Diagrams', status: 'Pending', due: '25 Apr' },
+      ],
+    },
+    ananya: {
+      id: 'ananya',
+      name: 'Ananya Patel',
+      class: 'Class 6-B',
+      roll: '08',
+      admissionNo: 'SIS/2024/2108',
+      attendance: '96.0%',
+      presentDays: '192 / 200 Days',
+      rank: '#4 in Class 6-B',
+      overallGrade: 'A1 (92.0%)',
+      teacherRemarks: 'Very attentive, artistic, and enthusiastic in science lab activities.',
+      homeworkPending: 0,
+      absenceAlerts: 0,
+      marks: [
+        { subject: 'General Science', score: '92 / 100', grade: 'A1', remarks: 'Curious questions in biology' },
+        { subject: 'Mathematics', score: '89 / 100', grade: 'A2', remarks: 'Good arithmetic speed' },
+        { subject: 'English', score: '94 / 100', grade: 'A1', remarks: 'Expressive storytelling' },
+        { subject: 'Social Studies', score: '90 / 100', grade: 'A1', remarks: 'Active in group discussions' },
+        { subject: 'Sanskrit', score: '95 / 100', grade: 'A1', remarks: 'Excellent shloka recitation' },
+      ],
+      upcomingExams: [
+        { subject: 'General Science', date: '29 Apr', time: '10:00 AM - 12:00 PM', room: 'Room 204' },
+        { subject: 'Mathematics', date: '02 May', time: '10:00 AM - 12:00 PM', room: 'Room 204' },
+      ],
+      homework: [
+        { title: 'Leaf Venation Activity Scrapbook', status: 'Submitted', due: '23 Apr' },
+        { title: 'English Creative Essay: My Favorite Season', status: 'Submitted', due: '24 Apr' },
+      ],
+    },
+  };
 
-  const currentChild = children.find((c) => c.id === activeChild) || children[0];
+  const currentChild = childrenData[activeChildId];
 
   const handleDownloadChildReport = () => {
     exportToPDF(
-      `Edunexa Progress Report — ${currentChild.name} (${currentChild.class})`,
+      `Springfield International School — Academic Progress Report for ${currentChild.name}`,
       [
         { header: 'Subject', dataKey: 'subject' },
-        { header: 'Marks Obtained', dataKey: 'marks' },
+        { header: 'Score Obtained', dataKey: 'score' },
         { header: 'Grade', dataKey: 'grade' },
-        { header: 'Remarks', dataKey: 'remarks' },
+        { header: 'Teacher Evaluation & Remarks', dataKey: 'remarks' },
       ],
-      [
-        { subject: 'Mathematics', marks: '94/100', grade: 'A1', remarks: 'Outstanding analytical clarity' },
-        { subject: 'Science', marks: '88/100', grade: 'A2', remarks: 'Consistent experimental work' },
-        { subject: 'English', marks: '91/100', grade: 'A1', remarks: 'Excellent essay articulation' },
-      ],
-      `${currentChild.name.replace(/\s+/g, '_')}_Progress_Report.pdf`
+      currentChild.marks,
+      `${currentChild.name.replace(/\s+/g, '_')}_Official_Report.pdf`
     );
+    setToastMessage(`Downloaded official report card for ${currentChild.name}!`);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const handleBookPTM = () => {
     setPtmBooked(true);
+    setToastMessage(`PTM Discussion Slot confirmed with Class Teacher for ${currentChild.name}!`);
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
-      {/* Top Banner Greeting */}
+      {/* Top Banner Greeting & Multi-Child Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#232F25] dark:text-[#F0F5F1] tracking-tight">
-            Welcome, {user?.profile.full_name || 'Parent'}!
+            Welcome, {user?.profile?.full_name || 'Mr. Rajesh Patel'}!
           </h1>
           <p className="text-xs md:text-sm text-[#667768] dark:text-[#9FB1A2] mt-0.5">
-            Parent Portal • Springfield International School
+            Parent Portal • Springfield International School (Multi-Child Dossier)
           </p>
         </div>
 
-        {/* Child Selector */}
-        <div className="flex items-center gap-2 p-1.5 rounded-2xl glass-card border border-white/70 dark:border-white/10">
+        {/* Multi-Child Selector */}
+        <div className="flex items-center gap-2 p-1.5 rounded-2xl glass-card border border-white/70 dark:border-white/10 self-start md:self-auto">
           <User size={16} className="text-[#5B6E5E] ml-2" />
           <span className="text-xs font-semibold text-[#2D3C30] dark:text-[#E2ECE4]">
-            Child:
+            Select Child:
           </span>
-          <select
-            value={activeChild}
-            onChange={(e) => setActiveChild(e.target.value)}
-            className="text-xs font-bold bg-white/70 dark:bg-black/20 border border-[#8DA390]/30 rounded-xl px-2.5 py-1 text-[#253227] dark:text-white focus:outline-none"
-          >
-            {children.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name} ({c.class})
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setActiveChildId('aarav')}
+              className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                activeChildId === 'aarav'
+                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  : 'text-[#4F6052] hover:bg-black/5'
+              }`}
+            >
+              Aarav (Class 10-A)
+            </button>
+            <button
+              onClick={() => setActiveChildId('ananya')}
+              className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
+                activeChildId === 'ananya'
+                  ? 'bg-[#5B6E5E] text-white shadow-sm'
+                  : 'text-[#4F6052] hover:bg-black/5'
+              }`}
+            >
+              Ananya (Class 6-B)
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Metrics for active child */}
+      {toastMessage && (
+        <div className="p-3.5 rounded-xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2 shadow-sm animate-fade-in">
+          <CheckCircle2 size={16} className="text-[#5B6E5E]" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Child Metrics Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Attendance"
+          title="Attendance Rate"
           value={currentChild.attendance}
-          change="35 / 38 Days"
+          change={currentChild.presentDays}
           isPositive={true}
           icon={CalendarCheck}
           variant="sage"
         />
         <StatCard
-          title="Class Standing"
+          title="Academic Standing"
           value={currentChild.rank}
-          change="Top 5% of 10-A"
+          change="Distinction Tier"
           isPositive={true}
           icon={Award}
-          variant="olive"
-        />
-        <StatCard
-          title="Overall Average"
-          value="91.0%"
-          change="Grade A1"
-          isPositive={true}
-          icon={FileSpreadsheet}
           variant="pink"
         />
         <StatCard
-          title="Upcoming PTM"
-          value="Saturday"
-          change="26 Apr 2025"
+          title="Cumulative Grade"
+          value={currentChild.overallGrade}
+          change="All Subjects Cleared"
           isPositive={true}
-          icon={CalendarDays}
+          icon={BookOpen}
+          variant="olive"
+        />
+        <StatCard
+          title="Homework Tasks"
+          value={currentChild.homeworkPending === 0 ? 'All Done' : `${currentChild.homeworkPending} Pending`}
+          change="Updated this week"
+          isPositive={currentChild.homeworkPending === 0}
+          icon={Calendar}
           variant="sage"
         />
       </div>
 
-      {/* Academic Marks & Progress Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Academic Marks Overview */}
-        <div className="lg:col-span-7 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
-          <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-            <div className="flex items-center gap-2">
-              <Award size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
-              <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
-                {currentChild.name}'s Academic Marks
-              </h3>
-            </div>
-            <button
-              onClick={handleDownloadChildReport}
-              className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#5B6E5E] text-white hover:bg-[#4D5E50] transition-colors"
-            >
-              Export PDF
-            </button>
-          </div>
+      {/* Main Split: Academic Marks + Teacher Remarks & PTM Booking */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Column: Academic Subject Scores */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="rounded-3xl glass-panel p-6 border border-white/70 dark:border-white/10 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-3">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5B6E5E]">
+                  Academic Evaluation
+                </span>
+                <h3 className="text-lg font-extrabold text-[#232F25] dark:text-[#F0F5F1]">
+                  {currentChild.name} — Term 2 Marks Breakdown
+                </h3>
+              </div>
 
-          <div className="space-y-3 mt-4">
-            {[
-              { subject: 'Mathematics', score: '94 / 100', grade: 'A1', faculty: 'Ms. Priya Verma', comment: 'Strong problem-solving methodology and speed.' },
-              { subject: 'Science', score: '88 / 100', grade: 'A2', faculty: 'Dr. Suresh Rao', comment: 'Good in physics numericals; lab files well maintained.' },
-              { subject: 'English', score: '91 / 100', grade: 'A1', faculty: 'Mrs. Anita Das', comment: 'Insightful critical analysis in literature essays.' },
-            ].map((sub) => (
-              <div
-                key={sub.subject}
-                className="p-3 rounded-xl bg-white/60 dark:bg-white/5 border border-white/60 dark:border-white/5"
+              <button
+                onClick={handleDownloadChildReport}
+                className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm flex items-center gap-1.5"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-[#232F25] dark:text-[#F0F5F1]">
-                      {sub.subject}
-                    </span>
-                    <span className="text-[10px] text-[#6E7F71]">({sub.faculty})</span>
+                <Download size={13} />
+                <span>Download Report Card</span>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {currentChild.marks.map((m, idx) => (
+                <div
+                  key={idx}
+                  className="p-3.5 rounded-2xl glass-card border border-white/70 flex items-center justify-between"
+                >
+                  <div>
+                    <h4 className="font-extrabold text-xs text-[#232F25] dark:text-[#F0F5F1]">
+                      {m.subject}
+                    </h4>
+                    <p className="text-[11px] text-[#667768] dark:text-[#9FB1A2] mt-0.5">
+                      {m.remarks}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1] tabular-nums">
-                      {sub.score}
+
+                  <div className="text-right">
+                    <span className="font-mono font-bold text-xs text-[#232F25] dark:text-white block">
+                      {m.score}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#8DA390]/20 text-[#303E33] dark:text-[#D1E0D3]">
-                      {sub.grade}
+                    <span className="text-[10px] font-bold px-2 py-0.2 rounded bg-[#8DA390]/25 text-[#253928]">
+                      {m.grade}
                     </span>
                   </div>
                 </div>
-                <p className="text-[11px] text-[#556658] dark:text-[#A0B0A3] mt-1.5 italic">
-                  “{sub.comment}”
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Parent-Teacher Meeting (PTM) Appointment Booking */}
-        <div className="lg:col-span-5 rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-              <div className="flex items-center gap-2">
-                <CalendarDays size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
-                <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
-                  PTM Appointment Booking
-                </h3>
-              </div>
-              <span className="text-xs text-[#5B6E5E] font-medium">Saturday, 26 Apr</span>
+              ))}
             </div>
 
-            <p className="text-xs text-[#637466] dark:text-[#95A597] mt-3">
-              Book a 15-minute consultation slot with Class Teacher (Ms. Priya Verma).
-            </p>
+            {/* Teacher Remarks Box */}
+            <div className="p-4 rounded-2xl bg-[#8DA390]/15 border border-[#8DA390]/30 space-y-1">
+              <span className="text-[10px] uppercase font-bold text-[#5B6E5E] block">
+                Class Teacher Official Feedback:
+              </span>
+              <p className="text-xs text-[#232F25] dark:text-[#E2ECE4] leading-relaxed">
+                "{currentChild.teacherRemarks}"
+              </p>
+            </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-2 mt-4">
-              {['09:00 AM - 09:15 AM', '09:30 AM - 09:45 AM', '10:00 AM - 10:15 AM', '11:00 AM - 11:15 AM'].map((slot) => (
-                <button
-                  key={slot}
-                  disabled={ptmBooked}
-                  onClick={() => setSelectedSlot(slot)}
-                  className={`p-2.5 rounded-xl text-xs font-medium border text-center transition-all ${
-                    selectedSlot === slot
-                      ? 'bg-[#5B6E5E] text-white border-[#5B6E5E] font-bold shadow-sm'
-                      : 'bg-white/60 dark:bg-white/5 border-white/60 dark:border-white/10 text-[#303E33] dark:text-[#C5D3C6] hover:bg-white/90'
-                  }`}
-                >
-                  {slot}
-                </button>
+          {/* Homework & Upcoming Deadlines */}
+          <div className="rounded-3xl glass-panel p-6 border border-white/70 shadow-sm space-y-3">
+            <h4 className="font-extrabold text-sm text-[#232F25] dark:text-[#F0F5F1]">
+              Recent Homework Tasks
+            </h4>
+            <div className="space-y-2">
+              {currentChild.homework.map((hw, idx) => (
+                <div key={idx} className="p-3 rounded-xl glass-card border flex items-center justify-between text-xs">
+                  <div>
+                    <span className="font-bold text-[#232F25]">{hw.title}</span>
+                    <span className="text-[11px] text-[#718273] block">Due Date: {hw.due}</span>
+                  </div>
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      hw.status === 'Submitted'
+                        ? 'bg-[#8DA390]/25 text-[#253A27]'
+                        : 'bg-amber-100 text-amber-900'
+                    }`}
+                  >
+                    {hw.status}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
+        </div>
 
-          <div className="mt-5">
+        {/* Right Column: PTM Booking + Upcoming Exams */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* PTM Booking Card */}
+          <div className="rounded-3xl glass-panel p-6 border border-white/70 shadow-sm space-y-4">
+            <div className="flex items-center gap-2">
+              <CalendarDays className="text-[#5B6E5E]" size={20} />
+              <h3 className="font-extrabold text-base text-[#232F25] dark:text-[#F0F5F1]">
+                Parent-Teacher Meeting (PTM)
+              </h3>
+            </div>
+            <p className="text-xs text-[#667768] dark:text-[#9FB1A2] leading-relaxed">
+              Book a 15-minute slot with {currentChild.name}'s class teacher to review Term 2 academic progression.
+            </p>
+
             {ptmBooked ? (
-              <div className="p-3 rounded-xl bg-[#8DA390]/20 text-[#213123] dark:text-[#E2ECE4] text-xs font-semibold flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-[#5B6E5E]" />
-                <span>Slot confirmed for {selectedSlot}! Confirmation sent to your registered email.</span>
+              <div className="p-4 rounded-2xl bg-[#8DA390]/20 border border-[#8DA390]/40 text-xs font-semibold text-[#213123] space-y-1">
+                <div className="flex items-center gap-1.5 text-[#5B6E5E]">
+                  <CheckCircle2 size={16} />
+                  <strong>Confirmed Appointment</strong>
+                </div>
+                <p>Date: Saturday, April 26, 2025</p>
+                <p>Time Slot: {selectedSlot}</p>
+                <p className="text-[11px] text-[#556757] mt-1">Classroom: Room 301, Academic Block</p>
               </div>
             ) : (
-              <button
-                onClick={handleBookPTM}
-                className="w-full py-2.5 rounded-xl text-xs font-semibold text-white bg-[#5B6E5E] hover:bg-[#4D5E50] transition-colors shadow-sm"
-              >
-                Confirm PTM Slot ({selectedSlot})
-              </button>
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-semibold text-[#4A5B4D] block mb-1">
+                    Available Time Slot:
+                  </label>
+                  <select
+                    value={selectedSlot}
+                    onChange={(e) => setSelectedSlot(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl glass-input text-xs font-semibold"
+                  >
+                    <option value="10:00 AM - 10:15 AM">10:00 AM - 10:15 AM</option>
+                    <option value="10:30 AM - 10:45 AM">10:30 AM - 10:45 AM</option>
+                    <option value="11:00 AM - 11:15 AM">11:00 AM - 11:15 AM</option>
+                    <option value="11:30 AM - 11:45 AM">11:30 AM - 11:45 AM</option>
+                  </select>
+                </div>
+
+                <button
+                  onClick={handleBookPTM}
+                  className="w-full py-2.5 rounded-xl text-xs font-bold bg-[#5B6E5E] text-white hover:bg-[#4A5B4D] transition-colors shadow-sm"
+                >
+                  Reserve Meeting Slot
+                </button>
+              </div>
             )}
           </div>
-        </div>
-      </div>
 
-      {/* School Notices for Parents */}
-      <div className="rounded-2xl glass-card p-5 border border-white/70 dark:border-white/10">
-        <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
-          <div className="flex items-center gap-2">
-            <Bell size={18} className="text-[#5B6E5E] dark:text-[#A3B899]" />
-            <h3 className="text-sm font-bold text-[#232F25] dark:text-[#F0F5F1]">
-              Important School Notices
-            </h3>
-          </div>
-        </div>
+          {/* Upcoming Examinations */}
+          <div className="rounded-3xl glass-panel p-6 border border-white/70 shadow-sm space-y-3">
+            <h4 className="font-extrabold text-sm text-[#232F25] dark:text-[#F0F5F1]">
+              Upcoming Examinations ({currentChild.class})
+            </h4>
 
-        <div className="space-y-3 mt-4">
-          {DEMO_NOTICES.map((notice) => (
-            <div
-              key={notice.id}
-              className="p-3.5 rounded-xl bg-white/60 dark:bg-white/5 border border-white/60 dark:border-white/5"
-            >
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold text-[#232F25] dark:text-[#F0F5F1]">
-                  {notice.title}
-                </h4>
-                <span className="text-[10px] text-[#7A8A7C]">15 Apr 2025</span>
-              </div>
-              <p className="text-xs text-[#556658] dark:text-[#A0B0A3] mt-1">
-                {notice.content}
-              </p>
+            <div className="space-y-2.5">
+              {currentChild.upcomingExams.map((ex, idx) => (
+                <div key={idx} className="p-3.5 rounded-2xl glass-card border border-white/60 text-xs flex items-center justify-between">
+                  <div>
+                    <h5 className="font-extrabold text-[#232F25]">{ex.subject}</h5>
+                    <span className="text-[11px] text-[#718273]">{ex.time} • {ex.room}</span>
+                  </div>
+                  <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-xl bg-[#E8B4B8]/20 text-[#8C3B44]">
+                    {ex.date}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
