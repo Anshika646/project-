@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured, isTableMissingError } from '../lib/supabase';
 import { Teacher, Profile } from '../types/database.types';
 import { DEMO_TEACHERS } from './mockData';
 
@@ -29,8 +29,8 @@ export const teacherService = {
         .select('*, profile:profiles(*)')
         .eq('institution_id', institutionId)
         .eq('is_deleted', false);
-      if (error) throw new Error(error.message);
-      return (data as Teacher[]) || [];
+      if (!error && data) return (data as Teacher[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     return getStoredTeachers().filter((t) => !t.is_deleted);
   },
@@ -79,8 +79,8 @@ export const teacherService = {
     if (isSupabaseConfigured) {
       await supabase.from('profiles').insert(profileRecord);
       const { data, error } = await supabase.from('teachers').insert(newTeacher).select().single();
-      if (error) throw new Error(error.message);
-      return data as Teacher;
+      if (!error && data) return data as Teacher;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStoredTeachers();

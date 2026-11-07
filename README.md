@@ -55,6 +55,15 @@ npm run dev
 
 Open your browser at `http://localhost:3000` to view the application.
 
+## 🌐 Deployment to GitHub Pages
+
+This repository is pre-configured with a zero-setup GitHub Actions deployment workflow:
+
+1. Push this repository to GitHub on `main` or `master`.
+2. In your repository, navigate to **Settings** > **Pages**.
+3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+4. The workflow in `.github/workflows/deploy.yml` will automatically build and publish your site with single-page app (SPA) routing support.
+
 ---
 
 ## 📜 Available Scripts
@@ -71,3 +80,4 @@ Open your browser at `http://localhost:3000` to view the application.
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
+

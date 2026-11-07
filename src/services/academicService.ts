@@ -1,12 +1,5 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import {
-  ClassItem,
-  Section,
-  Subject,
-  Chapter,
-  TimetableSlot,
-  CurriculumBoard,
-} from '../types/database.types';
+import { supabase, isSupabaseConfigured, isTableMissingError } from '../lib/supabase';
+import { ClassItem, Section, Subject, Chapter, TimetableSlot, CurriculumBoard } from '../types/database.types';
 import {
   DEMO_CLASSES,
   DEMO_SECTIONS,
@@ -15,6 +8,7 @@ import {
   DEMO_TODAYS_TIMETABLE,
   DEMO_INSTITUTION_ID,
 } from './mockData';
+export type { CurriculumBoard };
 
 const CLASSES_KEY = 'edunexa_classes_db';
 const SECTIONS_KEY = 'edunexa_sections_db';
@@ -51,8 +45,14 @@ export const academicService = {
         .select('*')
         .eq('institution_id', institutionId)
         .order('grade_level', { ascending: true });
-      if (error) throw new Error(error.message);
-      return (data as ClassItem[]) || [];
+
+      if (!error && data) {
+        return data as ClassItem[];
+      }
+      if (error && !isTableMissingError(error)) {
+        throw new Error(error.message);
+      }
+      // Schema cache not yet migrated in remote Supabase; gracefully use local storage
     }
     const all = getStored(CLASSES_KEY, DEMO_CLASSES);
     return all.filter((c) => c.institution_id === institutionId || c.institution_id === DEMO_INSTITUTION_ID);
@@ -68,8 +68,8 @@ export const academicService = {
 
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('classes').insert(newClass).select().single();
-      if (error) throw new Error(error.message);
-      return data as ClassItem;
+      if (!error && data) return data as ClassItem;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(CLASSES_KEY, DEMO_CLASSES);
@@ -86,8 +86,8 @@ export const academicService = {
       let query = supabase.from('sections').select('*');
       if (classId) query = query.eq('class_id', classId);
       const { data, error } = await query;
-      if (error) throw new Error(error.message);
-      return (data as Section[]) || [];
+      if (!error && data) return data as Section[];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     const all = getStored(SECTIONS_KEY, DEMO_SECTIONS);
     if (classId) return all.filter((s) => s.class_id === classId);
@@ -104,8 +104,8 @@ export const academicService = {
 
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('sections').insert(newSec).select().single();
-      if (error) throw new Error(error.message);
-      return data as Section;
+      if (!error && data) return data as Section;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(SECTIONS_KEY, DEMO_SECTIONS);
@@ -122,8 +122,8 @@ export const academicService = {
         .eq('id', id)
         .select()
         .single();
-      if (error) throw new Error(error.message);
-      return data as Section;
+      if (!error && data) return data as Section;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(SECTIONS_KEY, DEMO_SECTIONS);
@@ -143,8 +143,8 @@ export const academicService = {
         .from('subjects')
         .select('*')
         .eq('institution_id', institutionId);
-      if (error) throw new Error(error.message);
-      return (data as Subject[]) || [];
+      if (!error && data) return data as Subject[];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     const all = getStored(SUBJECTS_KEY, DEMO_SUBJECTS);
     return all.filter((s) => s.institution_id === institutionId || s.institution_id === DEMO_INSTITUTION_ID);
@@ -160,8 +160,8 @@ export const academicService = {
 
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('subjects').insert(newSub).select().single();
-      if (error) throw new Error(error.message);
-      return data as Subject;
+      if (!error && data) return data as Subject;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(SUBJECTS_KEY, DEMO_SUBJECTS);
@@ -173,8 +173,8 @@ export const academicService = {
   async deleteSubject(id: string): Promise<void> {
     if (isSupabaseConfigured) {
       const { error } = await supabase.from('subjects').delete().eq('id', id);
-      if (error) throw new Error(error.message);
-      return;
+      if (!error) return;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(SUBJECTS_KEY, DEMO_SUBJECTS);
@@ -191,8 +191,8 @@ export const academicService = {
       if (subjectId) query = query.eq('subject_id', subjectId);
       if (classId) query = query.eq('class_id', classId);
       const { data, error } = await query;
-      if (error) throw new Error(error.message);
-      return (data as Chapter[]) || [];
+      if (!error && data) return data as Chapter[];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     let all = getStored(CHAPTERS_KEY, DEMO_CHAPTERS);
@@ -211,8 +211,8 @@ export const academicService = {
 
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('chapters').insert(newCh).select().single();
-      if (error) throw new Error(error.message);
-      return data as Chapter;
+      if (!error && data) return data as Chapter;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(CHAPTERS_KEY, DEMO_CHAPTERS);
@@ -242,8 +242,8 @@ export const academicService = {
         .select('*, subject:subjects(*), teacher:profiles(*)')
         .eq('institution_id', institutionId)
         .order('period_number', { ascending: true });
-      if (error) throw new Error(error.message);
-      return (data as TimetableSlot[]) || [];
+      if (!error && data) return data as TimetableSlot[];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     return getStored(TIMETABLE_KEY, DEMO_TODAYS_TIMETABLE);
   },

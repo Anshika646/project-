@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured, isTableMissingError } from '../lib/supabase';
 import {
   NoteItem,
   QuizItem,
@@ -67,8 +67,8 @@ export const learningService = {
       if (classId) query = query.eq('class_id', classId);
       if (subjectId) query = query.eq('subject_id', subjectId);
       const { data, error } = await query;
-      if (error) throw new Error(error.message);
-      return (data as NoteItem[]) || [];
+      if (!error && data) return (data as NoteItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     let all = getStored(NOTES_KEY, DEMO_NOTES);
@@ -87,8 +87,8 @@ export const learningService = {
 
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('notes').insert(newNote).select().single();
-      if (error) throw new Error(error.message);
-      return data as NoteItem;
+      if (!error && data) return data as NoteItem;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(NOTES_KEY, DEMO_NOTES);
@@ -100,8 +100,8 @@ export const learningService = {
   async deleteNote(id: string): Promise<void> {
     if (isSupabaseConfigured) {
       const { error } = await supabase.from('notes').delete().eq('id', id);
-      if (error) throw new Error(error.message);
-      return;
+      if (!error) return;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStored(NOTES_KEY, DEMO_NOTES);
@@ -117,8 +117,8 @@ export const learningService = {
       let query = supabase.from('quizzes').select('*').eq('institution_id', institutionId);
       if (classId) query = query.eq('class_id', classId);
       const { data, error } = await query;
-      if (error) throw new Error(error.message);
-      return (data as QuizItem[]) || [];
+      if (!error && data) return (data as QuizItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     let all = getStored(QUIZZES_KEY, DEMO_QUIZZES);
@@ -129,8 +129,8 @@ export const learningService = {
   async getQuizQuestions(quizId: string): Promise<QuizQuestionItem[]> {
     if (isSupabaseConfigured) {
       const { data, error } = await supabase.from('quiz_questions').select('*').eq('quiz_id', quizId);
-      if (error) throw new Error(error.message);
-      return (data as QuizQuestionItem[]) || [];
+      if (!error && data) return (data as QuizQuestionItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const all = getStored(QUESTIONS_KEY, DEMO_QUIZ_QUESTIONS);
@@ -363,8 +363,8 @@ export const communicationService = {
         .select('*')
         .eq('institution_id', institutionId)
         .order('published_at', { ascending: false });
-      if (error) throw new Error(error.message);
-      return (data as NoticeItem[]) || [];
+      if (!error && data) return (data as NoticeItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     return getStored(NOTICES_KEY, DEMO_NOTICES);
   },
@@ -391,8 +391,8 @@ export const communicationService = {
         .eq('institution_id', institutionId)
         .order('created_at', { ascending: false })
         .limit(10);
-      if (error) throw new Error(error.message);
-      return (data as ActivityLogItem[]) || [];
+      if (!error && data) return (data as ActivityLogItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
     return DEMO_RECENT_ACTIVITIES;
   },

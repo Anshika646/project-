@@ -408,7 +408,7 @@ export interface ActivityLogItem {
   created_by?: string | null;
 }
 
-export type CurriculumBoard = 'CBSE' | 'ICSE' | 'State Board' | 'Custom';
+export type CurriculumBoard = 'CBSE' | 'ICSE' | 'State Board' | 'Cambridge / IB' | 'Custom';
 
 export interface Department {
   id: string;

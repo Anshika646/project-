@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured, isTableMissingError } from '../lib/supabase';
 import { Student, Profile } from '../types/database.types';
 import { DEMO_STUDENTS, DEMO_CLASSES, DEMO_SECTIONS } from './mockData';
 
@@ -69,13 +69,18 @@ export const studentService = {
       const to = from + pageSize - 1;
       const { data, count, error } = await req.range(from, to);
 
-      if (error) throw new Error(error.message);
-      return {
-        students: (data as Student[]) || [],
-        total: count || 0,
-        page,
-        totalPages: Math.ceil((count || 0) / pageSize),
-      };
+      if (!error && data) {
+        return {
+          students: (data as Student[]) || [],
+          total: count || 0,
+          page,
+          totalPages: Math.ceil((count || 0) / pageSize),
+        };
+      }
+      if (error && !isTableMissingError(error)) {
+        throw new Error(error.message);
+      }
+      // Gracefully fall back to local persistent dataset if remote table is not yet created in schema cache
     }
 
     // Local persistent storage
@@ -190,8 +195,8 @@ export const studentService = {
         address: newStudent.address,
         is_deleted: false,
       }).select().single();
-      if (error) throw new Error(error.message);
-      return data as Student;
+      if (!error && data) return data as Student;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStoredStudents();
@@ -266,8 +271,8 @@ export const studentService = {
         .from('students')
         .update({ is_deleted: true })
         .eq('id', id);
-      if (error) throw new Error(error.message);
-      return;
+      if (!error) return;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
     }
 
     const list = getStoredStudents();
