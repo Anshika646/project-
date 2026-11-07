@@ -1,0 +1,1058 @@
+# EDUNEXA — COMPLETE PRODUCTION-GRADE DATABASE & BACKEND MASTER IMPLEMENTATION
+
+Act as a Senior Supabase Database Architect, PostgreSQL Engineer, Backend Developer, SaaS Security Architect and ERP System Designer.
+
+You are working on my existing project **EDUNEXA**, a multi-tenant School and College ERP SaaS platform.
+
+I want you to design and generate the complete backend database architecture and all required SQL queries from A to Z.
+
+This is not a small student management application. It must be designed as a scalable SaaS platform that can serve 100+ schools and colleges, with the ability to grow further.
+
+## 1. IMPORTANT PROJECT RULES
+
+1. First inspect my complete existing project and its source code.
+2. My frontend is already built using React 19, TypeScript, Vite and React Router.
+3. Do not rebuild, redesign, delete or overwrite my existing frontend.
+4. Do not replace App.tsx or any existing page with a demo application.
+5. Preserve all existing UI designs, routes, components, dashboards and workflows.
+6. Use Supabase PostgreSQL as the primary database.
+7. Use Supabase Auth for authentication.
+8. Use Supabase Storage for documents and uploaded files.
+9. Use secure Row Level Security (RLS) for every tenant-owned table.
+10. Use the existing Supabase project configuration and environment variable names found in my code.
+11. Never expose the service-role key, database password or other privileged credentials in frontend code.
+12. Never hardcode fake student records, attendance, marks or dashboard statistics as real data.
+13. No fees, fee collection, payment gateways, dues, invoices or payment management modules.
+14. Do not execute SQL or modify the live Supabase database.
+15. Generate reviewable migration files only. Wait for my approval before any database execution.
+
+Before generating SQL, inspect the existing migrations, services, types, interfaces, Supabase queries and page components.
+
+Do not claim compatibility without checking the actual code.
+
+---
+
+# 2. COMPLETE USER PORTALS
+
+The system must support these eight portals:
+
+### School
+1. School Admin
+2. Teacher
+3. Student
+4. Parent
+
+### College
+5. College Admin
+6. College Faculty
+7. College Student
+
+### Platform
+8. Super Admin
+
+Each user must have secure role-based access.
+
+A user can belong to different institutions if explicitly authorised. Institution memberships and roles must be managed at the database level.
+
+Do not trust role information supplied by the frontend.
+
+---
+
+# 3. MULTI-TENANT SAAS ARCHITECTURE
+
+Design one shared Supabase database supporting multiple independent institutions.
+
+Required core tables:
+
+- institutions
+- profiles
+- institution_memberships
+- institution_settings
+- institution_subscriptions
+- super_admin_plans
+- subscription_history
+- academic_sessions
+
+Every institution-owned record must be associated with the correct institution.
+
+A school must never be able to read, modify or delete another school's records.
+
+A parent must only access their verified children.
+
+A student must only access their own permitted records.
+
+A teacher must only access their assigned academic data.
+
+A College Faculty member must only access their allocated college classes, semesters and subjects.
+
+Super Admin must have separately controlled platform-level permissions.
+
+Use appropriate composite foreign keys, unique constraints and validation triggers to prevent cross-institution data relationships.
+
+Do not rely on institution_id filtering in frontend queries as a security measure.
+
+---
+
+# 4. AUTHENTICATION AND USER MANAGEMENT
+
+Create the complete database design for:
+
+- Supabase Auth integration
+- profiles
+- institution_memberships
+- role management
+- user activation and deactivation
+- invitation and onboarding status
+- account linking
+- password recovery support through Supabase Auth
+- user profile updates
+- multiple institution memberships
+- parent and child account linking
+- teacher and faculty account linking
+- student account activation
+
+Use auth.users as the authentication identity.
+
+Use profiles.id referencing auth.users.id.
+
+Do not create a separate password storage system.
+
+A student record must be creatable even if the student has not activated their login account yet. Account linking must be supported later.
+
+Similarly, parent accounts must be linkable after admission.
+
+Provide secure onboarding functions or server-side workflows for creating and linking accounts.
+
+Never allow ordinary users to assign themselves admin or Super Admin privileges.
+
+---
+
+# 5. COMPLETE SCHOOL ACADEMIC STRUCTURE
+
+Support:
+
+- Nursery
+- LKG
+- UKG
+- Classes 1–12
+- CBSE
+- ICSE
+- State Boards
+- Custom boards
+- Science stream
+- Commerce stream
+- Humanities/Arts stream
+- Custom subjects
+- Optional subjects
+- Multiple sections per class
+
+Required tables:
+
+- academic_sessions
+- classes
+- class_session_offerings
+- sections
+- subjects
+- class_subjects
+- chapters
+- syllabus
+- teachers
+- teacher_subject_allocations
+- student_session_enrollments
+
+Academic sessions must have:
+
+- Draft
+- Active
+- Closed
+
+A school must be able to create a new academic session without losing previous academic data.
+
+Class, section, subject and teacher allocation must be session-aware.
+
+A student promoted from Class 9 to Class 10 must retain their complete previous academic history.
+
+Do not overwrite old enrollment records.
+
+Support roll number, admission number, class, section, stream and session-wise enrollment.
+
+---
+
+# 6. STUDENT MANAGEMENT
+
+Create all required tables and SQL for:
+
+- students
+- student_session_enrollments
+- student_documents
+- student_guardians
+- parents
+- admission_numbers
+- student_promotions
+- student_status_history
+- transfer_certificates
+
+Student information should support:
+
+- Full name
+- Admission number
+- Date of birth
+- Gender
+- Contact details
+- Address
+- Parent/guardian details
+- Previous school
+- Admission date
+- Current academic session
+- Class and section
+- Student status
+- Uploaded documents
+
+Support multiple guardians for one student and multiple children for one parent.
+
+Do not store Aadhaar or other highly sensitive identifiers unless absolutely required and protected by an actual encryption and access-control design.
+
+---
+
+# 7. ADMISSIONS MANAGEMENT
+
+Required tables:
+
+- admission_enquiries
+- admission_applications
+- admission_application_documents
+- admission_status_history
+
+Support the complete admission workflow:
+
+Enquiry → Application → Submitted → Under Review → Approved/Rejected → Student Enrollment → Account Activation.
+
+Support a seven-section admission form with structured data.
+
+Approval must generate the required student and enrollment records safely without creating duplicate students.
+
+Use transactions or secure database functions where multiple related records must be created together.
+
+---
+
+# 8. TEACHER AND STAFF MANAGEMENT
+
+Required tables:
+
+- teachers
+- teacher_profiles
+- teacher_subject_allocations
+- staff_departments
+- teacher_documents
+- teacher_status_history
+
+Support:
+
+- Employee ID
+- Personal details
+- Qualifications
+- Experience
+- Designation
+- Department
+- Assigned subjects
+- Assigned classes
+- Assigned sections
+- Academic session
+- Employment status
+
+A teacher must only access assigned sections and subjects.
+
+---
+
+# 9. ATTENDANCE MANAGEMENT
+
+Required tables:
+
+- attendance_records
+- attendance_correction_requests
+- attendance_locks
+- attendance_summary or suitable reporting views
+
+Attendance statuses:
+
+- Unmarked
+- Present
+- Absent
+- Late
+- Leave
+
+Important workflow:
+
+1. Attendance must initially be Unmarked, not automatically Present.
+2. Teacher selects class, section and date.
+3. Teacher marks attendance.
+4. Teacher saves or submits attendance.
+5. Submitted attendance can be locked according to institution settings.
+6. Corrections after locking must follow an authorised correction workflow.
+7. Admin can approve or reject corrections.
+8. All modifications must be audited.
+
+Add constraints to prevent duplicate attendance records for the same student, session and date.
+
+Validate that the student belongs to the specified institution, section, session and enrollment.
+
+Teachers must not delete attendance records.
+
+---
+
+# 10. TIMETABLE AND SCHOOL CALENDAR
+
+Required tables:
+
+- school_calendars
+- timetable_periods
+- timetables
+- timetable_slots
+- holidays
+- working_days
+- special_events
+
+Support:
+
+- School timings
+- Period timings
+- Breaks
+- Weekly schedules
+- Teacher allocation
+- Subject allocation
+- Room allocation
+- Class-specific timetable
+- Academic calendar
+- Holidays
+- Events
+
+Prevent a teacher from being assigned to two classes at the same time.
+
+Prevent room and section timetable conflicts.
+
+Allow historical timetable versions. Only one timetable should be active per section and session.
+
+---
+
+# 11. EXAMINATION AND RESULTS
+
+Required tables:
+
+- examinations
+- exam_subjects
+- student_marks
+- grading_systems
+- grade_boundaries
+- student_report_cards
+- report_card_publications
+
+Support:
+
+- Unit tests
+- Periodic tests
+- Mid-term exams
+- Half-yearly exams
+- Annual exams
+- Practical exams
+- Theory exams
+- Internal assessments
+- Custom examination types
+
+Marks must support:
+
+- Maximum marks
+- Obtained marks
+- Absent status
+- Exempted status where required
+- Grade
+- Percentage
+- Teacher remarks
+- Approval status
+- Publication status
+
+Create secure workflows for teachers to enter marks and admins to approve and publish results.
+
+Prevent marks exceeding maximum marks.
+
+Validate that the student, enrollment, exam, subject and academic session belong together.
+
+Published results must be visible only to authorised users and the relevant student/parent.
+
+Create the database logic for report card generation data.
+
+PDF rendering can be performed by the application or a secure server-side service; do not pretend SQL itself generates a PDF.
+
+---
+
+# 12. STUDY NOTES AND DIGITAL LEARNING
+
+Required tables:
+
+- study_notes
+- study_note_attachments
+- note_publications
+- note_download_logs
+- syllabus_chapters
+
+Support two different teacher workflows:
+
+A. AI-generated notes:
+- Subject
+- Chapter
+- Topic
+- Generated content
+- Teacher review
+- Draft/published status
+
+B. Handwritten notes:
+- PDF upload
+- Image upload
+- File metadata
+- Subject
+- Chapter
+- Class
+- Section or permitted audience
+- Teacher
+- Publication status
+
+Students must only access published notes for their relevant class, session and subjects.
+
+Parents must not receive access to restricted teacher-only materials.
+
+AI content generation must use a secure backend/API workflow. Never expose a Gemini API key in browser code.
+
+---
+
+# 13. HOMEWORK AND ASSIGNMENTS
+
+Required tables:
+
+- homework
+- homework_attachments
+- homework_submissions
+- homework_feedback
+
+Support:
+
+- Teacher creates homework
+- Subject and chapter
+- Class and section
+- Due date
+- Maximum marks
+- PDF/image attachments
+- Student text submission
+- Student PDF/image upload
+- Submission time
+- Late submission status
+- Teacher evaluation
+- Marks and feedback
+
+A student can only submit work for their own enrollment.
+
+A teacher can only view and grade submissions belonging to their allocated classes.
+
+---
+
+# 14. QUIZZES AND LEADERBOARD
+
+Required tables:
+
+- quizzes
+- quiz_questions
+- quiz_options or secure structured options
+- quiz_attempts
+- quiz_answers
+- quiz_results
+- quiz_leaderboard_entries
+
+Support:
+
+- Subject dropdown
+- Chapter dropdown
+- Quiz selection
+- Multiple-choice questions
+- Question options
+- Correct answers
+- Explanations
+- Timed quiz
+- Student attempts
+- Score calculation
+- Result history
+- Leaderboard
+
+IMPORTANT SECURITY:
+
+Never expose correct answers to students before the quiz is submitted.
+
+Do not allow students to directly insert their own score or modify their result.
+
+Score calculation and result validation must happen through a trusted database function or secure server-side operation.
+
+Prevent unauthorised repeated attempts if the quiz has an attempt limit.
+
+---
+
+# 15. NOTICES AND COMMUNICATION
+
+Required tables:
+
+- notices
+- notice_recipients
+- notice_attachments
+- notice_read_receipts
+- notifications
+- notification_preferences
+- notification_delivery_logs
+
+Support:
+
+- School circulars
+- Academic notices
+- Holiday notices
+- Examination announcements
+- Urgent announcements
+- Role-based recipients
+- Class/section-specific recipients
+- Read/unread status
+- Parent notifications
+- Student notifications
+- Teacher notifications
+
+Users must only access notices addressed to their role or group.
+
+---
+
+# 16. PARENT PORTAL
+
+Support multiple children linked to one parent.
+
+Parents can access only their verified children's:
+
+- Attendance
+- Results
+- Report cards
+- Homework
+- Timetable
+- Published notes
+- Notices
+- Progress reports
+- PTM bookings
+
+Required tables:
+
+- parents
+- student_guardians
+- parent_notification_preferences
+- ptm_sessions
+- ptm_bookings
+
+Parent access must be enforced through RLS, not just frontend filtering.
+
+---
+
+# 17. PTM MANAGEMENT
+
+Support:
+
+- Admin creates PTM event
+- Teachers receive schedules
+- Parents book available time slots
+- Booking confirmation
+- Rescheduling
+- Cancellation
+- Teacher remarks
+- Parent remarks
+- Meeting completion
+
+Prevent double booking of teacher slots.
+
+Validate parent-child relationship and teacher allocation.
+
+---
+
+# 18. STUDENT PROMOTION AND TRANSFER CERTIFICATES
+
+Required tables:
+
+- student_promotions
+- student_status_history
+- transfer_certificates
+- transfer_certificate_documents
+
+Support:
+
+- Promoted
+- Retained
+- Transferred
+- TC issued
+- Session-to-session progression
+
+Promotion must create a new enrollment for the next session.
+
+Never delete or overwrite the previous session enrollment.
+
+TC data must preserve the student's academic history.
+
+---
+
+# 19. COMPLETE COLLEGE ERP
+
+Required tables:
+
+- college_departments
+- college_courses
+- college_semesters
+- college_subjects
+- college_course_subjects
+- college_student_enrollments
+- college_subject_registrations
+- college_exam_components
+- college_student_marks
+- college_grades
+- college_backlogs
+- college_attendance
+- college_faculty_allocations
+- college_transcripts
+
+Support:
+
+- Departments
+- Courses
+- Degree programmes
+- Semester-wise structure
+- Faculty allocation
+- Subject credits
+- Subject registration
+- Internal exams
+- External exams
+- Practical exams
+- Assignments
+- Attendance
+- Grade points
+- SGPA
+- CGPA
+- Backlogs
+- Backlog clearance
+- Semester results
+- Transcripts
+
+SGPA and CGPA must be calculated using actual subject credits and the institution's configured grading rules.
+
+Preserve previous semester results and backlog attempts.
+
+Do not use a hardcoded credit multiplier.
+
+---
+
+# 20. SUPER ADMIN PLATFORM MANAGEMENT
+
+Required tables:
+
+- super_admin_plans
+- institution_subscriptions
+- subscription_history
+- institution_feature_access
+- platform_audit_logs
+- platform_settings
+- support_tickets
+
+Support:
+
+- Institution registration
+- Institution approval
+- Institution activation/deactivation
+- Trial management
+- Plan assignment
+- Student/teacher limits
+- Feature access
+- Subscription status
+- Renewal dates
+- Expiration
+- Platform analytics
+- Support requests
+
+This is subscription lifecycle management only.
+
+Do not create fee collection or payment modules.
+
+Super Admin privileges must be securely controlled and must not be granted through normal institution membership creation.
+
+---
+
+# 21. NOTIFICATIONS AND BACKGROUND WORKFLOWS
+
+Design the database for:
+
+- Attendance alerts
+- Homework reminders
+- Quiz results
+- Published report cards
+- New notices
+- PTM confirmations
+- Admission updates
+- Account invitations
+
+Use appropriate notification tables and event records.
+
+Do not claim emails, WhatsApp messages or push notifications are delivered merely because a database row exists. Explain which external delivery service or Edge Function is needed.
+
+---
+
+# 22. DOCUMENT STORAGE
+
+Create and configure five Supabase Storage buckets:
+
+1. student-documents
+2. report-cards
+3. study-notes
+4. homework-files
+5. homework-submissions
+
+Use private buckets by default.
+
+Define complete SELECT, INSERT, UPDATE and DELETE storage policies.
+
+Use secure file paths with institution and record identifiers.
+
+Verify ownership against database records rather than trusting folder names alone.
+
+Restrict file types and file sizes where possible.
+
+Do not expose private documents through permanent public URLs.
+
+---
+
+# 23. AUDIT LOGGING
+
+Required tables:
+
+- audit_logs
+- platform_audit_logs
+
+Track critical INSERT, UPDATE and DELETE operations for:
+
+- Students
+- Enrollments
+- Attendance
+- Marks
+- Report cards
+- Promotions
+- Transfer certificates
+- Teacher allocations
+- User memberships
+- Institution settings
+
+Store:
+
+- Actor
+- Institution
+- Entity type
+- Entity ID
+- Action
+- Old values
+- New values
+- Timestamp
+
+Use hardened SECURITY DEFINER trigger functions with fixed search_path and restricted execution permissions.
+
+Make audit logs append-only for ordinary application users.
+
+Handle system operations where auth.uid() is NULL.
+
+Explain the limitations of audit protection against privileged database operators.
+
+---
+
+# 24. DATABASE SECURITY — HIGHEST PRIORITY
+
+Implement RLS for every institution-owned table.
+
+Provide separate policies for:
+
+- SELECT
+- INSERT
+- UPDATE
+- DELETE
+
+Create secure helper functions such as:
+
+- auth_user_institutions()
+- auth_has_role()
+- auth_teacher_sections()
+- auth_teacher_subjects()
+- auth_parent_students()
+
+Only create helper functions that are actually needed.
+
+All SECURITY DEFINER functions must:
+
+- Use a fixed safe search_path.
+- Have restricted execution grants.
+- Validate the current authenticated identity.
+- Avoid privilege escalation.
+- Validate institution membership and role.
+- Avoid trusting client-supplied IDs without database validation.
+
+Important:
+
+- A student cannot read another student's private records.
+- A parent cannot access an unlinked child.
+- A teacher cannot access unassigned sections.
+- A teacher cannot change their own role.
+- A school admin cannot access another institution's data.
+- A college faculty member cannot access unrelated departments or semesters.
+- An institution cannot modify platform-level Super Admin settings.
+- Ordinary users cannot modify audit logs.
+- Anonymous users cannot access private institutional data.
+
+Use safe RLS policies without infinite recursion.
+
+Ensure helper functions do not accidentally bypass tenant restrictions.
+
+---
+
+# 25. DATA INTEGRITY AND PERFORMANCE
+
+Add:
+
+- Primary keys
+- Foreign keys
+- Composite foreign keys where needed
+- Unique constraints
+- CHECK constraints
+- NOT NULL constraints
+- Appropriate indexes
+- Updated_at triggers
+- Safe status constraints
+- Date validation
+- Duplicate prevention
+
+Important consistency rules:
+
+1. Student and enrollment must belong to the same institution.
+2. Enrollment, class, section and session must match.
+3. Teacher allocation must match the same institution, session, section and subject.
+4. Marks must match the correct student enrollment and exam.
+5. Attendance must match the student's current relevant enrollment.
+6. Parent and student must belong to the same institution.
+7. Homework submission must match the assigned student and homework.
+8. Quiz attempt must match the correct student enrollment and quiz.
+9. College registration must match the student's semester and course.
+10. No record may accidentally reference another institution's entity.
+
+For performance:
+
+- Index frequently filtered columns.
+- Index institution_id and session_id where appropriate.
+- Index foreign keys used in joins.
+- Use pagination for large student and attendance lists.
+- Avoid fetching all institutional records at once.
+- Use efficient reporting views or aggregate queries.
+- Recommend partitioning only when actual data volume justifies it.
+- Include backup, monitoring and load-testing recommendations.
+
+Do not add unnecessary indexes or partition every table blindly.
+
+---
+
+# 26. ACADEMIC SESSION OPENING AND CLOSING
+
+Create database support for the complete lifecycle.
+
+Opening:
+- Create academic session.
+- Configure dates.
+- Configure working days and holidays.
+- Set school timings.
+- Create classes and sections.
+- Assign subjects.
+- Allocate teachers.
+- Create new admissions.
+- Promote existing students.
+- Activate the session.
+
+Closing:
+- Verify attendance.
+- Complete marks entry.
+- Publish report cards.
+- Finalise promotions.
+- Generate reports.
+- Archive the session.
+- Lock historical academic records.
+
+Historical records must remain readable according to permissions.
+
+Changes after closure must require authorised workflows and audit logs.
+
+---
+
+# 27. SQL MIGRATION FILES — GENERATE ALL OF THEM
+
+Generate separate, ordered SQL migration files.
+
+Suggested structure:
+
+00001_extensions_and_enums.sql
+00002_core_tenant_tables.sql
+00003_profiles_and_memberships.sql
+00004_super_admin_and_subscriptions.sql
+00005_academic_sessions_and_classes.sql
+00006_subjects_and_syllabus.sql
+00007_teachers_and_allocations.sql
+00008_students_and_guardians.sql
+00009_admissions.sql
+00010_timetable_and_calendar.sql
+00011_attendance.sql
+00012_examinations_and_marks.sql
+00013_report_cards_and_grading.sql
+00014_study_notes.sql
+00015_homework_and_submissions.sql
+00016_quizzes_and_results.sql
+00017_notices_and_notifications.sql
+00018_parent_portal_and_ptm.sql
+00019_promotions_and_transfer_certificates.sql
+00020_college_erp.sql
+00021_audit_logging.sql
+00022_rls_helpers_and_policies.sql
+00023_storage_buckets_and_policies.sql
+00024_indexes_and_performance.sql
+00025_compatibility_views_and_functions.sql
+
+You may adjust the migration order if foreign-key dependencies require it.
+
+Each file must contain actual executable PostgreSQL/Supabase SQL, not pseudocode.
+
+Do not leave statements such as "add policies here" or "repeat for other tables".
+
+Use transactions where appropriate.
+
+Make migrations safe to review and apply in sequence. Avoid blindly using IF NOT EXISTS to conceal incompatible existing tables or columns. Include preflight checks and explain how existing data and migrations will be preserved.
+
+---
+
+# 28. FRONTEND INTEGRATION
+
+After generating the schema, inspect the existing frontend and map every service and page to the correct database tables.
+
+Inspect:
+
+- DashboardPage.tsx
+- AttendancePage.tsx
+- StudentsPage.tsx
+- TeachersPage.tsx
+- SubjectsPage.tsx
+- ClassesPage.tsx
+- ExaminationsPage.tsx
+- ReportsPage.tsx
+- NotesPage.tsx
+- HomeworkPage.tsx
+- QuizzesPage.tsx
+- NoticesPage.tsx
+- PTMPage.tsx
+- TimetablePage.tsx
+- AdmissionsPage.tsx
+- CollegePage.tsx
+- SuperAdminPage.tsx
+- LoginPage.tsx
+
+Also inspect all Supabase services, hooks, types, routes and existing migrations.
+
+For every page, explain:
+
+1. Which database tables it uses.
+2. Which queries it needs.
+3. Which operations are SELECT, INSERT, UPDATE or DELETE.
+4. Which role is allowed to perform each operation.
+5. Whether the current service code is compatible.
+6. Which frontend files need changes, if any.
+
+Do not rewrite the entire frontend.
+
+Preserve existing UI and integrate backend logic into the existing structure.
+
+---
+
+# 29. REQUIRED SQL TESTS
+
+Generate separate SQL test scripts for:
+
+- Two different institutions.
+- School Admin access.
+- Teacher access.
+- Student access.
+- Parent access.
+- College Admin access.
+- College Faculty access.
+- College Student access.
+- Super Admin access.
+- Cross-institution data access attempts.
+- Teacher attempts to access unassigned sections.
+- Teacher attempts to delete marks.
+- Student attempts to view another student's results.
+- Parent attempts to access an unlinked child.
+- Attendance duplicate prevention.
+- Marks exceeding maximum marks.
+- Invalid student enrollment relationships.
+- Invalid college subject registration.
+- Timetable conflicts.
+- Quiz answer security.
+- Locked attendance correction.
+- Audit log protection.
+
+Include expected results for each test.
+
+Never use real student personal data in test fixtures.
+
+---
+
+# 30. FINAL OUTPUT REQUIREMENTS
+
+Present the result in this order:
+
+A. Existing project inspection report.
+
+B. Final complete ER diagram.
+
+C. Complete table inventory with purpose and relationships.
+
+D. Role and permission matrix.
+
+E. Tenant isolation strategy.
+
+F. Complete SQL migration files.
+
+G. RLS coverage matrix and actual policy SQL.
+
+H. Storage bucket configuration and policies.
+
+I. Audit triggers and helper functions.
+
+J. Indexes and performance strategy.
+
+K. Frontend-to-database compatibility report.
+
+L. SQL security test scripts with expected outcomes.
+
+M. Deployment and rollback instructions.
+
+N. Remaining risks and unresolved assumptions.
+
+O. Step-by-step instructions explaining exactly how I should apply the migrations through Supabase.
+
+## FINAL INSTRUCTION
+
+Do not execute SQL.
+
+Do not modify the live Supabase database.
+
+Do not change the existing frontend UI.
+
+Do not ask me to provide service-role keys, database passwords or other secrets in chat.
+
+Generate the complete implementation in reviewable files or clearly separated SQL code blocks.
+
+If the output is too large, generate it in sequential batches. Do not skip tables, policies or migrations to save space. Maintain consistent names and dependencies across every batch.
+
+At the end of each batch, list exactly which files have been completed and which remain.
+
+**The goal is a secure, complete, scalable, production-oriented School + College ERP SaaS backend for Edunexa — not just a database diagram or a demo schema.**
