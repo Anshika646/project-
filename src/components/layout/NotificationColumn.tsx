@@ -5,11 +5,7 @@ import {
   X,
   CheckCheck,
   Megaphone,
-  AlertCircle,
-  Calendar,
-  BookOpen,
   ArrowRight,
-  ExternalLink,
 } from 'lucide-react';
 import { DEMO_NOTICES } from '../../services/mockData';
 
@@ -23,7 +19,6 @@ interface NotificationColumnProps {
 export const NotificationColumn: React.FC<NotificationColumnProps> = ({
   isOpen,
   onClose,
-  unreadCount = 3,
   onMarkAllRead,
 }) => {
   const navigate = useNavigate();
@@ -85,48 +80,48 @@ export const NotificationColumn: React.FC<NotificationColumnProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end" aria-modal="true" role="dialog">
-      {/* Dimmed Backdrop with Blur */}
+      {/* Dimmed Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/30 backdrop-blur-2xs transition-opacity duration-200"
+        className="fixed inset-0 bg-[#0F172A]/30 backdrop-blur-2xs transition-opacity duration-200"
       />
 
       {/* Slide-out Notification Column / Drawer */}
-      <aside className="relative w-full max-w-md bg-white h-full shadow-2xl border-l border-[#E9D5FF] flex flex-col z-10 animate-in slide-in-from-right duration-200 ease-out">
+      <aside className="relative w-full max-w-md bg-white h-full shadow-2xl border-l border-[#E8E4DF] flex flex-col z-10 animate-in slide-in-from-right duration-200 ease-out">
         {/* Column Header */}
-        <div className="p-5 border-b border-[#E9D5FF] flex items-center justify-between bg-white shrink-0">
+        <div className="p-5 border-b border-[#E8E4DF] flex items-center justify-between bg-white shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#F3E8FF] text-[#8B5CF6] flex items-center justify-center border border-[#C4B5FD]/50 shadow-xs">
-              <Bell size={20} className="stroke-[2.2]" />
+            <div className="w-10 h-10 rounded-xl bg-[#F5F3FF] text-[#6D28D9] flex items-center justify-center border border-[#DDD6FE] shadow-2xs">
+              <Bell size={18} className="stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-extrabold text-[#171417]">
-                  Notifications & Circulars
+                <h2 className="text-base font-bold text-[#0F172A]">
+                  Notifications
                 </h2>
                 {activeUnreadCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#8B5CF6] text-white">
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#6D28D9] text-white">
                     {activeUnreadCount} new
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#625C60] font-medium mt-0.5">
-                Institutional announcements & alerts
+              <p className="text-xs text-[#64748B] font-medium mt-0.5">
+                Announcements, deadlines & alerts
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#FAF5FF] hover:bg-[#F5F3FF] border border-[#E9D5FF] text-[#625C60] hover:text-[#171417] flex items-center justify-center transition-colors font-bold"
+            className="w-8 h-8 rounded-lg bg-[#FAF8F5] hover:bg-[#F5F3FF] border border-[#E8E4DF] text-[#64748B] hover:text-[#0F172A] flex items-center justify-center transition-colors font-bold"
             aria-label="Close notifications"
           >
             <X size={16} />
           </button>
         </div>
 
-        {/* Sub-bar: Filter pills & Mark All as Read */}
-        <div className="px-5 py-3 border-b border-[#E9D5FF] bg-[#FAF5FF] flex items-center justify-between gap-2 shrink-0">
+        {/* Filter tabs & Mark All as Read */}
+        <div className="px-5 py-3 border-b border-[#E8E4DF] bg-[#FAF8F5] flex items-center justify-between gap-2 shrink-0">
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
             {[
               { id: 'all', label: 'All' },
@@ -137,10 +132,10 @@ export const NotificationColumn: React.FC<NotificationColumnProps> = ({
               <button
                 key={t.id}
                 onClick={() => setFilter(t.id as any)}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
                   filter === t.id
-                    ? 'bg-[#8B5CF6] text-white shadow-xs'
-                    : 'bg-white text-[#171417] border border-[#E9D5FF] hover:bg-[#F5F3FF]'
+                    ? 'bg-[#6D28D9] text-white shadow-2xs'
+                    : 'bg-white text-[#64748B] border border-[#E8E4DF] hover:text-[#0F172A]'
                 }`}
               >
                 {t.label}
@@ -151,65 +146,58 @@ export const NotificationColumn: React.FC<NotificationColumnProps> = ({
           {activeUnreadCount > 0 && (
             <button
               onClick={handleMarkAll}
-              className="text-[11px] font-bold text-[#8B5CF6] hover:underline flex items-center gap-1 shrink-0"
+              className="text-[11px] font-bold text-[#6D28D9] hover:underline flex items-center gap-1 shrink-0"
               title="Mark all as read"
             >
               <CheckCheck size={14} />
-              <span className="hidden sm:inline">Mark all read</span>
+              <span className="hidden sm:inline">Mark read</span>
             </button>
           )}
         </div>
 
         {/* Notification Cards List */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white">
+        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#FAF8F5]">
           {filteredNotices.length === 0 ? (
-            <div className="h-64 flex flex-col items-center justify-center text-center p-6 text-[#625C60]">
-              <div className="w-12 h-12 rounded-2xl bg-[#FAF5FF] text-[#8B5CF6] flex items-center justify-center mb-2 border border-[#E9D5FF]">
-                <Bell size={22} />
+            <div className="h-64 flex flex-col items-center justify-center text-center p-6 text-[#64748B]">
+              <div className="w-12 h-12 rounded-xl bg-white text-[#6D28D9] flex items-center justify-center mb-2 border border-[#E8E4DF]">
+                <Bell size={20} />
               </div>
-              <p className="text-sm font-extrabold text-[#171417]">No notifications</p>
-              <p className="text-xs mt-1">You're completely caught up with institutional circulars.</p>
+              <p className="text-sm font-bold text-[#0F172A]">No notifications</p>
+              <p className="text-xs mt-1">You are all caught up with your updates.</p>
             </div>
           ) : (
-            filteredNotices.map((notice, idx) => (
+            filteredNotices.map((notice) => (
               <div
                 key={notice.id}
                 onClick={() => handleItemClick(notice.id)}
-                className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
+                className={`p-4 rounded-xl border transition-all cursor-pointer relative bg-white ${
                   notice.isRead
-                    ? 'bg-white border-[#E9D5FF] hover:border-[#8B5CF6]/40'
-                    : 'bg-[#F5F3FF] border-[#C4B5FD] shadow-xs'
+                    ? 'border-[#E8E4DF] hover:border-[#DDD6FE]'
+                    : 'border-[#DDD6FE] shadow-2xs'
                 }`}
               >
                 {!notice.isRead && (
-                  <span className="absolute top-4 right-4 w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                  <span className="absolute top-4 right-4 w-2 h-2 rounded-full bg-[#6D28D9]" />
                 )}
 
-                <div className="flex items-center gap-2 mb-2">
-                  <span
-                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide border ${
-                      notice.priority === 'urgent'
-                        ? 'bg-[#F3E8FF] text-[#8B5CF6] border-[#8B5CF6]/30'
-                        : 'bg-[#FAF5FF] text-[#171417] border-[#E9D5FF]'
-                    }`}
-                  >
-                    {notice.priority === 'urgent' ? '🚨 Urgent Alert' : '📢 Circular'}
+                <div className="flex items-center gap-2 mb-1.5 text-xs text-[#64748B]">
+                  <span className="font-semibold text-[#6D28D9]">
+                    {notice.priority === 'urgent' ? '🚨 Urgent Alert' : '📢 Notice'}
                   </span>
-                  <span className="text-[11px] font-medium text-[#625C60]">
-                    {notice.timeAgo}
-                  </span>
+                  <span>·</span>
+                  <span>{notice.timeAgo}</span>
                 </div>
 
-                <h3 className="text-sm font-extrabold text-[#171417] leading-snug">
+                <h3 className="text-xs font-bold text-[#0F172A] leading-snug">
                   {notice.title}
                 </h3>
-                <p className="text-xs text-[#625C60] font-medium mt-1.5 leading-relaxed line-clamp-3">
+                <p className="text-xs text-[#64748B] font-medium mt-1 leading-relaxed line-clamp-2">
                   {notice.content}
                 </p>
 
-                <div className="mt-3 pt-2.5 border-t border-[#E9D5FF] flex items-center justify-between text-[11px]">
-                  <span className="text-[#858087] font-semibold">
-                    Target: <strong className="text-[#171417] uppercase">{notice.target_audience}</strong>
+                <div className="mt-3 pt-2.5 border-t border-[#E8E4DF] flex items-center justify-between text-[11px]">
+                  <span className="text-[#94A3B8] font-medium">
+                    Target: <strong className="text-[#0F172A] font-semibold uppercase">{notice.target_audience}</strong>
                   </span>
                   <button
                     onClick={(e) => {
@@ -217,9 +205,9 @@ export const NotificationColumn: React.FC<NotificationColumnProps> = ({
                       onClose();
                       navigate('/notices');
                     }}
-                    className="font-bold text-[#8B5CF6] hover:underline flex items-center gap-1"
+                    className="font-semibold text-[#6D28D9] hover:underline flex items-center gap-1"
                   >
-                    <span>View Details</span>
+                    <span>View</span>
                     <ArrowRight size={12} />
                   </button>
                 </div>
@@ -229,20 +217,20 @@ export const NotificationColumn: React.FC<NotificationColumnProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-[#E9D5FF] bg-[#FAF5FF] flex items-center justify-between gap-3 shrink-0">
+        <div className="p-4 border-t border-[#E8E4DF] bg-white flex items-center justify-between gap-3 shrink-0">
           <button
             onClick={() => {
               onClose();
               navigate('/notices');
             }}
-            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] shadow-xs flex items-center justify-center gap-2 transition-colors"
+            className="flex-1 py-2 px-4 rounded-xl text-xs font-semibold text-white bg-[#6D28D9] hover:bg-[#5B21B6] shadow-2xs flex items-center justify-center gap-2 transition-colors"
           >
             <Megaphone size={14} />
             <span>Open Notice Board</span>
           </button>
           <button
             onClick={onClose}
-            className="py-2.5 px-4 rounded-xl text-xs font-bold text-[#171417] bg-white border border-[#E9D5FF] hover:bg-[#F5F3FF] transition-colors"
+            className="py-2 px-4 rounded-xl text-xs font-semibold text-[#0F172A] bg-[#FAF8F5] border border-[#E8E4DF] hover:bg-[#F5F3FF] transition-colors"
           >
             Close
           </button>

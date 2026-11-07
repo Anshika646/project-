@@ -137,15 +137,15 @@ export const AttendancePage: React.FC = () => {
   const canMark = ['teacher', 'school_admin', 'college_faculty', 'college_admin'].includes(role || '');
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto bg-white">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2">
-            <CheckCircle2 className="text-[#8B5CF6]" size={28} />
+          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#0F172A] tracking-tight flex items-center gap-2">
+            <CheckCircle2 className="text-[#6D28D9]" size={28} />
             <span>Daily Attendance & Roll Call</span>
           </h1>
-          <p className="text-xs md:text-sm font-semibold text-[#625C60] mt-0.5">
+          <p className="text-xs md:text-sm font-semibold text-[#64748B] mt-0.5">
             Class-wise attendance tracking across Nursery to Class 12 with real-time audit logs
           </p>
         </div>
@@ -155,13 +155,13 @@ export const AttendancePage: React.FC = () => {
             <>
               <button
                 onClick={handleMarkAllPresent}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF5FF] hover:bg-[#F5F3FF] text-[#171417] border border-[#E9D5FF] shadow-xs transition-all"
+                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF8F5] hover:bg-[#FFFFFF] text-[#0F172A] border border-[#E8E4DF] shadow-xs transition-all"
               >
                 Mark All Present
               </button>
               <button
                 onClick={handleSaveAttendance}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-all shadow-xs flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#6D28D9] text-white hover:bg-[#5B21B6] transition-all shadow-xs flex items-center gap-1.5"
               >
                 <Save size={14} />
                 <span>Save Attendance</span>
@@ -171,31 +171,31 @@ export const AttendancePage: React.FC = () => {
 
           <button
             onClick={handleExportAttendance}
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF5FF] hover:bg-[#F5F3FF] text-[#171417] border border-[#E9D5FF] shadow-xs flex items-center gap-1.5 transition-all"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF8F5] hover:bg-[#FFFFFF] text-[#0F172A] border border-[#E8E4DF] shadow-xs flex items-center gap-1.5 transition-all"
             title="Export to Excel"
           >
-            <Download size={14} className="text-[#8B5CF6]" />
+            <Download size={14} className="text-[#6D28D9]" />
             <span className="hidden sm:inline">Export Excel</span>
           </button>
         </div>
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#F5F3FF] border border-[#C4B5FD] text-[#171417] text-xs font-bold flex items-center gap-2 shadow-xs">
-          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
+        <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#DDD6FE] text-[#0F172A] text-xs font-bold flex items-center gap-2 shadow-xs">
+          <CheckCircle2 size={16} className="text-[#6D28D9]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Control Filters Bar in Cream Pink */}
-      <div className="p-4 rounded-2xl bg-[#FAF5FF] border border-[#E9D5FF] flex flex-wrap items-center justify-between gap-4 shadow-xs">
+      <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DF] flex flex-wrap items-center justify-between gap-4 shadow-xs">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-[#171417]">Class:</span>
+            <span className="text-xs font-extrabold text-[#0F172A]">Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
             >
               {classes.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -206,11 +206,11 @@ export const AttendancePage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-[#171417]">Section:</span>
+            <span className="text-xs font-extrabold text-[#0F172A]">Section:</span>
             <select
               value={selectedSectionId}
               onChange={(e) => setSelectedSectionId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
             >
               {sections.map((s) => (
                 <option key={s.id} value={s.id}>
@@ -221,32 +221,32 @@ export const AttendancePage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-[#171417]">Date:</span>
+            <span className="text-xs font-extrabold text-[#0F172A]">Date:</span>
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-3 py-1.5 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
             />
           </div>
         </div>
 
         {/* Live Stat Indicator */}
         <div className="flex items-center gap-3 text-xs font-bold">
-          <span className="px-3 py-1 rounded-xl bg-white border border-[#E9D5FF] text-[#171417]">
+          <span className="px-3 py-1 rounded-xl bg-white border border-[#E8E4DF] text-[#0F172A]">
             Present: {presentCount} / {totalCount}
           </span>
-          <span className="px-3 py-1 rounded-xl bg-[#8B5CF6] text-white shadow-xs font-extrabold">
+          <span className="px-3 py-1 rounded-xl bg-[#6D28D9] text-white shadow-xs font-extrabold">
             Rate: {attendancePercentage}%
           </span>
         </div>
       </div>
 
       {/* Roll Call Table */}
-      <div className="rounded-2xl bg-white overflow-hidden border border-[#E9D5FF] shadow-sm">
+      <div className="rounded-2xl bg-white overflow-hidden border border-[#E8E4DF] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF5FF] text-[#171417] font-extrabold border-b border-[#E9D5FF]">
+            <thead className="bg-[#FAF8F5] text-[#0F172A] font-extrabold border-b border-[#E8E4DF]">
               <tr>
                 <th className="p-3.5 pl-6">Roll #</th>
                 <th className="p-3.5">Student Name</th>
@@ -255,10 +255,10 @@ export const AttendancePage: React.FC = () => {
                 <th className="p-3.5 pr-6">Remarks / Note</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E9D5FF]">
+            <tbody className="divide-y divide-[#E8E4DF]">
               {students.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-xs font-semibold text-[#625C60]">
+                  <td colSpan={5} className="p-8 text-center text-xs font-semibold text-[#64748B]">
                     No students currently allocated to this class and section.
                   </td>
                 </tr>
@@ -267,24 +267,24 @@ export const AttendancePage: React.FC = () => {
                   const currentStatus = attendanceMap[student.id] || 'present';
 
                   return (
-                    <tr key={student.id} className="hover:bg-[#F5F3FF]/60 transition-colors">
-                      <td className="p-3.5 pl-6 font-stat font-bold text-[#171417]">
+                    <tr key={student.id} className="hover:bg-[#FFFFFF]/60 transition-colors">
+                      <td className="p-3.5 pl-6 font-stat font-bold text-[#0F172A]">
                         {student.roll_number || '1'}
                       </td>
-                      <td className="p-3.5 font-extrabold text-[#171417]">
+                      <td className="p-3.5 font-extrabold text-[#0F172A]">
                         {student.profile?.full_name}
                       </td>
-                      <td className="p-3.5 font-stat font-extrabold text-[#8B5CF6]">
+                      <td className="p-3.5 font-stat font-extrabold text-[#6D28D9]">
                         {student.admission_number}
                       </td>
                       <td className="p-3.5">
                         {canMark ? (
                           <div className="flex items-center gap-1.5">
                             {[
-                              { id: 'present', label: 'P', active: 'bg-[#8B5CF6] text-white shadow-xs' },
-                              { id: 'absent', label: 'A', active: 'bg-[#171417] text-white shadow-xs' },
-                              { id: 'late', label: 'L', active: 'bg-[#A78BFA] text-white shadow-xs' },
-                              { id: 'half_day', label: 'HD', active: 'bg-[#C4B5FD] text-[#171417] shadow-xs' },
+                              { id: 'present', label: 'P', active: 'bg-[#6D28D9] text-white shadow-xs' },
+                              { id: 'absent', label: 'A', active: 'bg-[#0F172A] text-white shadow-xs' },
+                              { id: 'late', label: 'L', active: 'bg-[#8B5CF6] text-white shadow-xs' },
+                              { id: 'half_day', label: 'HD', active: 'bg-[#DDD6FE] text-[#0F172A] shadow-xs' },
                             ].map((btn) => (
                               <button
                                 key={btn.id}
@@ -293,7 +293,7 @@ export const AttendancePage: React.FC = () => {
                                 className={`w-8 h-7 rounded-lg text-[11px] font-extrabold transition-all ${
                                   currentStatus === btn.id
                                     ? btn.active
-                                    : 'bg-[#FAF5FF] text-[#625C60] hover:bg-[#F3E8FF]'
+                                    : 'bg-[#FAF8F5] text-[#64748B] hover:bg-[#FFFFFF]'
                                 }`}
                               >
                                 {btn.label}
@@ -304,10 +304,10 @@ export const AttendancePage: React.FC = () => {
                           <span
                             className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                               currentStatus === 'present'
-                                ? 'bg-[#F3E8FF] text-[#8B5CF6]'
+                                ? 'bg-[#FFFFFF] text-[#6D28D9]'
                                 : currentStatus === 'absent'
-                                ? 'bg-[#171417] text-white'
-                                : 'bg-[#FAF5FF] text-[#A78BFA]'
+                                ? 'bg-[#0F172A] text-white'
+                                : 'bg-[#FAF8F5] text-[#8B5CF6]'
                             }`}
                           >
                             {currentStatus}
@@ -323,10 +323,10 @@ export const AttendancePage: React.FC = () => {
                             onChange={(e) =>
                               setRemarksMap((prev) => ({ ...prev, [student.id]: e.target.value }))
                             }
-                            className="w-full px-3 py-1.5 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                            className="w-full px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-medium text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                           />
                         ) : (
-                          <span className="text-[#625C60] font-semibold">{remarksMap[student.id] || '—'}</span>
+                          <span className="text-[#64748B] font-semibold">{remarksMap[student.id] || '—'}</span>
                         )}
                       </td>
                     </tr>

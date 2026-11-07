@@ -6,8 +6,10 @@ import { RouteGuard } from './components/layout/RouteGuard';
 import { AppLayout } from './components/layout/AppLayout';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { AdmissionsPage } from './pages/AdmissionsPage';
 import { StudentsPage } from './pages/StudentsPage';
 import { TeachersPage } from './pages/TeachersPage';
+import { AcademicSetupPage } from './pages/AcademicSetupPage';
 import { ClassesPage } from './pages/ClassesPage';
 import { SubjectsPage } from './pages/SubjectsPage';
 import { AttendancePage } from './pages/AttendancePage';
@@ -19,6 +21,10 @@ import { HomeworkPage } from './pages/HomeworkPage';
 import { PTMPage } from './pages/PTMPage';
 import { NoticesPage } from './pages/NoticesPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { PromotionsPage } from './pages/PromotionsPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { SessionLifecyclePage } from './pages/SessionLifecyclePage';
+import { SettingsPage } from './pages/SettingsPage';
 import { CollegePage } from './pages/CollegePage';
 import { SuperAdminPage } from './pages/SuperAdminPage';
 import { UnauthorizedPage, NotFoundPage } from './pages/ErrorPages';
@@ -53,19 +59,25 @@ export default function App() {
             >
               <Route index element={<Navigate to="/dashboard" replace />} />
               <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="admissions" element={<AdmissionsPage />} />
               <Route path="students" element={<StudentsPage />} />
               <Route path="teachers" element={<TeachersPage />} />
+              <Route path="academic-setup" element={<AcademicSetupPage />} />
               <Route path="classes" element={<ClassesPage />} />
               <Route path="subjects" element={<SubjectsPage />} />
+              <Route path="timetable" element={<TimetablePage />} />
               <Route path="attendance" element={<AttendancePage />} />
               <Route path="examinations" element={<ExaminationsPage />} />
-              <Route path="timetable" element={<TimetablePage />} />
+              <Route path="reports" element={<ReportsPage />} />
               <Route path="notes" element={<NotesPage />} />
-              <Route path="quizzes" element={<QuizzesPage />} />
               <Route path="homework" element={<HomeworkPage />} />
+              <Route path="quizzes" element={<QuizzesPage />} />
               <Route path="ptm" element={<PTMPage />} />
               <Route path="notices" element={<NoticesPage />} />
-              <Route path="reports" element={<ReportsPage />} />
+              <Route path="promotions" element={<PromotionsPage />} />
+              <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="session-lifecycle" element={<SessionLifecyclePage />} />
+              <Route path="settings" element={<SettingsPage />} />
 
               {/* Dedicated College & University Routes */}
               <Route path="departments" element={<CollegePage />} />
@@ -74,9 +86,7 @@ export default function App() {
               {/* Dedicated Super Admin SaaS Management Routes */}
               <Route path="institutions" element={<SuperAdminPage />} />
               <Route path="subscriptions" element={<SuperAdminPage />} />
-              <Route path="analytics" element={<SuperAdminPage />} />
               <Route path="tickets" element={<SuperAdminPage />} />
-              <Route path="settings" element={<SuperAdminPage />} />
             </Route>
 
             {/* Fallback 404 */}

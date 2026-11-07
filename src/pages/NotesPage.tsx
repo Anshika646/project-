@@ -193,15 +193,15 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
   });
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto bg-white">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#171417] tracking-tight flex items-center gap-2">
-            <BookOpen className="text-[#8B5CF6]" size={28} />
+          <h1 className="font-heading text-2xl md:text-3xl font-extrabold text-[#0F172A] tracking-tight flex items-center gap-2">
+            <BookOpen className="text-[#6D28D9]" size={28} />
             <span>Study Material & Notes Library</span>
           </h1>
-          <p className="text-xs md:text-sm font-semibold text-[#625C60] mt-0.5">
+          <p className="text-xs md:text-sm font-semibold text-[#64748B] mt-0.5">
             Two options: AI-generated chapter notes or teacher-uploaded handwritten/PDF notes
           </p>
         </div>
@@ -215,7 +215,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                 setNoteContent('');
                 setModalOpen(true);
               }}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-all shadow-xs flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-[#6D28D9] text-white hover:bg-[#5B21B6] transition-all shadow-xs flex items-center gap-1.5"
             >
               <Sparkles size={14} />
               <span>Option 1: Generate Notes</span>
@@ -228,9 +228,9 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                 setNoteContent('');
                 setModalOpen(true);
               }}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF5FF] hover:bg-[#F5F3FF] text-[#171417] border border-[#E9D5FF] shadow-xs flex items-center gap-1.5 transition-all"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF8F5] hover:bg-[#FFFFFF] text-[#0F172A] border border-[#E8E4DF] shadow-xs flex items-center gap-1.5 transition-all"
             >
-              <Upload size={14} className="text-[#8B5CF6]" />
+              <Upload size={14} className="text-[#6D28D9]" />
               <span>Option 2: Upload Own Notes</span>
             </button>
           </div>
@@ -238,21 +238,21 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-[#F5F3FF] border border-[#C4B5FD] text-[#171417] text-xs font-bold flex items-center gap-2 shadow-xs">
-          <CheckCircle2 size={16} className="text-[#8B5CF6]" />
+        <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#DDD6FE] text-[#0F172A] text-xs font-bold flex items-center gap-2 shadow-xs">
+          <CheckCircle2 size={16} className="text-[#6D28D9]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Class & Subject Filter Bar */}
-      <div className="p-4 rounded-2xl bg-[#FAF5FF] border border-[#E9D5FF] flex flex-wrap items-center justify-between gap-4 shadow-xs">
+      <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DF] flex flex-wrap items-center justify-between gap-4 shadow-xs">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-[#171417]">Class:</span>
+            <span className="text-xs font-extrabold text-[#0F172A]">Class:</span>
             <select
               value={selectedClassId}
               onChange={(e) => setSelectedClassId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
             >
               <option value="all">All Classes</option>
               {classes.map((c) => (
@@ -264,11 +264,11 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-extrabold text-[#171417]">Subject:</span>
+            <span className="text-xs font-extrabold text-[#0F172A]">Subject:</span>
             <select
               value={selectedSubjectId}
               onChange={(e) => setSelectedSubjectId(e.target.value)}
-              className="px-3 py-1.5 rounded-xl bg-white border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
             >
               <option value="all">All Subjects</option>
               {subjects.map((s) => (
@@ -280,7 +280,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
           </div>
         </div>
 
-        <span className="text-xs font-bold text-[#8B5CF6] bg-[#F3E8FF] px-3 py-1 rounded-xl">
+        <span className="text-xs font-bold text-[#6D28D9] bg-[#FFFFFF] px-3 py-1 rounded-xl">
           Available Notes: {filteredNotes.length} items in library
         </span>
       </div>
@@ -290,16 +290,16 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
         {filteredNotes.map((note, idx) => {
           const isPdf = note.file_type === 'pdf';
           const isHandwritten = note.file_type === 'handwritten';
-          const cardBg = idx % 2 === 0 ? 'bg-[#F5F3FF]' : 'bg-[#FAF5FF]';
+          const cardBg = idx % 2 === 0 ? 'bg-[#FFFFFF]' : 'bg-[#FAF8F5]';
 
           return (
             <div
               key={note.id}
-              className={`rounded-2xl ${cardBg} p-5 border border-[#E9D5FF] shadow-[0_4px_20px_-4px_rgba(139, 92, 246,0.05)] hover:shadow-md transition-all flex flex-col justify-between`}
+              className={`rounded-2xl ${cardBg} p-5 border border-[#E8E4DF] shadow-[0_4px_20px_-4px_rgba(15, 23, 42, 0.03)] hover:shadow-md transition-all flex flex-col justify-between`}
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-white text-[#8B5CF6] border border-[#E9D5FF]">
+                  <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-white text-[#6D28D9] border border-[#E8E4DF]">
                     {isHandwritten
                       ? 'Handwritten / Scanned'
                       : isPdf
@@ -307,28 +307,28 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                       : 'Structured Notes'}
                   </span>
 
-                  <span className="text-[10px] font-bold text-[#625C60]">
+                  <span className="text-[10px] font-bold text-[#64748B]">
                     {new Date(note.created_at).toLocaleDateString()}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-base font-extrabold text-[#171417] mt-3">
+                <h3 className="font-heading text-base font-extrabold text-[#0F172A] mt-3">
                   {note.title}
                 </h3>
-                <p className="text-xs font-semibold text-[#625C60] mt-1 leading-relaxed line-clamp-3">
+                <p className="text-xs font-semibold text-[#64748B] mt-1 leading-relaxed line-clamp-3">
                   {note.description}
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-[#E9D5FF] flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-[#171417]">
+              <div className="mt-5 pt-3 border-t border-[#E8E4DF] flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-[#0F172A]">
                   By: {note.uploaded_by}
                 </span>
 
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => setPreviewNote(note)}
-                    className="p-1.5 rounded-lg bg-white border border-[#E9D5FF] hover:bg-[#F3E8FF] text-[#8B5CF6] transition-colors"
+                    className="p-1.5 rounded-lg bg-white border border-[#E8E4DF] hover:bg-[#FFFFFF] text-[#6D28D9] transition-colors"
                     title="Preview Notes"
                   >
                     <Eye size={15} />
@@ -336,7 +336,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
 
                   <button
                     onClick={() => handleDownloadPDF(note)}
-                    className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-all shadow-xs flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#6D28D9] text-white hover:bg-[#5B21B6] transition-all shadow-xs flex items-center gap-1"
                     title="Download PDF"
                   >
                     <Download size={12} />
@@ -346,7 +346,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                   {canAuthor && (
                     <button
                       onClick={() => handleDeleteNote(note.id, note.title)}
-                      className="p-1.5 rounded-lg text-[#858087] hover:text-[#8B5CF6] transition-colors"
+                      className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#6D28D9] transition-colors"
                       title="Delete Note"
                     >
                       <Trash2 size={14} />
@@ -362,41 +362,41 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
       {/* Note Preview Modal */}
       {previewNote && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
-          <div className="w-full max-w-2xl rounded-2xl bg-white p-6 border border-[#E9D5FF] shadow-2xl max-h-[85vh] flex flex-col justify-between space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+          <div className="w-full max-w-2xl rounded-2xl bg-white p-6 border border-[#E8E4DF] shadow-2xl max-h-[85vh] flex flex-col justify-between space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8E4DF]">
               <div>
-                <span className="text-[10px] uppercase font-extrabold text-[#8B5CF6]">
+                <span className="text-[10px] uppercase font-extrabold text-[#6D28D9]">
                   Study Document Preview
                 </span>
-                <h3 className="font-heading font-extrabold text-lg text-[#171417]">
+                <h3 className="font-heading font-extrabold text-lg text-[#0F172A]">
                   {previewNote.title}
                 </h3>
               </div>
-              <button onClick={() => setPreviewNote(null)} className="text-xs font-bold text-[#625C60] hover:text-[#171417]">
+              <button onClick={() => setPreviewNote(null)} className="text-xs font-bold text-[#64748B] hover:text-[#0F172A]">
                 ✕
               </button>
             </div>
 
-            <div className="overflow-y-auto pr-2 space-y-3 text-xs leading-relaxed text-[#171417]">
-              <div className="p-4 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] whitespace-pre-wrap font-sans font-medium">
+            <div className="overflow-y-auto pr-2 space-y-3 text-xs leading-relaxed text-[#0F172A]">
+              <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] whitespace-pre-wrap font-sans font-medium">
                 {previewNote.content}
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#E9D5FF] flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#625C60]">
+            <div className="pt-3 border-t border-[#E8E4DF] flex items-center justify-between">
+              <span className="text-xs font-semibold text-[#64748B]">
                 Author: {previewNote.uploaded_by}
               </span>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setPreviewNote(null)}
-                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#625C60] hover:bg-[#FAF5FF]"
+                  className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#64748B] hover:bg-[#FAF8F5]"
                 >
                   Close
                 </button>
                 <button
                   onClick={() => handleDownloadPDF(previewNote)}
-                  className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] flex items-center gap-1.5 shadow-xs"
+                  className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#6D28D9] text-white hover:bg-[#5B21B6] flex items-center gap-1.5 shadow-xs"
                 >
                   <Download size={13} />
                   <span>Download as PDF</span>
@@ -410,28 +410,28 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
       {/* Authoring Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-fade-in">
-          <div className="w-full max-w-xl rounded-2xl bg-white p-6 border border-[#E9D5FF] shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E9D5FF]">
+          <div className="w-full max-w-xl rounded-2xl bg-white p-6 border border-[#E8E4DF] shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8E4DF]">
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B5CF6]">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#6D28D9]">
                   {modalMode === 'generate' ? 'Option 1: AI Generator' : 'Option 2: Document Uploader'}
                 </span>
-                <h3 className="font-heading font-extrabold text-lg text-[#171417]">
+                <h3 className="font-heading font-extrabold text-lg text-[#0F172A]">
                   {modalMode === 'generate' ? 'Generate Chapter Notes' : 'Upload Handwritten / PDF Notes'}
                 </h3>
               </div>
-              <button onClick={() => setModalOpen(false)} className="text-xs font-bold text-[#625C60] hover:text-[#171417]">
+              <button onClick={() => setModalOpen(false)} className="text-xs font-bold text-[#64748B] hover:text-[#0F172A]">
                 ✕
               </button>
             </div>
 
             {/* Toggle Mode */}
-            <div className="flex gap-2 p-1 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF]">
+            <div className="flex gap-2 p-1 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF]">
               <button
                 type="button"
                 onClick={() => setModalMode('generate')}
                 className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
-                  modalMode === 'generate' ? 'bg-[#8B5CF6] text-white shadow-xs' : 'text-[#171417]'
+                  modalMode === 'generate' ? 'bg-[#6D28D9] text-white shadow-xs' : 'text-[#0F172A]'
                 }`}
               >
                 Generate Chapter Notes
@@ -440,7 +440,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                 type="button"
                 onClick={() => setModalMode('upload')}
                 className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
-                  modalMode === 'upload' ? 'bg-[#8B5CF6] text-white shadow-xs' : 'text-[#171417]'
+                  modalMode === 'upload' ? 'bg-[#6D28D9] text-white shadow-xs' : 'text-[#0F172A]'
                 }`}
               >
                 Upload Handwritten / Scanned Notes
@@ -450,11 +450,11 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
             <div className="space-y-3.5">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#171417] block mb-1">Target Class</label>
+                  <label className="text-xs font-bold text-[#0F172A] block mb-1">Target Class</label>
                   <select
                     value={selectedClassId}
                     onChange={(e) => setSelectedClassId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                   >
                     {classes.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -464,11 +464,11 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-[#171417] block mb-1">Subject</label>
+                  <label className="text-xs font-bold text-[#0F172A] block mb-1">Subject</label>
                   <select
                     value={selectedSubjectId}
                     onChange={(e) => setSelectedSubjectId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                   >
                     {subjects.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -483,7 +483,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
               {modalMode === 'generate' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-[#171417] block mb-1">
+                    <label className="text-xs font-bold text-[#0F172A] block mb-1">
                       Chapter Name
                     </label>
                     <input
@@ -491,13 +491,13 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                       placeholder="e.g. Introduction to Trigonometric Identities"
                       value={noteTitle}
                       onChange={(e) => setNoteTitle(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-xs font-bold text-[#171417] block mb-1">
+                      <label className="text-xs font-bold text-[#0F172A] block mb-1">
                         Topic Name (Optional)
                       </label>
                       <input
@@ -505,17 +505,17 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                         placeholder="e.g. Derivation of sin²θ + cos²θ = 1"
                         value={noteTopic}
                         onChange={(e) => setNoteTopic(e.target.value)}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-[#171417] block mb-1">
+                      <label className="text-xs font-bold text-[#0F172A] block mb-1">
                         Notes Format
                       </label>
                       <select
                         value={noteFormat}
                         onChange={(e) => setNoteFormat(e.target.value as any)}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                       >
                         <option value="Formula Sheet">Formula Sheet</option>
                         <option value="Summary">Exam Revision Summary</option>
@@ -529,7 +529,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                       type="button"
                       disabled={isGenerating}
                       onClick={handleGenerateNotes}
-                      className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] transition-all flex items-center gap-1.5 shadow-xs"
+                      className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#6D28D9] text-white hover:bg-[#5B21B6] transition-all flex items-center gap-1.5 shadow-xs"
                     >
                       <Sparkles size={13} />
                       <span>{isGenerating ? 'Synthesizing...' : 'Generate Notes Content'}</span>
@@ -542,28 +542,28 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
               {modalMode === 'upload' && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-[#171417] block mb-1">
+                    <label className="text-xs font-bold text-[#0F172A] block mb-1">
                       Attach Handwritten / Scanned / PDF File
                     </label>
-                    <div className="p-6 border-2 border-dashed border-[#C4B5FD] bg-[#FAF5FF] rounded-2xl text-center hover:bg-[#F5F3FF] transition-colors cursor-pointer relative">
+                    <div className="p-6 border-2 border-dashed border-[#DDD6FE] bg-[#FAF8F5] rounded-2xl text-center hover:bg-[#FFFFFF] transition-colors cursor-pointer relative">
                       <input
                         type="file"
                         accept=".pdf,.png,.jpg,.jpeg"
                         onChange={handleFileUploadSimulated}
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
-                      <Upload size={24} className="mx-auto text-[#8B5CF6] mb-2" />
-                      <p className="text-xs font-extrabold text-[#171417]">
+                      <Upload size={24} className="mx-auto text-[#6D28D9] mb-2" />
+                      <p className="text-xs font-extrabold text-[#0F172A]">
                         {fileName ? fileName : 'Click or Drag to Upload Notes File'}
                       </p>
-                      <p className="text-[11px] font-semibold text-[#625C60] mt-0.5">
+                      <p className="text-[11px] font-semibold text-[#64748B] mt-0.5">
                         Supports Handwritten notes, Scanned pages, PDFs, JPG, PNG (up to 25 MB)
                       </p>
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-[#171417] block mb-1">
+                    <label className="text-xs font-bold text-[#0F172A] block mb-1">
                       Chapter / Note Title
                     </label>
                     <input
@@ -571,7 +571,7 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
                       placeholder="e.g. Chapter 4 Quadratic Formula Derivations"
                       value={noteTitle}
                       onChange={(e) => setNoteTitle(e.target.value)}
-                      className="w-full px-3.5 py-2 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-bold text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-bold text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                     />
                   </div>
                 </>
@@ -580,30 +580,30 @@ ${noteTopic ? `## Topic Focus: ${noteTopic}\n` : ''}
               {/* Editable Content Preview */}
               {noteContent && (
                 <div>
-                  <label className="text-xs font-bold text-[#171417] block mb-1">
+                  <label className="text-xs font-bold text-[#0F172A] block mb-1">
                     Editable Content Preview & Annotations
                   </label>
                   <textarea
                     rows={6}
                     value={noteContent}
                     onChange={(e) => setNoteContent(e.target.value)}
-                    className="w-full p-3 rounded-xl bg-[#FAF5FF] border border-[#E9D5FF] text-xs font-mono font-medium text-[#171417] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E4DF] text-xs font-mono font-medium text-[#0F172A] focus:outline-none focus:border-[#6D28D9]"
                   />
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#E9D5FF]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#E8E4DF]">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#625C60] hover:bg-[#FAF5FF]"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-[#64748B] hover:bg-[#FAF8F5]"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handlePublishNote}
-                  className="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-[#8B5CF6] text-white hover:bg-[#7C3AED] shadow-xs"
+                  className="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-[#6D28D9] text-white hover:bg-[#5B21B6] shadow-xs"
                 >
                   Approve & Publish to Class
                 </button>
