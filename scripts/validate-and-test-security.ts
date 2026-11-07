@@ -39,9 +39,9 @@ async function runAudit() {
   const files = fs.readdirSync(MIGRATIONS_DIR).filter(f => f.endsWith('.sql')).sort();
   assert(
     'Migrations',
-    'All 25 migration files present',
-    files.length === 25,
-    `Found ${files.length} migration files in sequence (00001 to 00025)`
+    'All 26 migration files present',
+    files.length === 26,
+    `Found ${files.length} migration files in sequence (00001 to 00026)`
   );
 
   let combinedSql = '';

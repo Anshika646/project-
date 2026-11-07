@@ -7,8 +7,15 @@
 BEGIN;
 
 -- 1. Enable Required PostgreSQL Extensions
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+DO $$ BEGIN
+  CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
 
 -- 2. Custom Role Enum (All 8 Portals Supported)
 DO $$ BEGIN
