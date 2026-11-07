@@ -78,7 +78,8 @@ export const teacherService = {
 
     if (isSupabaseConfigured) {
       await supabase.from('profiles').insert(profileRecord);
-      const { data, error } = await supabase.from('teachers').insert(newTeacher).select().single();
+      const { profile, ...teacherRow } = newTeacher;
+      const { data, error } = await supabase.from('teachers').insert(teacherRow).select('*, profile:profiles(*)').single();
       if (!error && data) return data as Teacher;
       if (error && !isTableMissingError(error)) throw new Error(error.message);
     }

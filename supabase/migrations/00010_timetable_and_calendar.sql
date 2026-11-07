@@ -47,9 +47,10 @@ CREATE TABLE IF NOT EXISTS timetables (
   version INTEGER NOT NULL DEFAULT 1,
   is_active BOOLEAN NOT NULL DEFAULT true,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT uq_active_section_timetable UNIQUE (section_id, is_active)
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_active_section_timetable ON timetables (section_id) WHERE is_active = true;
 
 -- 4. Timetable Period Slots (With Database-Level Conflict Constraints)
 CREATE TABLE IF NOT EXISTS timetable_slots (

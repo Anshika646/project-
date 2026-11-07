@@ -31,17 +31,32 @@ export const authService = {
 
       if (!profile) return null;
 
-      const { data: institution } = await supabase
-        .from('institutions')
-        .select('*')
-        .eq('id', profile.institution_id)
-        .single();
+      let instId = profile.institution_id;
+      let userRole = profile.role;
+
+      if (!instId || !userRole) {
+        const { data: membership } = await supabase
+          .from('institution_memberships')
+          .select('institution_id, role')
+          .eq('profile_id', session.user.id)
+          .eq('is_active', true)
+          .maybeSingle();
+
+        if (membership) {
+          instId = instId || membership.institution_id;
+          userRole = userRole || membership.role;
+        }
+      }
+
+      const { data: institution } = instId
+        ? await supabase.from('institutions').select('*').eq('id', instId).single()
+        : { data: null };
 
       const user: AuthUser = {
         id: session.user.id,
         email: session.user.email || '',
-        role: profile.role,
-        profile,
+        role: userRole || 'school_admin',
+        profile: { ...profile, institution_id: instId || DEMO_INSTITUTION.id, role: userRole || 'school_admin' },
         institution: institution || DEMO_INSTITUTION,
       };
 
@@ -73,17 +88,32 @@ export const authService = {
 
       if (pError || !profile) throw new Error('Profile not found in database');
 
-      const { data: institution } = await supabase
-        .from('institutions')
-        .select('*')
-        .eq('id', profile.institution_id)
-        .single();
+      let instId = profile.institution_id;
+      let userRole = profile.role;
+
+      if (!instId || !userRole) {
+        const { data: membership } = await supabase
+          .from('institution_memberships')
+          .select('institution_id, role')
+          .eq('profile_id', data.user.id)
+          .eq('is_active', true)
+          .maybeSingle();
+
+        if (membership) {
+          instId = instId || membership.institution_id;
+          userRole = userRole || membership.role;
+        }
+      }
+
+      const { data: institution } = instId
+        ? await supabase.from('institutions').select('*').eq('id', instId).single()
+        : { data: null };
 
       const authUser: AuthUser = {
         id: data.user.id,
         email: data.user.email || email,
-        role: profile.role,
-        profile,
+        role: userRole || 'school_admin',
+        profile: { ...profile, institution_id: instId || DEMO_INSTITUTION.id, role: userRole || 'school_admin' },
         institution: institution || DEMO_INSTITUTION,
       };
 

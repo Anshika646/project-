@@ -180,19 +180,29 @@ export const studentService = {
     };
 
     if (isSupabaseConfigured) {
+      const nameParts = studentData.fullName.trim().split(' ');
+      const firstName = nameParts[0] || 'Student';
+      const lastName = nameParts.slice(1).join(' ') || firstName;
+
       await supabase.from('profiles').insert(profileRecord);
       const { data, error } = await supabase.from('students').insert({
         id: newStudent.id,
         institution_id: newStudent.institution_id,
         profile_id: newStudent.profile_id,
+        first_name: firstName,
+        last_name: lastName,
         admission_number: newStudent.admission_number,
         roll_number: newStudent.roll_number,
         class_id: newStudent.class_id,
         section_id: newStudent.section_id,
+        date_of_birth: newStudent.date_of_birth,
         gender: newStudent.gender,
         blood_group: newStudent.blood_group,
         emergency_contact: newStudent.emergency_contact,
-        address: newStudent.address,
+        residential_address: newStudent.address || 'Address provided on admission',
+        city: 'Delhi',
+        state: 'Delhi',
+        pincode: '110001',
         is_deleted: false,
       }).select().single();
       if (!error && data) return data as Student;

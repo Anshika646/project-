@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS student_marks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
   exam_subject_id UUID NOT NULL REFERENCES exam_subjects(id) ON DELETE CASCADE,
-  enrollment_id UUID NOT NULL,
+  enrollment_id UUID,
   student_id UUID NOT NULL,
   theory_marks NUMERIC(5, 2) DEFAULT 0.00,
   practical_marks NUMERIC(5, 2) DEFAULT 0.00,
@@ -72,12 +72,12 @@ CREATE TABLE IF NOT EXISTS student_marks (
   is_exempted BOOLEAN NOT NULL DEFAULT false,
   status VARCHAR(20) NOT NULL DEFAULT 'draft',            -- 'draft' | 'submitted' | 'approved' | 'locked'
   remarks TEXT,
-  entered_by UUID NOT NULL REFERENCES profiles(id),
+  entered_by UUID REFERENCES profiles(id),
   approved_by UUID REFERENCES profiles(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT uq_student_exam_mark UNIQUE (exam_subject_id, enrollment_id),
-  CONSTRAINT fk_mark_enrollment FOREIGN KEY (institution_id, enrollment_id) REFERENCES student_session_enrollments(institution_id, id) ON DELETE CASCADE,
+  CONSTRAINT uq_student_exam_mark UNIQUE (exam_subject_id, student_id),
+  CONSTRAINT fk_mark_enrollment FOREIGN KEY (institution_id, enrollment_id) REFERENCES student_session_enrollments(institution_id, id) ON DELETE SET NULL,
   CONSTRAINT fk_mark_student FOREIGN KEY (institution_id, student_id) REFERENCES students(institution_id, id) ON DELETE RESTRICT,
   CONSTRAINT chk_marks_status CHECK (status IN ('draft', 'submitted', 'approved', 'locked'))
 );

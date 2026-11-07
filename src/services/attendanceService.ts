@@ -53,7 +53,7 @@ export const attendanceService = {
     if (isSupabaseConfigured) {
       const { data, error } = await supabase
         .from('attendance')
-        .upsert(record, { onConflict: 'student_id, date' })
+        .upsert(record, { onConflict: 'institution_id, student_id, date' })
         .select()
         .single();
       if (!error && data) return data as AttendanceRecord;
@@ -84,7 +84,7 @@ export const attendanceService = {
 
   async markBatchAttendance(records: Array<Omit<AttendanceRecord, 'id' | 'created_at' | 'updated_at'>>): Promise<void> {
     if (isSupabaseConfigured) {
-      const { error } = await supabase.from('attendance').upsert(records, { onConflict: 'student_id, date' });
+      const { error } = await supabase.from('attendance').upsert(records, { onConflict: 'institution_id, student_id, date' });
       if (!error) return;
       if (error && !isTableMissingError(error)) throw new Error(error.message);
     }

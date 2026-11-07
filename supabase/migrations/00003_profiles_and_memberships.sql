@@ -8,6 +8,8 @@ BEGIN;
 -- 1. Profiles (Global user entity linked 1:1 with auth.users)
 CREATE TABLE IF NOT EXISTS profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  institution_id UUID REFERENCES institutions(id) ON DELETE SET NULL,
+  role user_role NOT NULL DEFAULT 'student',
   email VARCHAR(255) NOT NULL UNIQUE,
   full_name VARCHAR(255) NOT NULL,
   phone VARCHAR(50),
@@ -19,6 +21,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE INDEX IF NOT EXISTS idx_profiles_inst ON profiles(institution_id);
 CREATE INDEX IF NOT EXISTS idx_profiles_email ON profiles(email);
 
 CREATE TRIGGER trg_profiles_updated_at

@@ -215,6 +215,21 @@ export const admissionService = {
       institutionId,
     });
 
+    if (isSupabaseConfigured) {
+      const activeSession = await supabase.from('academic_sessions').select('id').eq('institution_id', institutionId).eq('status', 'active').maybeSingle();
+      const appId = `APP-2025-${Math.floor(1000 + Math.random() * 9000)}`;
+      await supabase.from('admission_applications').insert({
+        institution_id: institutionId,
+        application_number: appId,
+        session_id: activeSession.data?.id,
+        target_class_id: form.class_id,
+        target_stream: form.stream || null,
+        form_data: form,
+        status: 'enrolled',
+        submitted_at: new Date().toISOString(),
+      });
+    }
+
     return {
       studentId: student.id,
       admissionNumber,

@@ -9,7 +9,8 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS homework (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
-  session_id UUID NOT NULL REFERENCES academic_sessions(id) ON DELETE RESTRICT,
+  session_id UUID REFERENCES academic_sessions(id) ON DELETE RESTRICT,
+  class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
   section_id UUID NOT NULL REFERENCES sections(id) ON DELETE CASCADE,
   subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
   chapter_id UUID REFERENCES chapters(id) ON DELETE SET NULL,

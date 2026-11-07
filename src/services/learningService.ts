@@ -159,9 +159,14 @@ export const learningService = {
     }));
 
     if (isSupabaseConfigured) {
-      const { data, error } = await supabase.from('quizzes').insert(newQuiz).select().single();
+      const { question_count, ...quizPayload } = newQuiz;
+      const { data, error } = await supabase.from('quizzes').insert(quizPayload).select().single();
       if (error) throw new Error(error.message);
-      await supabase.from('quiz_questions').insert(newQuestions);
+      const questionRows = newQuestions.map((q, idx) => ({
+        ...q,
+        question_number: idx + 1,
+      }));
+      await supabase.from('quiz_questions').insert(questionRows);
       return data as QuizItem;
     }
 
@@ -245,6 +250,14 @@ export const learningService = {
   // 3. HOMEWORK & ASSIGNMENTS
   // ============================================================================
   async getHomework(institutionId: string, classId?: string): Promise<HomeworkItem[]> {
+    if (isSupabaseConfigured) {
+      let query = supabase.from('homework').select('*, subject:subjects(*)').eq('institution_id', institutionId);
+      if (classId) query = query.eq('class_id', classId);
+      const { data, error } = await query;
+      if (!error && data) return (data as HomeworkItem[]) || [];
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
+    }
+
     let all = getStored(HOMEWORK_KEY, DEMO_HOMEWORK);
     if (classId) all = all.filter((h) => h.class_id === classId);
     return all;
@@ -257,6 +270,17 @@ export const learningService = {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
+
+    if (isSupabaseConfigured) {
+      const { subject, ...hwPayload } = newHw;
+      const { data, error } = await supabase.from('homework').insert({
+        ...hwPayload,
+        teacher_profile_id: hwPayload.created_by || null,
+        description: hwPayload.instructions || hwPayload.title,
+      }).select().single();
+      if (!error && data) return data as HomeworkItem;
+      if (error && !isTableMissingError(error)) throw new Error(error.message);
+    }
 
     const list = getStored(HOMEWORK_KEY, DEMO_HOMEWORK);
     list.unshift(newHw);

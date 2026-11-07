@@ -204,6 +204,10 @@ export const sessionLifecycleService = {
   },
 
   async activateSession(sessionId: string): Promise<void> {
+    if (isSupabaseConfigured) {
+      await supabase.from('academic_sessions').update({ status: 'closed', is_locked: true, archived_at: new Date().toISOString() }).eq('status', 'active');
+      await supabase.from('academic_sessions').update({ status: 'active', is_locked: false }).eq('id', sessionId);
+    }
     const list = getStored(SESSIONS_KEY, INITIAL_SESSIONS);
     const updated = list.map((s) => {
       if (s.id === sessionId) {
@@ -218,6 +222,13 @@ export const sessionLifecycleService = {
   },
 
   async closeAndArchiveSession(sessionId: string): Promise<void> {
+    if (isSupabaseConfigured) {
+      await supabase.from('academic_sessions').update({
+        status: 'closed',
+        is_locked: true,
+        archived_at: new Date().toISOString(),
+      }).eq('id', sessionId);
+    }
     const list = getStored(SESSIONS_KEY, INITIAL_SESSIONS);
     const updated = list.map((s) => {
       if (s.id === sessionId) {
@@ -252,6 +263,10 @@ export const sessionLifecycleService = {
 
   // TRANSFER CERTIFICATES
   async getTransferCertificates(): Promise<TransferCertificateRecord[]> {
+    if (isSupabaseConfigured) {
+      const { data, error } = await supabase.from('transfer_certificates').select('*').order('date_of_issue', { ascending: false });
+      if (!error && data) return data as TransferCertificateRecord[];
+    }
     return getStored<TransferCertificateRecord>(TCS_KEY, INITIAL_TCS);
   },
 
@@ -260,6 +275,9 @@ export const sessionLifecycleService = {
       ...tcData,
       id: `tc-${Date.now()}`,
     };
+    if (isSupabaseConfigured) {
+      await supabase.from('transfer_certificates').insert(newTc);
+    }
     const list = getStored<TransferCertificateRecord>(TCS_KEY, INITIAL_TCS);
     list.unshift(newTc);
     saveStored(TCS_KEY, list);

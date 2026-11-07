@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS students (
   previous_school_name VARCHAR(255),
   previous_school_board VARCHAR(100),
   is_deleted BOOLEAN NOT NULL DEFAULT false,
+  class_id UUID REFERENCES classes(id) ON DELETE SET NULL,
+  section_id UUID REFERENCES sections(id) ON DELETE SET NULL,
+  roll_number VARCHAR(50),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT uq_students_tenant UNIQUE (institution_id, id),
@@ -38,6 +41,7 @@ CREATE TABLE IF NOT EXISTS students (
 
 CREATE INDEX IF NOT EXISTS idx_students_inst ON students(institution_id, is_deleted);
 CREATE INDEX IF NOT EXISTS idx_students_profile ON students(profile_id);
+CREATE INDEX IF NOT EXISTS idx_students_class_sec ON students(class_id, section_id);
 
 CREATE TRIGGER trg_students_updated_at
   BEFORE UPDATE ON students

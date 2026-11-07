@@ -71,7 +71,8 @@ CREATE TRIGGER trg_class_session_offerings_updated_at
 CREATE TABLE IF NOT EXISTS sections (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL,
-  offering_id UUID NOT NULL,
+  offering_id UUID,
+  class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
   name VARCHAR(50) NOT NULL,                              -- "A", "B", "C", "D"
   room_number VARCHAR(50),
   capacity INTEGER NOT NULL DEFAULT 40,
@@ -79,11 +80,11 @@ CREATE TABLE IF NOT EXISTS sections (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT uq_sections_tenant UNIQUE (institution_id, id),
-  CONSTRAINT uq_offering_section_name UNIQUE (offering_id, name),
   CONSTRAINT fk_section_offering FOREIGN KEY (institution_id, offering_id) REFERENCES class_session_offerings(institution_id, id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_sections_offering ON sections(offering_id);
+CREATE INDEX IF NOT EXISTS idx_sections_class ON sections(class_id);
 
 CREATE TRIGGER trg_sections_updated_at
   BEFORE UPDATE ON sections

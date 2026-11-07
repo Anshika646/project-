@@ -9,11 +9,12 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS quizzes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
-  session_id UUID NOT NULL REFERENCES academic_sessions(id) ON DELETE RESTRICT,
+  session_id UUID REFERENCES academic_sessions(id) ON DELETE RESTRICT,
   class_id UUID NOT NULL REFERENCES classes(id) ON DELETE CASCADE,
   subject_id UUID NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
   chapter_id UUID REFERENCES chapters(id) ON DELETE SET NULL,
-  author_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  author_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   duration_minutes INTEGER NOT NULL DEFAULT 15,
@@ -33,15 +34,16 @@ CREATE TABLE IF NOT EXISTS quiz_questions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
   quiz_id UUID NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
-  question_number INTEGER NOT NULL,
+  question_number INTEGER NOT NULL DEFAULT 1,
+  question_type VARCHAR(30) NOT NULL DEFAULT 'mcq',
   question_text TEXT NOT NULL,
-  options JSONB NOT NULL,                                 -- Array of string choices: ["A", "B", "C", "D"]
-  correct_option_index INTEGER NOT NULL,                  -- Securely inspected only during submission grading
+  options JSONB NOT NULL DEFAULT '[]'::jsonb,             -- Array of string choices: ["A", "B", "C", "D"]
+  correct_option_index INTEGER NOT NULL DEFAULT 0,        -- Securely inspected only during submission grading
+  correct_answer TEXT,
   explanation TEXT,
   marks NUMERIC(4, 2) NOT NULL DEFAULT 1.00,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT uq_quiz_question_seq UNIQUE (quiz_id, question_number)
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- 3. Student Quiz Attempts
@@ -49,19 +51,19 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
   quiz_id UUID NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
-  enrollment_id UUID NOT NULL REFERENCES student_session_enrollments(id) ON DELETE CASCADE,
+  enrollment_id UUID REFERENCES student_session_enrollments(id) ON DELETE CASCADE,
   student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
   attempt_number INTEGER NOT NULL DEFAULT 1,
   started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   submitted_at TIMESTAMPTZ,
   time_taken_seconds INTEGER,
   score NUMERIC(5, 2) NOT NULL DEFAULT 0.00,
-  total_possible NUMERIC(5, 2) NOT NULL,
+  total_possible NUMERIC(5, 2) NOT NULL DEFAULT 10.00,
   percentage NUMERIC(5, 2) NOT NULL DEFAULT 0.00,
+  answers JSONB NOT NULL DEFAULT '{}'::jsonb,
   status VARCHAR(20) NOT NULL DEFAULT 'in_progress',      -- 'in_progress' | 'completed' | 'abandoned'
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT uq_student_quiz_attempt UNIQUE (quiz_id, student_id, attempt_number),
   CONSTRAINT chk_quiz_att_status CHECK (status IN ('in_progress', 'completed', 'abandoned'))
 );
 

@@ -9,25 +9,25 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS attendance_records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution_id UUID NOT NULL REFERENCES institutions(id) ON DELETE CASCADE,
-  session_id UUID NOT NULL,
+  session_id UUID,
+  class_id UUID REFERENCES classes(id) ON DELETE SET NULL,
   section_id UUID NOT NULL,
   student_id UUID NOT NULL,
-  enrollment_id UUID NOT NULL,
+  enrollment_id UUID,
   date DATE NOT NULL,
   status attendance_status NOT NULL DEFAULT 'unmarked',
   check_in_time TIME,
   reason_for_absence TEXT,
-  marked_by UUID NOT NULL REFERENCES profiles(id),
+  remarks TEXT,
+  marked_by UUID REFERENCES profiles(id),
   verified_by UUID REFERENCES profiles(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  -- Absolute Prevention of Duplicate Records for the Same Student on the Same Date in a Session
-  CONSTRAINT uq_student_daily_attendance UNIQUE (institution_id, session_id, student_id, date),
-  -- Composite Foreign Keys Enforcing Strict Tenant Integrity
-  CONSTRAINT fk_att_session FOREIGN KEY (institution_id, session_id) REFERENCES academic_sessions(institution_id, id) ON DELETE RESTRICT,
+  -- Strict Multi-Tenant Prevention of Duplicate Records for the Same Student on the Same Date in a Tenant
+  CONSTRAINT uq_student_daily_attendance UNIQUE (institution_id, student_id, date),
+  -- Foreign Keys
   CONSTRAINT fk_att_section FOREIGN KEY (institution_id, section_id) REFERENCES sections(institution_id, id) ON DELETE RESTRICT,
-  CONSTRAINT fk_att_student FOREIGN KEY (institution_id, student_id) REFERENCES students(institution_id, id) ON DELETE RESTRICT,
-  CONSTRAINT fk_att_enrollment FOREIGN KEY (institution_id, enrollment_id) REFERENCES student_session_enrollments(institution_id, id) ON DELETE CASCADE
+  CONSTRAINT fk_att_student FOREIGN KEY (institution_id, student_id) REFERENCES students(institution_id, id) ON DELETE RESTRICT
 );
 
 CREATE INDEX IF NOT EXISTS idx_attendance_date_section ON attendance_records(institution_id, section_id, date);

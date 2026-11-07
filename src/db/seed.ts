@@ -21,11 +21,36 @@ async function runSeed() {
     return;
   }
 
+  // PRODUCTION SAFETY GUARD: Prevent accidental demo data poisoning in production
+  const isProd = process.env.NODE_ENV === 'production' || process.env.APP_ENV === 'production';
+  const allowProdSeed = process.argv.includes('--allow-production-seed') || process.env.ALLOW_PRODUCTION_SEED === 'true';
+
+  if (isProd && !allowProdSeed) {
+    console.error('⛔ SAFETY ABORT: Seeding demo data in PRODUCTION environment is blocked by default.');
+    console.error('   To override for staging/initial launch, run: npm run seed -- --allow-production-seed');
+    process.exit(1);
+  }
+
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 
   console.log('🔗 Connected to Supabase at:', supabaseUrl);
+
+  // Check if live production institutions exist
+  const { data: existingLive, count } = await supabase
+    .from('institutions')
+    .select('id, name, code', { count: 'exact' })
+    .neq('code', 'SIS-DELHI')
+    .limit(1);
+
+  if (existingLive && existingLive.length > 0 && !allowProdSeed) {
+    console.error('⛔ SAFETY ABORT: Live non-demo institutions detected in this database:');
+    existingLive.forEach((i) => console.error(`   - ${i.name} (${i.code})`));
+    console.error('   Aborting seed to prevent corrupting real school/college data.');
+    console.error('   Pass --allow-production-seed if you explicitly intend to seed alongside live data.');
+    process.exit(1);
+  }
 
   const institutionId = 'e8b070c0-dacd-4772-85df-0ce93748524c';
 
@@ -36,13 +61,13 @@ async function runSeed() {
     name: 'Springfield International School',
     code: 'SIS-DELHI',
     type: 'school',
+    board: 'CBSE',
     email: 'contact@springfield.edunexa.edu',
     phone: '+91 (011) 4892-0199',
     address: 'Plot 14, Institutional Area, Sector 5, New Delhi',
     city: 'New Delhi',
     state: 'Delhi',
     country: 'India',
-    academic_session: '2025 - 2026',
     is_active: true,
   });
 
@@ -89,10 +114,17 @@ async function runSeed() {
       institution_id: institutionId,
       profile_id: studentProfileId,
       admission_number: adm,
+      first_name: 'Student',
+      last_name: String(i),
       roll_number: roll,
       class_id: isClass10 ? class10Id : class9Id,
       section_id: isClass10 ? sec10AId : sec9AId,
+      date_of_birth: '2010-01-01',
       gender: i % 2 === 0 ? 'Female' : 'Male',
+      residential_address: 'Plot 14, Sector 5',
+      city: 'New Delhi',
+      state: 'Delhi',
+      pincode: '110001',
       emergency_contact: `+91 98000 ${String(10000 + i).slice(-5)}`,
       is_deleted: false,
     });
